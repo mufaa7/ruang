@@ -52,10 +52,13 @@
         </div>
         @endif
         
-        <div class="flex min-h-screen">
+        <div class="flex min-h-screen relative" id="admin-container">
             
+            <!-- Mobile overlay -->
+            <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-20 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
             {{-- SIDEBAR --}}
-            <aside class="w-[240px] shrink-0 flex-col border-r border-black bg-white flex h-screen sticky top-0 z-20 dark:bg-slate-900">
+            <aside id="sidebar" class="w-[240px] shrink-0 flex-col border-r border-black bg-white flex h-screen fixed lg:sticky top-0 left-0 z-30 transition-transform duration-200 -translate-x-full lg:translate-x-0 dark:bg-slate-900">
                 <div class="p-5 border-b border-black">
                     <h1 class="font-bold text-sm tracking-tight flex items-center gap-2">
                         <span class="w-3 h-3 bg-black"></span>
@@ -108,13 +111,18 @@
 
             {{-- MAIN CONTENT --}}
             <div class="flex-1 flex flex-col min-w-0">
-                <header class="bg-white border-b border-black px-8 py-4 flex items-center justify-between sticky top-0 z-10 dark:bg-slate-900">
-                    <div>
-                        <h1 class="text-[15px] font-bold text-black">{{ $pageTitle ?? 'System Overview' }}</h1>
-                        <div class="text-[11px] text-slate-500 mt-1 flex gap-4">
-                            <span>{{ now()->format('l, d F Y') }}</span>
-                            <span>{{ now()->timezone('Asia/Jakarta')->format('H:i:s') }} WIB</span>
-                            <span class="text-black font-bold">Production</span>
+                <header class="bg-white border-b border-black px-4 lg:px-8 py-4 flex items-center justify-between sticky top-0 z-10 dark:bg-slate-900">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="lg:hidden p-1.5 border border-black hover:bg-slate-100 bg-white dark:bg-slate-800 dark:hover:bg-slate-700">
+                            <svg class="w-5 h-5 text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                        <div>
+                            <h1 class="text-[15px] font-bold text-black">{{ $pageTitle ?? 'System Overview' }}</h1>
+                            <div class="text-[11px] text-slate-500 mt-1 hidden sm:flex gap-4">
+                                <span>{{ now()->format('l, d F Y') }}</span>
+                                <span>{{ now()->timezone('Asia/Jakarta')->format('H:i:s') }} WIB</span>
+                                <span class="text-black font-bold">Production</span>
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 text-[11px] text-black font-bold border border-black px-2 py-1 bg-white dark:bg-slate-900">
@@ -128,5 +136,13 @@
             </div>
         </div>
         @stack('scripts')
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('mobile-overlay');
+                sidebar.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            }
+        </script>
     </body>
 </html>
