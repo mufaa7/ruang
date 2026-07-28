@@ -3,8 +3,36 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* RUANG foundation: warm, paper-like surfaces with calm neutral contrast. */
+    --ruang-canvas: #f7f5f1;
+    --ruang-surface: #ffffff;
+    --ruang-surface-subtle: #efece5;
+    --ruang-text: #1f1f1d;
+    --ruang-text-muted: #6b665f;
+    --ruang-border: #d6d0c4;
+    --ruang-focus: #4f46e5;
+    --ruang-radius-sm: 0.625rem;
+    --ruang-radius-md: 0.875rem;
+    --ruang-radius-lg: 1.25rem;
+    --ruang-shadow-sm: 0 1px 2px rgba(31, 31, 29, 0.04), 0 1px 3px rgba(31, 31, 29, 0.03);
+    --ruang-shadow-md: 0 12px 30px -18px rgba(31, 31, 29, 0.2);
+}
+
+.dark {
+    --ruang-canvas: #020617;
+    --ruang-surface: #0f172a;
+    --ruang-surface-subtle: #111827;
+    --ruang-text: #f8fafc;
+    --ruang-text-muted: #94a3b8;
+    --ruang-border: #1e293b;
+    --ruang-focus: #818cf8;
+    --ruang-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --ruang-shadow-md: 0 14px 36px -20px rgba(0, 0, 0, 0.6);
+}
+
 body {
-    background: #F5F1EA;
+    background: var(--ruang-canvas);
     font-family: 'Inter', sans-serif;
 }
 
@@ -21,33 +49,178 @@ a {
     transition: .25s ease;
 }
 
+/* Shared interaction contract: never hide keyboard focus and avoid visual motion
+   that changes layout or obscures nearby content. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--ruang-focus) 70%, transparent);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@layer components {
+    .ruang-card {
+        background: var(--ruang-surface);
+        border: 1px solid var(--ruang-border);
+        border-radius: var(--ruang-radius-lg);
+        box-shadow: var(--ruang-shadow-sm);
+    }
+
+    .ruang-card-interactive {
+        transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .ruang-card-interactive:hover {
+        border-color: color-mix(in srgb, var(--ruang-text) 20%, var(--ruang-border));
+        box-shadow: var(--ruang-shadow-md);
+        transform: translateY(-2px);
+    }
+
+    /* Dashboard focus timer. Kept here so it is compiled once, rather than
+       injected with every dashboard response. */
+    .pomodoro-timer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        width: 13.75rem;
+        height: 13.75rem;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ece8e2;
+        border-radius: 999px;
+        background: #fff;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .pomodoro-timer::before {
+        position: absolute;
+        z-index: 1;
+        inset: 4px;
+        content: '';
+        border-radius: inherit;
+        background: repeating-conic-gradient(from 0deg, #d9d5ce 0deg 2deg, transparent 2deg 6deg);
+        opacity: 0.7;
+    }
+
+    .pomodoro-timer-inner {
+        z-index: 10;
+        display: flex;
+        width: 10.625rem;
+        height: 10.625rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ececec;
+        border-radius: inherit;
+        background: #fff;
+    }
+
+    .pomodoro-time {
+        color: #171717;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 4rem;
+        line-height: 1;
+    }
+
+    .pomodoro-mode {
+        margin-top: 0.5rem;
+        color: #737373;
+        font-size: 0.6875rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+    }
+
+    .pomodoro-timer-knob {
+        position: absolute;
+        z-index: 0;
+        right: -3.25rem;
+        display: flex;
+        width: 4rem;
+        height: 7.5rem;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #e5e2dc;
+        border-radius: 0 3.75rem 3.75rem 0;
+        background: #f5f4f2;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateX(-2.8125rem);
+        transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .pomodoro-timer-knob:focus-visible {
+        outline-offset: -5px;
+    }
+
+    .pomodoro-knob-grip {
+        width: 0.875rem;
+        height: 4.5rem;
+        border-radius: 999px;
+        background: repeating-linear-gradient(90deg, #bbb, #bbb 2px, transparent 2px, transparent 4px);
+    }
+
+    .group:hover .pomodoro-timer-knob,
+    .group:focus-within .pomodoro-timer-knob,
+    .is-running .pomodoro-timer-knob {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .group:hover .pomodoro-timer {
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+        transform: rotate(-3deg);
+    }
+
+    .is-running .pomodoro-timer {
+        animation: ruang-pulse-timer 2s infinite ease-in-out;
+    }
+
+    @media (hover: none) {
+        .pomodoro-timer-knob {
+            opacity: 1;
+            transform: translateX(-0.9375rem);
+        }
+    }
+}
+
+@keyframes ruang-pulse-timer {
+    0%, 100% { border-color: #ece8e2; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04); }
+    50% { border-color: #a7f3d0; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15); }
+}
+
 .dashboard-card {
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.04), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
-    border-radius: 32px;
+    background: var(--ruang-surface);
+    border: 1px solid var(--ruang-border);
+    box-shadow: var(--ruang-shadow-sm);
+    border-radius: var(--ruang-radius-lg);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .dark .dashboard-card {
-    background: #0f172a; /* slate-950 or 900 */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), 0 4px 10px -2px rgba(0, 0, 0, 0.1);
+    background: var(--ruang-surface);
+    border-color: var(--ruang-border);
+    box-shadow: var(--ruang-shadow-sm);
 }
 
 .dashboard-card:hover {
-    transform: translateY(-6px) scale(1.015);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 
-        0 0 35px rgba(0, 0, 0, 0.08),
-        0 20px 40px -12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--ruang-text) 20%, var(--ruang-border));
+    box-shadow: var(--ruang-shadow-md);
 }
 
 .dark .dashboard-card:hover {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
-        0 0 35px rgba(0, 0, 0, 0.3),
-        0 20px 40px -12px rgba(0, 0, 0, 0.2);
+    border-color: color-mix(in srgb, var(--ruang-text) 18%, var(--ruang-border));
+    box-shadow: var(--ruang-shadow-md);
 }
 
 ::-webkit-scrollbar {

@@ -309,141 +309,158 @@
     </div>
 </div>
 
-{{-- RUANG Static Music Widget --}}
-<div class="mt-6 flex flex-row items-center sm:items-start gap-4 sm:gap-6 group">
+{{-- RUANG static music widget --}}
+<style>
+    @keyframes ruang-vinyl-spin {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
 
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    .ruang-music-widget .lyrics-line {
+        width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid transparent;
+    }
+
+    .ruang-music-widget:hover .lyrics-line-1 {
+        animation:
+            ruang-typing 0.8s steps(16, end) 0.3s forwards,
+            ruang-caret 0.5s step-end 0.3s 2;
+    }
+
+    .ruang-music-widget:hover .lyrics-line-2 {
+        animation:
+            ruang-typing 1.5s steps(37, end) 1.1s forwards,
+            ruang-caret 0.5s step-end 1.1s 3;
+    }
+
+    .ruang-music-widget:hover .lyrics-line-3 {
+        animation:
+            ruang-typing 1.5s steps(35, end) 2.6s forwards,
+            ruang-caret 0.5s step-end 2.6s infinite;
+    }
+
+    @keyframes ruang-typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    @keyframes ruang-caret {
+        from,
+        to { border-color: transparent; }
+
+        50% { border-color: #a3a3a3; }
+    }
+</style>
+
+<div class="ruang-music-widget group mt-6 flex flex-row items-center gap-4 sm:items-start sm:gap-6">
     {{-- Artwork --}}
-    <div class="relative h-32 w-32 sm:h-40 sm:w-40 shrink-0">
-
+    <div class="relative h-32 w-32 shrink-0 sm:h-40 sm:w-40">
         {{-- Vinyl --}}
         <div
-            class="absolute
-       top-1/2
-       left-[68%]
-       -translate-y-1/2
-       -translate-x-1/2
-       z-0
-       h-[100px] sm:h-[130px]
-       w-[100px] sm:w-[130px]
-       rounded-full
-       transition-all
-       duration-700
-       ease-out
-       group-hover:left-[92%]
-       group-hover:animate-[spinVinyl_4s_linear_infinite]
-       shadow-[0_22px_55px_rgba(0,0,0,.12)]"
-            style="
-                background:
-                radial-gradient(circle at center,#e8ddc4 0 11%,#141414 12%),
-                repeating-radial-gradient(circle,#151515 0px,#151515 .8px,#202020 .8px,#202020 1.6px);
-            ">
-
+            class="absolute left-[68%] top-1/2 z-0 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%] group-hover:animate-[ruang-vinyl-spin_4s_linear_infinite] sm:h-[130px] sm:w-[130px]"
+            style="background: radial-gradient(circle at center, #e8ddc4 0 11%, #141414 12%), repeating-radial-gradient(circle, #151515 0, #151515 .8px, #202020 .8px, #202020 1.6px);"
+        >
             <div class="absolute left-4 top-4 h-8 w-20 rounded-full bg-white/10 blur-xl"></div>
 
             <div class="absolute inset-0 flex items-center justify-center">
-                <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#e8ddc4] shadow-inner flex flex-col items-center justify-center leading-none">
-                    <span class="text-[4px] font-bold tracking-[0.18em] text-neutral-700 dark:text-slate-200">OASIS</span>
-                    <span class="mt-[2px] text-[3px] text-neutral-500 dark:text-slate-400">Wonderwall</span>
-                    <span class="mt-[1px] text-[3px] text-neutral-500 dark:text-slate-400">1995</span>
-                    <div class="mt-[2px] h-1.5 w-1.5 rounded-full bg-neutral-900"></div>
+                <div class="flex h-8 w-8 flex-col items-center justify-center rounded-full bg-[#e8ddc4] leading-none shadow-inner sm:h-10 sm:w-10">
+                    <span class="text-[4px] font-bold tracking-[0.18em] text-neutral-700 dark:text-slate-200">
+                        OASIS
+                    </span>
+                    <span class="mt-[2px] text-[3px] text-neutral-500 dark:text-slate-400">
+                        Wonderwall
+                    </span>
+                    <span class="mt-[1px] text-[3px] text-neutral-500 dark:text-slate-400">
+                        1995
+                    </span>
+                    <span class="mt-[2px] h-1.5 w-1.5 rounded-full bg-neutral-900"></span>
                 </div>
             </div>
         </div>
 
-        {{-- Cover Album --}}
+        {{-- Cover album --}}
         <img
             src="{{ asset('images/wonderwall.jpg') }}"
             alt="Wonderwall"
-            class="relative z-20 h-full w-full rounded-[12px] sm:rounded-[16px] object-cover
-                   shadow-[0_22px_55px_rgba(0,0,0,.12)]
-                   transition duration-700 group-hover:-translate-x-2
-                   group-hover:-translate-y-1">
-                   
-        {{-- Lyrics Typewriter --}}
-        <div class="absolute -bottom-16 sm:-bottom-24 left-0 w-[200px] sm:w-[250px] text-[9px] sm:text-[11px] font-mono text-neutral-500 dark:text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0">
-            <style>
-                @keyframes spinVinyl {
-                    from { transform: translate(-50%, -50%) rotate(0deg); }
-                    to { transform: translate(-50%, -50%) rotate(360deg); }
-                }
-                .tw-line {
-                    overflow: hidden;
-                    white-space: nowrap;
-                    width: 0;
-                    border-right: 2px solid transparent;
-                }
-                .group:hover .tw-line-1 {
-                    animation: tw-typing 0.8s steps(16, end) forwards, tw-caret .5s step-end 2;
-                    animation-delay: 0.3s;
-                }
-                .group:hover .tw-line-2 {
-                    animation: tw-typing 1.5s steps(37, end) forwards, tw-caret .5s step-end 3;
-                    animation-delay: 1.1s;
-                }
-                .group:hover .tw-line-3 {
-                    animation: tw-typing 1.5s steps(35, end) forwards, tw-caret .5s step-end infinite;
-                    animation-delay: 2.6s;
-                }
-                @keyframes tw-typing {
-                    from { width: 0; }
-                    to { width: 100%; }
-                }
-                @keyframes tw-caret {
-                    from, to { border-color: transparent; }
-                    50% { border-color: #a3a3a3; }
-                }
-            </style>
-            <div class="tw-line tw-line-1">Because maybeee,</div>
-            <div class="tw-line tw-line-2 mt-1">you're gonna be the one that saves me</div>
-            <div class="tw-line tw-line-3 mt-1">And after all, you're my wonderwall</div>
-        </div>
+            class="relative z-20 h-full w-full rounded-[12px] object-cover shadow-[0_22px_55px_rgba(0,0,0,.12)] transition duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 sm:rounded-[16px]"
+        />
 
+        {{-- Lyrics typewriter --}}
+        <div class="pointer-events-none absolute left-0 top-[calc(100%+1rem)] z-30 w-[200px] font-mono text-[9px] text-neutral-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-neutral-400 sm:w-[250px] sm:text-[11px]">
+            <p class="lyrics-line lyrics-line-1">Because maybeee,</p>
+            <p class="lyrics-line lyrics-line-2 mt-2">
+                you're gonna be the one that saves me
+            </p>
+            <p class="lyrics-line lyrics-line-3 mt-2">
+                And after all, you're my wonderwall
+            </p>
+        </div>
     </div>
 
-    {{-- Detail --}}
-    <div class="flex-1 w-full text-left">
-
-        <div class="flex justify-between items-start">
+    {{-- Details --}}
+    <div class="w-full flex-1 text-left">
+        <div class="flex items-start justify-between">
             <div>
                 <h3
-                    class="text-[20px] sm:text-[36px] font-normal leading-none text-neutral-900 dark:text-white"
-                    style="font-family:'Cormorant Garamond', serif;">
+                    class="text-[20px] font-normal leading-none text-neutral-900 dark:text-white sm:text-[36px]"
+                    style="font-family: 'Cormorant Garamond', serif;"
+                >
                     Wonderwall
                 </h3>
-                <p class="mt-1 sm:mt-2 text-[14px] sm:text-[18px] font-light text-neutral-500 dark:text-slate-400">
+
+                <p class="mt-1 text-[14px] font-light text-neutral-500 dark:text-slate-400 sm:mt-2 sm:text-[18px]">
                     Oasis
                 </p>
-                <p class="mt-0.5 sm:mt-1 text-[10px] sm:text-[13px] text-neutral-400 tracking-[0.01em]">
+
+                <p class="mt-0.5 text-[10px] tracking-[0.01em] text-neutral-400 sm:mt-1 sm:text-[13px]">
                     (What's the Story) Morning Glory?
-                    <span class="mx-1.5 hidden sm:inline">•</span><br class="sm:hidden">
+                    <span class="mx-1.5 hidden sm:inline">&bull;</span>
+                    <br class="sm:hidden" />
                     1995
                 </p>
             </div>
         </div>
 
-        <div class="mt-8 sm:mt-10 pb-2 sm:pb-4">
-            <div class="relative">
-                <button class="absolute bottom-1 right-0 text-xl text-red-500">♥</button>
-                <div class="h-[2px] rounded-full bg-stone-200 dark:bg-slate-800"></div>
-                <div class="absolute left-[52%] -top-[5px] h-3 w-3 rounded-full bg-neutral-900"></div>
+        {{-- Player --}}
+        <div class="mt-8 pb-2 sm:mt-10 sm:pb-4">
+            <div class="mb-2 flex items-center justify-end">
+                <button type="button" aria-label="Sukai lagu" class="text-xl text-red-500">
+                    &hearts;
+                </button>
             </div>
 
-            <div class="mt-3 flex items-center justify-between text-xs sm:text-sm text-neutral-400">
+            <div class="relative">
+                <div class="h-[2px] rounded-full bg-stone-200 dark:bg-slate-800"></div>
+                <div class="absolute left-[52%] -top-[5px] h-3 w-3 rounded-full bg-neutral-900 dark:bg-white"></div>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs text-neutral-400 sm:text-sm">
                 <span>01:43</span>
                 <span>02:35</span>
             </div>
-            
-            <div class="mt-2 sm:mt-4 flex items-center justify-center gap-6 text-neutral-400">
-                <button><i class="ph-fill ph-skip-back text-[15px]"></i></button>
-                <button class="text-neutral-900 dark:text-white"><i class="ph-fill ph-play text-[20px]"></i></button>
-                <button><i class="ph-fill ph-skip-forward text-[15px]"></i></button>
+
+            <div class="mt-4 flex items-center justify-center gap-6 text-neutral-400">
+                <button type="button" aria-label="Lagu sebelumnya">
+                    <i class="ph-fill ph-skip-back text-[15px]"></i>
+                </button>
+
+                <button type="button" aria-label="Putar lagu" class="text-neutral-900 dark:text-white">
+                    <i class="ph-fill ph-play text-[20px]"></i>
+                </button>
+
+                <button type="button" aria-label="Lagu berikutnya">
+                    <i class="ph-fill ph-skip-forward text-[15px]"></i>
+                </button>
             </div>
         </div>
-
-
-
     </div>
-
 </div>
 
 
