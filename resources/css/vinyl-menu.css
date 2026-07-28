@@ -1,0 +1,157 @@
+/* ===================================================
+   RUANG VINYL BUTTON
+=================================================== */
+
+.vinyl-menu{
+
+    position:relative;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:999px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    color:white;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(circle at center,
+            #d4d4d4 0 7%,
+            #0f0f10 8% 13%,
+            transparent 14%
+        ),
+
+        repeating-radial-gradient(circle,
+            #111 0px,
+            #111 2px,
+            #1f1f1f 2px,
+            #1f1f1f 4px);
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.22),
+        inset 0 1px 1px rgba(255,255,255,.08),
+        inset 0 -2px 4px rgba(0,0,0,.35);
+
+}
+
+/* Kilau */
+
+.vinyl-menu::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:999px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.22),
+            transparent 42%
+        );
+
+}
+
+/* Label tengah */
+.vinyl-menu::after{
+    content:"";
+    position:absolute;
+    width:16px;
+    height:16px;
+    border-radius:999px;
+    background:
+        radial-gradient(circle at center, #111 1.5px, transparent 2px),
+        linear-gradient(to bottom, transparent 4px, rgba(0,0,0,.3) 4px, rgba(0,0,0,.3) 5px, transparent 5px, transparent 7px, rgba(0,0,0,.2) 7px, rgba(0,0,0,.2) 8px, transparent 8px),
+        linear-gradient(to right, transparent 3px, rgba(255,255,255,.6) 3px, rgba(255,255,255,.6) 4px, transparent 4px),
+        #ef4444;
+    box-shadow: 0 0 0 2px #111;
+}
+
+/* Goresan (Scratch) */
+.vinyl-menu .scratch{
+    position:absolute;
+    width:1.5px;
+    height:12px;
+    background:rgba(255,255,255,.15);
+    top:6px;
+    left:26px;
+    border-radius:999px;
+    transform: rotate(15deg);
+}
+
+/* Icon (Dihapus) */
+
+/* Hover */
+.vinyl-menu:hover{
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 16px 36px rgba(0,0,0,.28), inset 0 1px 1px rgba(255,255,255,.08);
+}
+
+/* Click */
+.vinyl-menu:active{
+    transform:scale(.93);
+}
+
+/* Spin buka */
+.vinyl-menu.spinning{
+    animation: vinylOpen .45s cubic-bezier(.22,.61,.36,1);
+}
+
+@keyframes vinylOpen{
+    0%{ transform: rotate(0deg) scale(1); }
+    50%{ transform: rotate(120deg) scale(.92); }
+    100%{ transform: rotate(180deg) scale(1); }
+}
+
+/* Muter idle (Wobble) */
+.vinyl-menu.playing{
+    animation: vinylIdle 4s ease-in-out infinite;
+}
+
+@keyframes vinylIdle{
+    0%{ transform:rotate(0deg); }
+    50%{ transform:rotate(15deg); }
+    100%{ transform:rotate(0deg); }
+}
+
+/* Stop */
+
+.vinyl-menu.stopping{
+
+    animation:
+        vinylStop .6s ease-out forwards;
+
+}
+
+@keyframes vinylStop{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(120deg);
+
+    }
+
+}
