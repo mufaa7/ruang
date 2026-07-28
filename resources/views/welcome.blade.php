@@ -620,7 +620,7 @@
                     }
                 });
             },{
-                threshold:.45
+                threshold: .15
             });
             observer.observe(inside);
         }
