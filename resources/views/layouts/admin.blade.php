@@ -110,7 +110,7 @@
             </aside>
 
             {{-- MAIN CONTENT --}}
-            <div class="flex-1 flex flex-col min-w-0">
+            <div class="flex-1 flex flex-col min-w-0 w-full overflow-x-hidden">
                 <header class="bg-white border-b border-black px-4 lg:px-8 py-4 flex items-center justify-between sticky top-0 z-10 dark:bg-slate-900">
                     <div class="flex items-center gap-3">
                         <button onclick="toggleSidebar()" class="lg:hidden p-1.5 border border-black hover:bg-slate-100 bg-white dark:bg-slate-800 dark:hover:bg-slate-700">
@@ -130,7 +130,7 @@
                     </div>
                 </header>
 
-                <main class="flex-1 p-8 w-full max-w-[1400px] mx-auto">
+                <main class="flex-1 p-4 md:p-8 w-full max-w-[1400px] mx-auto overflow-x-hidden">
                     @yield('content')
                 </main>
             </div>

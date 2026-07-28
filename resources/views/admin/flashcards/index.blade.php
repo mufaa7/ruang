@@ -11,10 +11,10 @@
 
     {{-- Tabs --}}
     <div class="flex border-b border-black text-sm font-bold">
-        <a href="{{ route('admin.quizzes.index') }}" class="px-6 py-2 bg-white text-slate-600 border-b border-black hover:bg-slate-50 transition-colors dark:bg-slate-900">
+        <a href="{{ route('admin.quizzes.index') }}" class="px-4 md:px-6 py-2 bg-white text-slate-600 border-b border-black hover:bg-slate-50 transition-colors whitespace-nowrap dark:bg-slate-900">
             Quizzes
         </a>
-        <a href="{{ route('admin.flashcards.index') }}" class="px-6 py-2 bg-black text-white border-t border-l border-r border-black">
+        <a href="{{ route('admin.flashcards.index') }}" class="px-4 md:px-6 py-2 bg-black text-white border-t border-l border-r border-black whitespace-nowrap">
             Flashcards
         </a>
         <div class="flex-1 border-b border-black"></div>
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    <div class="dev-card p-0 overflow-hidden">
+    <div class="dev-card overflow-x-auto">
         <table class="w-full text-left text-sm whitespace-nowrap">
             <thead>
                 <tr class="bg-[#f8f9fa] text-xs uppercase tracking-wider">
