@@ -25,7 +25,7 @@
     <div class="h-[calc(100vh-172px)] min-h-[480px] bg-white border border-stone-200 rounded-[24px] overflow-hidden flex flex-col md:flex-row shadow-sm animate-fadeIn dark:bg-slate-900 dark:border-slate-700/50">
 
         {{-- ========== KIRI: DAFTAR ========== --}}
-        <aside id="sidebar-container" class="w-full md:w-72 h-[200px] md:h-auto bg-stone-50 border-b md:border-b-0 md:border-r border-stone-200 flex flex-col shrink-0 overflow-hidden dark:bg-slate-900/50 dark:border-slate-700/50">
+        <aside id="sidebar-container" class="w-full md:w-[320px] lg:w-[360px] h-[200px] md:h-auto bg-stone-50 border-b md:border-b-0 md:border-r border-stone-200 flex flex-col shrink-0 overflow-hidden dark:bg-slate-900/50 dark:border-slate-700/50">
 
             <div class="px-4 pt-3 pb-2.5 border-b border-stone-200 bg-stone-50 shrink-0 dark:border-slate-700/50 dark:bg-slate-900/50">
                 <div class="flex items-center justify-between mb-2">
@@ -68,12 +68,12 @@
 
                     <div class="p-3 rounded-[14px] border transition-all text-left block group/card relative {{ $isActive ? 'bg-white border-stone-200 ring-1 ring-neutral-900/10 shadow-sm' : 'border-transparent hover:bg-white hover:border-stone-200 hover:shadow-sm' }} dark:border-slate-700/50">
                         {{-- Link overlay buat seluruh area kartu (kecuali tombol di atasnya) --}}
-                        <a href="{{ route('coretan.index', array_merge(request()->query(), ['note' => $note->id])) }}" class="ajax-link absolute inset-0 z-0 rounded-[14px]"></a>
+                        <a href="{{ route('coretan.index', array_merge(request()->query(), ['note' => $note->id])) }}" class="ajax-link absolute inset-0 z-10 rounded-[14px]"></a>
                         
-                        <div class="flex items-start justify-between gap-2 mb-0.5 relative z-10">
+                        <div class="flex items-start justify-between gap-2 mb-0.5 relative z-0 pointer-events-none">
                             <h4 class="text-sm font-bold text-neutral-900 line-clamp-1 leading-snug dark:text-white">{{ $note->title }}</h4>
                             
-                            <div class="flex items-center gap-1.5 shrink-0">
+                            <div class="flex items-center gap-1.5 shrink-0 pointer-events-auto">
                                 {{-- Hashtags --}}
                                 @if(!empty($hashtags))
                                     <div class="flex items-center gap-0.5 flex-wrap justify-end">
@@ -95,9 +95,9 @@
                             </div>
                         </div>
 
-                        <p class="text-xs text-neutral-500 line-clamp-1 leading-snug mb-1.5 pr-2 relative z-10 dark:text-slate-400">{{ strip_tags($note->content) ?: '— belum ada isi —' }}</p>
+                        <p class="text-xs text-neutral-500 line-clamp-1 leading-snug mb-1.5 pr-2 relative z-0 pointer-events-none dark:text-slate-400">{{ strip_tags($note->content) ?: '— belum ada isi —' }}</p>
 
-                        <div class="flex items-center justify-between gap-2 flex-wrap relative z-10">
+                        <div class="flex items-center justify-between gap-2 flex-wrap relative z-0 pointer-events-none">
                             <span class="text-[10px] text-neutral-400 flex items-center gap-1">
                                 <i class="ph-fill ph-clock text-xs"></i>
                                 {{ $note->updated_at->diffForHumans() }}
