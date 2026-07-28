@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\DuckDialogue;
+use App\Models\DuckChatLog;
 use App\Jobs\GenerateDuckDialogues;
 use App\Services\AI\AIManager;
 use Carbon\Carbon;
@@ -109,10 +110,23 @@ PROMPT;
         $prompt = "User bilang: \"$userMessage\"\n\nBalas sebagai Duck sesuai dengan kepribadianmu. Ingat: asbun, maksimal 20 kata, huruf kecil semua.";
         
         try {
-            return rtrim($this->generateText($prompt, $this->getSystemPrompt()), '.');
+            $response = rtrim($this->generateText($prompt, $this->getSystemPrompt()), '.');
         } catch (\Exception $e) {
             Log::error('Duck chat error: ' . $e->getMessage());
-            return 'lagi males mikir';
+            $response = 'lagi males mikir';
         }
+
+        // Save log
+        try {
+            DuckChatLog::create([
+                'user_id' => auth()->id(),
+                'user_message' => $userMessage,
+                'duck_response' => $response,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Duck log error: ' . $e->getMessage());
+        }
+
+        return $response;
     }
 }
