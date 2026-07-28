@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         :root{
@@ -211,6 +212,19 @@
                 gap: 80px;
                 padding: 80px 0;
             }
+            .hero-song {
+                margin-top: 40px;
+            }
+            .hero-song h3 {
+                font-size: 24px;
+            }
+            .hero-song p {
+                font-size: 14px;
+            }
+            .hero-song small {
+                font-size: 10px;
+                margin-bottom: 12px;
+            }
         }
 
         /* ==========================
@@ -254,9 +268,55 @@
             color:var(--secondary);
         }
 
+        .features-grid {
+            margin-top: 64px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            text-align: left;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 1px solid rgba(31,31,29,0.06);
+            padding: 36px 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.02);
+            transition: .4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px) !important; /* overrides the initial transform when hovered */
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.04);
+            border-color: rgba(31,31,29,0.15);
+        }
+
+        .feature-card i {
+            font-size: 32px;
+            color: var(--text);
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 32px;
+            margin: 0 0 12px;
+            color: var(--text);
+            line-height: 1.1;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--secondary);
+            margin: 0;
+        }
+
         #inside .inside-label,
         #inside .inside-title,
-        #inside .inside-text{
+        #inside .inside-text,
+        #inside .feature-card {
             opacity:0;
             transform:translateY(40px);
             transition:.8s;
@@ -278,6 +338,11 @@
             transform:none;
             transition-delay:.45s;
         }
+        
+        #inside.show .feature-card:nth-child(1) { opacity: 1; transform: none; transition-delay: .3s; }
+        #inside.show .feature-card:nth-child(2) { opacity: 1; transform: none; transition-delay: .4s; }
+        #inside.show .feature-card:nth-child(3) { opacity: 1; transform: none; transition-delay: .5s; }
+        #inside.show .feature-card:nth-child(4) { opacity: 1; transform: none; transition-delay: .6s; }
 
         .inside-divider{
             width:160px;
@@ -321,7 +386,7 @@
         }
 
         .discover-header{
-            margin-bottom:120px;
+            margin-bottom:60px;
         }
 
         .discover-header span{
@@ -332,9 +397,9 @@
         }
 
         .discover-header h2{
-            margin-top:32px;
+            margin-top:24px;
             font-family:"Cormorant Garamond",serif;
-            font-size:clamp(52px,6vw,82px);
+            font-size:clamp(42px,5vw,64px);
             line-height:1.05;
         }
 

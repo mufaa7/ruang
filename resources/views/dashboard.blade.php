@@ -286,7 +286,7 @@
             {{-- Row 2: Organization & Flow --}}
             <div class="col-span-1 md:col-span-5 flex flex-col gap-6 lg:gap-8">
                 {{-- Music (Gede) --}}
-                <div class="dashboard-card p-6 sm:p-8 lg:p-10">
+                <div class="dashboard-card p-4 sm:p-8 lg:p-10">
                    {{-- Premium Music Widget --}}
 @if(isset($currentTrack) && $currentTrack)
 
@@ -310,10 +310,10 @@
 </div>
 
 {{-- RUANG Static Music Widget --}}
-<div class="mt-6 flex flex-col sm:flex-row items-center sm:items-start gap-6 group">
+<div class="mt-6 flex flex-row items-center sm:items-start gap-4 sm:gap-6 group">
 
     {{-- Artwork --}}
-    <div class="relative h-40 w-40 shrink-0">
+    <div class="relative h-32 w-32 sm:h-40 sm:w-40 shrink-0">
 
         {{-- Vinyl --}}
         <div
@@ -323,8 +323,8 @@
        -translate-y-1/2
        -translate-x-1/2
        z-0
-       h-[130px]
-       w-[130px]
+       h-[100px] sm:h-[130px]
+       w-[100px] sm:w-[130px]
        rounded-full
        transition-all
        duration-700
@@ -341,7 +341,7 @@
             <div class="absolute left-4 top-4 h-8 w-20 rounded-full bg-white/10 blur-xl"></div>
 
             <div class="absolute inset-0 flex items-center justify-center">
-                <div class="h-10 w-10 rounded-full bg-[#e8ddc4] shadow-inner flex flex-col items-center justify-center leading-none">
+                <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#e8ddc4] shadow-inner flex flex-col items-center justify-center leading-none">
                     <span class="text-[4px] font-bold tracking-[0.18em] text-neutral-700 dark:text-slate-200">OASIS</span>
                     <span class="mt-[2px] text-[3px] text-neutral-500 dark:text-slate-400">Wonderwall</span>
                     <span class="mt-[1px] text-[3px] text-neutral-500 dark:text-slate-400">1995</span>
@@ -354,13 +354,13 @@
         <img
             src="{{ asset('images/wonderwall.jpg') }}"
             alt="Wonderwall"
-            class="relative z-20 h-full w-full rounded-[16px] object-cover
+            class="relative z-20 h-full w-full rounded-[12px] sm:rounded-[16px] object-cover
                    shadow-[0_22px_55px_rgba(0,0,0,.12)]
                    transition duration-700 group-hover:-translate-x-2
                    group-hover:-translate-y-1">
                    
         {{-- Lyrics Typewriter --}}
-        <div class="absolute -bottom-24 left-0 w-[250px] text-[11px] font-mono text-neutral-500 dark:text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block pointer-events-none z-0">
+        <div class="absolute -bottom-16 sm:-bottom-24 left-0 w-[200px] sm:w-[250px] text-[9px] sm:text-[11px] font-mono text-neutral-500 dark:text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0">
             <style>
                 @keyframes spinVinyl {
                     from { transform: translate(-50%, -50%) rotate(0deg); }
@@ -401,19 +401,19 @@
     </div>
 
     {{-- Detail --}}
-    <div class="flex-1 w-full mt-4 sm:mt-0 text-center sm:text-left">
+    <div class="flex-1 w-full text-left">
 
         <div class="flex justify-between items-start">
             <div>
                 <h3
-                    class="text-[28px] sm:text-[36px] font-normal leading-none text-neutral-900 dark:text-white"
+                    class="text-[20px] sm:text-[36px] font-normal leading-none text-neutral-900 dark:text-white"
                     style="font-family:'Cormorant Garamond', serif;">
                     Wonderwall
                 </h3>
-                <p class="mt-2 text-[16px] sm:text-[18px] font-light text-neutral-500 dark:text-slate-400">
+                <p class="mt-1 sm:mt-2 text-[14px] sm:text-[18px] font-light text-neutral-500 dark:text-slate-400">
                     Oasis
                 </p>
-                <p class="mt-1 text-[12px] sm:text-[13px] text-neutral-400 tracking-[0.01em]">
+                <p class="mt-0.5 sm:mt-1 text-[10px] sm:text-[13px] text-neutral-400 tracking-[0.01em]">
                     (What's the Story) Morning Glory?
                     <span class="mx-1.5 hidden sm:inline">•</span><br class="sm:hidden">
                     1995
@@ -421,23 +421,22 @@
             </div>
         </div>
 
-        <div class="mt-8 sm:mt-10 pb-6 sm:pb-10">
+        <div class="mt-8 sm:mt-10 pb-2 sm:pb-4">
             <div class="relative">
                 <button class="absolute bottom-1 right-0 text-xl text-red-500">♥</button>
                 <div class="h-[2px] rounded-full bg-stone-200 dark:bg-slate-800"></div>
                 <div class="absolute left-[52%] -top-[5px] h-3 w-3 rounded-full bg-neutral-900"></div>
             </div>
 
-            <div class="mt-3 flex items-center justify-between text-xs sm:text-sm text-neutral-400 relative">
+            <div class="mt-3 flex items-center justify-between text-xs sm:text-sm text-neutral-400">
                 <span>01:43</span>
-                
-                <div class="absolute left-1/2 -translate-x-1/2 top-10 flex items-center gap-6 text-neutral-400">
-                    <button><i class="ph-fill ph-skip-back text-[15px]"></i></button>
-                    <button class="text-neutral-900 dark:text-white"><i class="ph-fill ph-play text-[20px]"></i></button>
-                    <button><i class="ph-fill ph-skip-forward text-[15px]"></i></button>
-                </div>
-
                 <span>02:35</span>
+            </div>
+            
+            <div class="mt-2 sm:mt-4 flex items-center justify-center gap-6 text-neutral-400">
+                <button><i class="ph-fill ph-skip-back text-[15px]"></i></button>
+                <button class="text-neutral-900 dark:text-white"><i class="ph-fill ph-play text-[20px]"></i></button>
+                <button><i class="ph-fill ph-skip-forward text-[15px]"></i></button>
             </div>
         </div>
 
@@ -469,7 +468,7 @@
                 </div>
 
                 {{-- Kalender --}}
-                <div class="dashboard-card p-6 pb-8" x-data="calendarManager()">
+                <div class="dashboard-card p-4 sm:p-6 pb-6 sm:pb-8" x-data="calendarManager()">
 
                     @php
                         // use Carbon\Carbon; // Ensure no redeclaration if used elsewhere
@@ -532,7 +531,7 @@
                                     relative
                                     aspect-[0.92]
                                     rounded-xl sm:rounded-[18px]
-                                    p-1.5 sm:p-3
+                                    p-1 sm:p-3
                                     transition-all
                                     duration-300
                                     cursor-pointer
@@ -549,7 +548,7 @@
                             >
 
                                 <span
-                                    class="text-[14px] sm:text-[18px] leading-none text-neutral-900 flex justify-center sm:justify-start dark:text-white"
+                                    class="text-[12px] sm:text-[18px] leading-none text-neutral-900 flex justify-center sm:justify-start dark:text-white"
                                     style="font-family:'Cormorant Garamond', serif;">
                                     {{ $day }}
                                 </span>

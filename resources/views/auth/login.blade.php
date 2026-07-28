@@ -6,7 +6,7 @@
         <div class="inline-flex items-center gap-2 rounded-full border border-black/5 bg-black/5 px-4 py-2 shadow-sm">
             <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
             <span class="text-xs uppercase tracking-[0.25em] text-[#7C756C] font-semibold">
-                Eh, Balik Lagi
+                Kembali Pulang
             </span>
         </div>
 
@@ -40,7 +40,7 @@
             <!-- Email -->
             <div>
                 <label for="email" class="mb-3 block text-sm font-medium text-[#7C756C]">
-                    Email (yang aktif ya)
+                    Alamat Email
                 </label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="nama@email.com" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
             </div>
@@ -49,7 +49,7 @@
             <div x-data="{ show: false }">
                 <div class="mb-3 flex items-center justify-between">
                     <label for="password" class="text-sm font-medium text-[#7C756C]">
-                        Password rahasia
+                        Kata Sandi
                     </label>
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="text-sm text-[#7C756C] transition hover:text-[#1F1F1D]">
@@ -77,11 +77,11 @@
                 <label class="inline-flex cursor-pointer items-center gap-3">
                     <input type="checkbox" name="remember" class="h-4 w-4 rounded border-[#D6D0C4] bg-white text-[#1F1F1D] focus:ring-[#1F1F1D] focus:ring-offset-[#F7F5F1] dark:bg-slate-900">
                     <span class="text-sm text-[#4F4A44]">
-                        Ingetin gue
+                        Tetap masuk
                     </span>
                 </label>
                 <span class="text-xs uppercase tracking-[.25em] text-[#7C756C] font-semibold">
-                    Aman Terkendali
+                    Aman & Privat
                 </span>
             </div>
 
@@ -89,7 +89,7 @@
             <button type="submit" class="group relative flex h-14 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#1F1F1D] font-semibold text-[#F7F5F1] transition duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl">
                 <span class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition duration-700 group-hover:translate-x-full"></span>
                 <span class="relative flex items-center gap-2">
-                    Masuk Yok
+                    Buka Ruang
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5 5 5-5 5" />
                     </svg>
@@ -110,9 +110,9 @@
             @if (Route::has('register'))
                 <div class="text-center">
                     <p class="text-sm text-[#7C756C]">
-                        Mau ikut nongkrong? 
+                        Belum punya tempat? 
                         <a href="{{ route('register') }}" class="font-semibold text-[#1F1F1D] transition duration-300 hover:text-[#4F4A44] hover:underline underline-offset-4">
-                            Numpang Duduk
+                            Buka Ruang Baru
                         </a>
                     </p>
                 </div>

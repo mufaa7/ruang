@@ -30,7 +30,6 @@
             <button @click="activeTab = 'profil'" :class="activeTab === 'profil' ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:bg-slate-900/50 dark:hover:bg-slate-800/50'" class="w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all">Informasi Profil</button>
             <button @click="activeTab = 'tampilan'" :class="activeTab === 'tampilan' ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:bg-slate-900/50 dark:hover:bg-slate-800/50'" class="w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all">Tampilan & Tema</button>
             <button @click="activeTab = 'keamanan'" :class="activeTab === 'keamanan' ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:bg-slate-900/50 dark:hover:bg-slate-800/50'" class="w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all">Keamanan (Password)</button>
-            <button @click="activeTab = 'hapus'" :class="activeTab === 'hapus' ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-slate-800/50 hover:text-red-600 dark:hover:text-red-400'" class="w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all">Hapus Akun</button>
         </div>
 
         {{-- Konten Pengaturan --}}
@@ -77,10 +76,7 @@
                 @include('profile.partials.update-password-form')
             </div>
 
-            {{-- Tab Hapus --}}
-            <div x-show="activeTab === 'hapus'" style="display: none;" class="p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-                @include('profile.partials.delete-user-form')
-            </div>
+            
             
         </div>
     </div>

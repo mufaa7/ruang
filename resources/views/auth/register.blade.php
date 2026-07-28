@@ -6,17 +6,17 @@
         <div class="inline-flex items-center gap-2 rounded-full border border-black/5 bg-black/5 px-4 py-2 shadow-sm">
             <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
             <span class="text-xs uppercase tracking-[0.25em] text-[#7C756C] font-semibold">
-                Warga Baru
+                Ruang Baru
             </span>
         </div>
 
         <!-- Heading -->
         <div class="mt-8">
             <h1 class="text-4xl font-cormorant font-bold tracking-tight text-[#1F1F1D]">
-                Daftar Dulu Sini
+                Bangun Ruangmu
             </h1>
             <p class="mt-4 leading-7 text-[#4F4A44]">
-                Bikin akun bentar doang kok, biar ide sama tulisan lu aman kesimpen.
+                Amankan setiap ide dan catatanmu, biarkan mereka tumbuh di sini.
             </p>
         </div>
 
@@ -37,15 +37,15 @@
             <!-- Name -->
             <div>
                 <label for="name" class="mb-3 block text-sm font-medium text-[#7C756C]">
-                    Nama Asli (boleh disingkat)
+                    Nama Kamu
                 </label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Siapa namamu nak?" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
+                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Nama yang ingin dipanggil" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
             </div>
 
             <!-- Email Address -->
             <div>
                 <label for="email" class="mb-3 block text-sm font-medium text-[#7C756C]">
-                    Email (yang bisa dihubungin)
+                    Alamat Email
                 </label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="nama@email.com" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
             </div>
@@ -53,10 +53,10 @@
             <!-- Password -->
             <div x-data="{ show: false }">
                 <label for="password" class="mb-3 block text-sm font-medium text-[#7C756C]">
-                    Password super rahasia
+                    Kata Sandi
                 </label>
                 <div class="relative">
-                    <input id="password" :type="show ? 'text' : 'password'" name="password" required autocomplete="new-password" placeholder="Bikin password" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 pr-14 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
+                    <input id="password" :type="show ? 'text' : 'password'" name="password" required autocomplete="new-password" placeholder="Rahasiakan sandimu" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 pr-14 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
                     <button type="button" @click="show = !show" class="absolute inset-y-0 right-4 flex items-center text-[#7C756C] transition hover:text-[#1F1F1D]">
                         <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z" />
@@ -73,10 +73,10 @@
             <!-- Confirm Password -->
             <div x-data="{ show: false }">
                 <label for="password_confirmation" class="mb-3 block text-sm font-medium text-[#7C756C]">
-                    Ketik ulang passwordnya
+                    Ulangi Kata Sandi
                 </label>
                 <div class="relative">
-                    <input id="password_confirmation" :type="show ? 'text' : 'password'" name="password_confirmation" required autocomplete="new-password" placeholder="Biar gak lupa" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 pr-14 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
+                    <input id="password_confirmation" :type="show ? 'text' : 'password'" name="password_confirmation" required autocomplete="new-password" placeholder="Ketik sekali lagi" class="h-14 w-full rounded-2xl border border-[#D6D0C4] bg-white/60 px-5 pr-14 text-[#1F1F1D] placeholder:text-[#A39D93] outline-none transition duration-300 focus:border-[#1F1F1D] focus:bg-white focus:ring-0 shadow-sm" />
                     <button type="button" @click="show = !show" class="absolute inset-y-0 right-4 flex items-center text-[#7C756C] transition hover:text-[#1F1F1D]">
                         <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z" />
@@ -94,7 +94,7 @@
             <button type="submit" class="group relative flex h-14 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#1F1F1D] font-semibold text-[#F7F5F1] transition duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl">
                 <span class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition duration-700 group-hover:translate-x-full"></span>
                 <span class="relative flex items-center gap-2">
-                    Gas Daftar!
+                    Mulai Menulis
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5 5 5-5 5" />
                     </svg>
@@ -114,9 +114,9 @@
             <!-- Login -->
             <div class="text-center">
                 <p class="text-sm text-[#7C756C]">
-                    Udah punya akun?
+                    Sudah punya ruang?
                     <a href="{{ route('login') }}" class="font-semibold text-[#1F1F1D] transition duration-300 hover:text-[#4F4A44] hover:underline underline-offset-4">
-                        Masuk aja langsung
+                        Masuk kembali
                     </a>
                 </p>
             </div>
