@@ -106,16 +106,18 @@ class DashboardController extends Controller
 
     private function getMemoryUsage()
     {
-        $free = shell_exec('free');
-        if ($free) {
-            $free = (string)trim($free);
-            $free_arr = explode("\n", $free);
-            $mem = explode(" ", $free_arr[1]);
-            $mem = array_filter($mem);
-            $mem = array_merge($mem);
-            $usedmem = $mem[2];
-            $totalmem = $mem[1];
-            return round(($usedmem / $totalmem) * 100) . '%';
+        if (function_exists('shell_exec')) {
+            $free = shell_exec('free');
+            if ($free) {
+                $free = (string)trim($free);
+                $free_arr = explode("\n", $free);
+                $mem = explode(" ", $free_arr[1]);
+                $mem = array_filter($mem);
+                $mem = array_merge($mem);
+                $usedmem = $mem[2];
+                $totalmem = $mem[1];
+                return round(($usedmem / $totalmem) * 100) . '%';
+            }
         }
         return round((memory_get_usage(true) / (1024 * 1024 * 128)) * 100) . '%'; // Fallback to PHP memory limit
     }
