@@ -8,7 +8,7 @@
     </style>
 
     <div class="animate-fadeIn">
-        
+
         {{-- ================= HEADER ================= --}}
     <div class="mb-10 relative z-0">
         {{-- No shapes or vinyl here anymore, moved to app layout --}}
@@ -40,14 +40,14 @@
                                 this.minutes = String(d.getMinutes()).padStart(2, '0');
                             }, 1000);
                         }
-                    }" 
+                    }"
                     class="relative font-mono font-extrabold text-4xl grid grid-cols-2 text-center text-white shadow-lg gap-x-px border-4 border-yellow-100 rounded-lg">
-                
+
                     <!-- clock stand -->
                     <div class="absolute inset-x-0 -bottom-2 mx-auto flex justify-center">
                         <div class="w-3/4 h-2 bg-yellow-100 rounded-b"></div>
                     </div>
-                
+
                     <!-- left timer (hours) -->
                     <div class="relative py-3 px-3">
                         <div class="absolute inset-0 w-full h-full grid grid-rows-2 rounded-l-md overflow-hidden">
@@ -59,7 +59,7 @@
                             <div class="h-px w-full bg-gray-800"></div>
                         </div>
                     </div>
-                
+
                     <!-- right timer (minutes) -->
                     <div class="relative py-3 px-3">
                         <div class="absolute inset-0 w-full h-full grid grid-rows-2 rounded-r-md overflow-hidden">
@@ -110,7 +110,7 @@
                 <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 leading-tight dark:text-white">
                     {{ $activeDoc->judul }}
                 </h2>
-                
+
                 <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-neutral-500 dark:text-slate-400">
                     <span>{{ number_format($wordCount) }} kata</span>
                     <span class="hidden sm:inline">&middot;</span>
@@ -140,7 +140,7 @@
             </div>
         @endif
             </div>
-            
+
             <div class="col-span-1 md:col-span-4 row-span-2">
                 {{-- Focus --}}
                 <style>
@@ -276,16 +276,15 @@
                             </span>
                         </div>
                     </div>
-                    
+
                     <button @click="$store.pomodoro.reset()" class="absolute bottom-6 text-[10px] uppercase tracking-widest text-neutral-400 hover:text-neutral-600 transition active:scale-95 p-2">
                         reset
                     </button>
                 </div>
             </div>
 
-            {{-- Row 2: Organization & Flow --}}
             <div class="col-span-1 md:col-span-5 flex flex-col gap-6 lg:gap-8">
-                {{-- Music (Gede) --}}
+                {{-- Music --}}
                 <div class="dashboard-card p-4 sm:p-8 lg:p-10">
                    {{-- Premium Music Widget --}}
 @if(isset($currentTrack) && $currentTrack)
@@ -294,7 +293,7 @@
     <p class="text-sm text-neutral-500 dark:text-slate-400">
         lagi muter.
     </p>
-    
+
     <div class="flex items-center gap-3">
         <span
             class="lowercase text-[12px] tracking-[0.2em] text-[#141414] italic font-black"
@@ -312,50 +311,38 @@
 {{-- RUANG static music widget --}}
 <style>
     @keyframes ruang-vinyl-spin {
-        from {
+        0% {
             transform: translate(-50%, -50%) rotate(0deg);
         }
-
-        to {
+        100% {
             transform: translate(-50%, -50%) rotate(360deg);
         }
     }
 
-    .ruang-music-widget .lyrics-line {
-        width: 0;
-        overflow: hidden;
+    .ruang-vinyl {
+        transition-property: left, width, height, margin, padding, opacity !important;
+    }
+
+    .ruang-music-widget.group:hover .ruang-vinyl {
+        animation: ruang-vinyl-spin 4s linear infinite !important;
+    }
+
+    .ruang-lyrics p {
+        min-height: 1.2em;
         white-space: nowrap;
-        border-right: 2px solid transparent;
+        overflow: hidden;
     }
 
-    .ruang-music-widget:hover .lyrics-line-1 {
-        animation:
-            ruang-typing 0.8s steps(16, end) 0.3s forwards,
-            ruang-caret 0.5s step-end 0.3s 2;
+    .ruang-lyrics .caret::after {
+        content: '|';
+        margin-left: 2px;
+        opacity: 1;
+        animation: ruang-caret-blink 0.6s step-end infinite;
     }
 
-    .ruang-music-widget:hover .lyrics-line-2 {
-        animation:
-            ruang-typing 1.5s steps(37, end) 1.1s forwards,
-            ruang-caret 0.5s step-end 1.1s 3;
-    }
-
-    .ruang-music-widget:hover .lyrics-line-3 {
-        animation:
-            ruang-typing 1.5s steps(35, end) 2.6s forwards,
-            ruang-caret 0.5s step-end 2.6s infinite;
-    }
-
-    @keyframes ruang-typing {
-        from { width: 0; }
-        to { width: 100%; }
-    }
-
-    @keyframes ruang-caret {
-        from,
-        to { border-color: transparent; }
-
-        50% { border-color: #a3a3a3; }
+    @keyframes ruang-caret-blink {
+        from, to { opacity: 1; }
+        50%      { opacity: 0; }
     }
 </style>
 
@@ -364,7 +351,7 @@
     <div class="relative h-32 w-32 shrink-0 sm:h-40 sm:w-40">
         {{-- Vinyl --}}
         <div
-            class="absolute left-[68%] top-1/2 z-0 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%] group-hover:animate-[ruang-vinyl-spin_4s_linear_infinite] sm:h-[130px] sm:w-[130px]"
+            class="ruang-vinyl absolute left-[68%] top-1/2 z-0 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%] sm:h-[130px] sm:w-[130px]"
             style="background: radial-gradient(circle at center, #e8ddc4 0 11%, #141414 12%), repeating-radial-gradient(circle, #151515 0, #151515 .8px, #202020 .8px, #202020 1.6px);"
         >
             <div class="absolute left-4 top-4 h-8 w-20 rounded-full bg-white/10 blur-xl"></div>
@@ -393,14 +380,10 @@
         />
 
         {{-- Lyrics typewriter --}}
-        <div class="pointer-events-none absolute left-0 top-[calc(100%+1rem)] z-30 w-[200px] font-mono text-[9px] text-neutral-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-neutral-400 sm:w-[250px] sm:text-[11px]">
-            <p class="lyrics-line lyrics-line-1">Because maybeee,</p>
-            <p class="lyrics-line lyrics-line-2 mt-2">
-                you're gonna be the one that saves me
-            </p>
-            <p class="lyrics-line lyrics-line-3 mt-2">
-                And after all, you're my wonderwall
-            </p>
+        <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+1rem+18px)] z-30 w-[200px] font-mono text-[9px] text-neutral-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-neutral-400 sm:w-[250px] sm:text-[11px]">
+            <p class="ruang-line" data-text="Because maybeee,"></p>
+            <p class="ruang-line mt-0.5" data-text="you're gonna be the one that saves me"></p>
+            <p class="ruang-line mt-0.5" data-text="And after all, you're my wonderwall"></p>
         </div>
     </div>
 
@@ -429,7 +412,7 @@
         </div>
 
         {{-- Player --}}
-        <div class="mt-8 pb-2 sm:mt-10 sm:pb-4">
+        <div class="mt-3 pb-2 sm:mt-5 sm:pb-4">
             <div class="mb-2 flex items-center justify-end">
                 <button type="button" aria-label="Sukai lagu" class="text-xl text-red-500">
                     &hearts;
@@ -463,6 +446,68 @@
     </div>
 </div>
 
+<script>
+document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
+    if (widget.dataset.lyricsBound === '1') return;
+    widget.dataset.lyricsBound = '1';
+
+    const lineEls = Array.from(widget.querySelectorAll('.ruang-line'));
+    const CHAR_DELAY = 45;
+    const LINE_GAP = 200;
+
+    let runId = 0;
+
+    function resetLines() {
+        lineEls.forEach(function (el) {
+            el.textContent = '';
+            el.classList.remove('caret');
+        });
+    }
+
+    function typeLine(el, myRun) {
+        return new Promise(function (resolve) {
+            const text = el.dataset.text;
+            let i = 0;
+            el.classList.add('caret');
+
+            (function step() {
+                if (myRun !== runId) return;
+                el.textContent = text.slice(0, i);
+                i++;
+                if (i <= text.length) {
+                    setTimeout(step, CHAR_DELAY);
+                } else {
+                    el.classList.remove('caret');
+                    resolve();
+                }
+            })();
+        });
+    }
+
+    async function runSequence(myRun) {
+        resetLines();
+        for (let idx = 0; idx < lineEls.length; idx++) {
+            if (myRun !== runId) return;
+            await typeLine(lineEls[idx], myRun);
+            if (myRun !== runId) return;
+            if (idx === lineEls.length - 1) {
+                lineEls[idx].classList.add('caret');
+            }
+            await new Promise(function (r) { setTimeout(r, LINE_GAP); });
+        }
+    }
+
+    widget.addEventListener('mouseenter', function () {
+        runId++;
+        runSequence(runId);
+    });
+
+    widget.addEventListener('mouseleave', function () {
+        runId++;
+        resetLines();
+    });
+});
+</script>
 
 @else
 
@@ -537,7 +582,7 @@
                                 $isToday = $day == $today->day;
                                 $agenda = $agendas->get($day)?->first();
                                 $deadline = $deadlinesByDay->get($day)?->first();
-                                
+
                                 $dateStr = $today->copy()->setDay($day)->format('Y-m-d');
                             @endphp
 
@@ -569,14 +614,14 @@
                                     style="font-family:'Cormorant Garamond', serif;">
                                     {{ $day }}
                                 </span>
-                                
+
                                 <div class="hidden sm:block absolute bottom-4 left-3 right-2 overflow-hidden">
                                     @if($deadline)
                                         <p class="text-[9px] font-semibold text-red-500 line-clamp-1 mb-0.5" title="{{ $deadline->title }}">
                                             • {{ $deadline->title }}
                                         </p>
                                     @endif
-                                    
+
                                     @if($agenda)
                                         <p class="text-[9px] text-neutral-500 line-clamp-1 dark:text-slate-400" title="{{ $agenda->title }}">
                                             • {{ $agenda->title }}
@@ -607,11 +652,11 @@
                     </div>
 
                     <!-- Modal Tambah Agenda -->
-                    <div x-show="isModalOpen" 
+                    <div x-show="isModalOpen"
                          style="display: none;"
                          class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-                        
-                        <div x-show="isModalOpen" 
+
+                        <div x-show="isModalOpen"
                              x-transition.opacity
                              @click="closeModal()"
                              class="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm"></div>
@@ -619,13 +664,13 @@
                         <div x-show="isModalOpen"
                              x-transition.scale.95
                              class="relative w-full max-w-md bg-white rounded-[24px] sm:rounded-[32px] shadow-2xl p-6 sm:p-8 z-10 dark:bg-slate-800">
-                            
+
                             <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 mb-6 dark:text-white">Tambah Agenda</h3>
 
                             <form action="{{ route('agendas.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="date" x-model="selectedDate">
-                                
+
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Tanggal</label>
@@ -654,7 +699,7 @@
 
                 </div>
             </div>
-            
+
             <div class="col-span-1 md:col-span-4 row-span-2">
                 {{-- Activity --}}
             <div class="dashboard-card p-6 sm:p-8 lg:p-10 h-full">
@@ -741,31 +786,31 @@
                     @endforelse
 
                     <!-- Modal Deadline -->
-                    <div x-show="isOpen" 
+                    <div x-show="isOpen"
                          style="display: none;"
                          class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
                          x-transition.opacity>
-                        
+
                         <div class="bg-white rounded-2xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative dark:bg-slate-900"
                              @click.outside="isOpen = false">
                             <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 mb-6 dark:text-white" x-text="isEdit ? 'Edit Deadline' : 'Tambah Deadline'"></h3>
-                            
+
                             <form :action="formAction" method="POST">
                                 @csrf
                                 <template x-if="isEdit">
                                     <input type="hidden" name="_method" value="PUT">
                                 </template>
-                                
+
                                 <div class="mb-5">
                                     <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Judul Tugas</label>
                                     <input type="text" name="title" x-model="form.title" class="w-full rounded-xl border-stone-200 bg-stone-50 px-4 min-h-11 text-sm text-neutral-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
                                 </div>
-                                
+
                                 <div class="mb-8">
                                     <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Tenggat Waktu (Deadline)</label>
                                     <input type="datetime-local" name="due_date" x-model="form.due_date" class="w-full rounded-xl border-stone-200 bg-stone-50 px-4 min-h-11 text-sm text-neutral-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
                                 </div>
-                                
+
                                 <div class="flex justify-end gap-3">
                                     <button type="button" @click="isOpen = false" class="px-5 min-h-11 rounded-xl font-medium text-sm text-neutral-500 hover:bg-stone-100 transition active:scale-95 dark:text-slate-400">
                                         Batal
@@ -791,8 +836,8 @@
                                 / 1000
                             </span>
                         </h2>
-                        @php 
-                            $percentage = min(100, ($todayWords / 1000) * 100); 
+                        @php
+                            $percentage = min(100, ($todayWords / 1000) * 100);
                         @endphp
                         <div class="mt-5 h-2 rounded-full bg-stone-200 overflow-hidden dark:bg-slate-800">
                             <div class="h-full rounded-full bg-indigo-600 transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
