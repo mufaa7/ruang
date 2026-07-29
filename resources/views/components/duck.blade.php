@@ -277,7 +277,8 @@
             },
 
             say(message) {
-                this.currentMessage = message;
+                let messages = message.split('||').map(m => m.trim()).filter(m => m);
+                this.currentMessage = messages[0];
                 this.bubbleVisible = true;
                 this.chatVisible = false;
                 
@@ -288,18 +289,30 @@
                 }
                 
                 // Add to chat history automatically just in case user opens it
-                if (this.chatHistory.length === 0 || this.chatHistory[this.chatHistory.length - 1].content !== message) {
-                    this.chatHistory.push({ role: 'duck', content: message });
-                }
+                messages.forEach(msg => {
+                    if (this.chatHistory.length === 0 || this.chatHistory[this.chatHistory.length - 1].content !== msg) {
+                        this.chatHistory.push({ role: 'duck', content: msg });
+                    }
+                });
 
                 clearTimeout(this.bubbleTimer);
-                // Hide bubble after 5s or reading time
-                const hideTime = Math.max(4000, message.length * 100); 
-                this.bubbleTimer = setTimeout(() => {
-                    this.bubbleVisible = false;
-                    // Reset to santai after talking, unless idle will kick in
-                    if (this.mood !== 'ngantuk') this.mood = 'santai';
-                }, hideTime);
+                
+                const processNextMessage = (index) => {
+                    this.bubbleTimer = setTimeout(() => {
+                        this.bubbleVisible = false;
+                        if (index < messages.length) {
+                            setTimeout(() => {
+                                this.currentMessage = messages[index];
+                                this.bubbleVisible = true;
+                                processNextMessage(index + 1);
+                            }, 500); // jeda antar bubble pop up
+                        } else {
+                            if (this.mood !== 'ngantuk') this.mood = 'santai';
+                        }
+                    }, Math.max(4000, this.currentMessage.length * 100));
+                };
+                
+                processNextMessage(1);
             },
 
             toggleChat() {
@@ -347,7 +360,24 @@
                     const data = await res.json();
                     
                     if (data.success) {
-                        this.chatHistory.push({ role: 'duck', content: data.content });
+                        let messages = data.content.split('||').map(m => m.trim()).filter(m => m);
+                        this.chatHistory.push({ role: 'duck', content: messages[0] });
+                        
+                        if (messages.length > 1) {
+                            let delay = 800;
+                            for (let i = 1; i < messages.length; i++) {
+                                setTimeout(() => {
+                                    this.isTyping = true;
+                                    this.scrollToBottom();
+                                    setTimeout(() => {
+                                        this.chatHistory.push({ role: 'duck', content: messages[i] });
+                                        this.isTyping = false;
+                                        this.scrollToBottom();
+                                    }, 1000);
+                                }, delay);
+                                delay += 1800;
+                            }
+                        }
                     } else {
                         this.chatHistory.push({ role: 'duck', content: 'males jawab.' });
                     }
