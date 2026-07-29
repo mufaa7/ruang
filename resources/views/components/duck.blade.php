@@ -129,7 +129,7 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-         class="absolute top-40 right-2 mt-2 w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
+         class="absolute top-32 right-2 mt-2 w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
         
         <!-- Chat History -->
         <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-slate-50/50 dark:bg-slate-900/50" id="duck-chat-history">
@@ -149,7 +149,7 @@
 
         <!-- Chat Input -->
         <div class="border-t border-slate-100 dark:border-slate-800 p-2 flex gap-2 bg-white dark:bg-slate-900">
-            <input type="text" x-model="chatInput" @keydown.enter.prevent.stop="sendMessage()" placeholder="ngomong..." class="flex-1 bg-slate-100 dark:bg-slate-800 text-sm rounded-xl px-3 py-1.5 border-none focus:ring-1 focus:ring-indigo-500 outline-none text-slate-800 dark:text-white" :readonly="isTyping" autocomplete="off">
+            <input type="text" x-model="chatInput" @keydown.enter.prevent.stop="sendMessage()" placeholder="ngomong..." class="flex-1 bg-slate-100 dark:bg-slate-800 text-base rounded-xl px-3 py-1.5 border-none focus:ring-1 focus:ring-indigo-500 outline-none text-slate-800 dark:text-white" :readonly="isTyping" autocomplete="off">
             <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-indigo-500 hover:bg-indigo-600 flex items-center justify-center text-white transition-colors disabled:opacity-50" :disabled="!chatInput.trim() || isTyping">
                 <i class="ph-bold ph-paper-plane-right text-sm"></i>
             </button>
