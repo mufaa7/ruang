@@ -10,11 +10,11 @@ class MakalahReferencePolicy
 {
     public function update(User $user, MakalahReference $makalahReference): bool
     {
-        return $user->id === $makalahReference->makalah?->user_id;
+        return $user->id == $makalahReference->makalah?->user_id;
     }
 
     public function delete(User $user, MakalahReference $makalahReference): bool
     {
-        return $user->id === $makalahReference->makalah?->user_id;
+        return $user->id == $makalahReference->makalah?->user_id;
     }
 }

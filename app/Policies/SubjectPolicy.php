@@ -16,14 +16,14 @@ class SubjectPolicy
     public function update(User $user, Subject $subject): bool
     {
         return $user->isAdmin() || 
-               $user->id === $subject->created_by ||
+               $user->id == $subject->created_by ||
                $subject->users()->where('users.id', $user->id)->exists();
     }
 
     public function delete(User $user, Subject $subject): bool
     {
         return $user->isAdmin() || 
-               $user->id === $subject->created_by ||
+               $user->id == $subject->created_by ||
                $subject->users()->where('users.id', $user->id)->exists();
     }
 }

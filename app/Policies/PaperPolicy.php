@@ -14,21 +14,21 @@ class PaperPolicy
             return true;
         }
 
-        return $user !== null && $user->id === $paper->user_id;
+        return $user !== null && $user->id == $paper->user_id;
     }
 
     public function update(User $user, Paper $paper): bool
     {
-        return $user->id === $paper->user_id;
+        return $user->id == $paper->user_id;
     }
 
     public function delete(User $user, Paper $paper): bool
     {
-        return $user->id === $paper->user_id;
+        return $user->id == $paper->user_id;
     }
 
     public function publish(User $user, Paper $paper): bool
     {
-        return $user->id === $paper->user_id;
+        return $user->id == $paper->user_id;
     }
 }

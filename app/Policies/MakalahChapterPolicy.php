@@ -10,11 +10,11 @@ class MakalahChapterPolicy
 {
     public function update(User $user, MakalahChapter $makalahChapter): bool
     {
-        return $user->id === $makalahChapter->makalah?->user_id;
+        return $user->id == $makalahChapter->makalah?->user_id;
     }
 
     public function delete(User $user, MakalahChapter $makalahChapter): bool
     {
-        return $user->id === $makalahChapter->makalah?->user_id;
+        return $user->id == $makalahChapter->makalah?->user_id;
     }
 }

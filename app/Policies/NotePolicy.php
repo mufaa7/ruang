@@ -10,21 +10,21 @@ class NotePolicy
 {
     public function view(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id;
+        return $user->id == $note->user_id;
     }
 
     public function update(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id;
+        return $user->id == $note->user_id;
     }
 
     public function delete(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id;
+        return $user->id == $note->user_id;
     }
 
     public function restore(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id;
+        return $user->id == $note->user_id;
     }
 }

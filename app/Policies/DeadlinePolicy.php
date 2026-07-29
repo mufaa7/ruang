@@ -10,11 +10,11 @@ class DeadlinePolicy
 {
     public function update(User $user, Deadline $deadline): bool
     {
-        return $user->isAdmin() || $user->id === $deadline->user_id;
+        return $user->isAdmin() || $user->id == $deadline->user_id;
     }
 
     public function delete(User $user, Deadline $deadline): bool
     {
-        return $user->isAdmin() || $user->id === $deadline->user_id;
+        return $user->isAdmin() || $user->id == $deadline->user_id;
     }
 }

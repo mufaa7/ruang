@@ -10,11 +10,11 @@ class PaperSectionPolicy
 {
     public function update(User $user, PaperSection $paperSection): bool
     {
-        return $user->id === $paperSection->paper?->user_id;
+        return $user->id == $paperSection->paper?->user_id;
     }
 
     public function delete(User $user, PaperSection $paperSection): bool
     {
-        return $user->id === $paperSection->paper?->user_id;
+        return $user->id == $paperSection->paper?->user_id;
     }
 }
