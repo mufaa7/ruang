@@ -139,21 +139,26 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
-document.addEventListener('turbo:load', () => {
+const initMusicPlayer = () => {
     if (window.Alpine && Alpine.store('musicPlayer')) {
         const store = Alpine.store('musicPlayer');
         store.isMaximized = window.location.pathname === '/dengerin';
 
-        // Di halaman /dengerin: langsung load album
-        // miniPlayerVisible TIDAK di-set di sini — hanya aktif saat user benar-benar play lagu
         if (store.isMaximized) {
             store.iframesLoaded = true;
         }
     }
+};
+
+document.addEventListener('turbo:load', () => {
+    initMusicPlayer();
     // Fade in page
     document.body.classList.remove('opacity-0');
     document.body.classList.add('duration-300', 'transition-opacity');
 });
+
+document.addEventListener('turbo:frame-load', initMusicPlayer);
+
 
 // Deteksi play event dari Spotify iframe via postMessage (cross-origin)
 // Spotify embed mengirim 'playback_update' dengan isPaused=false saat lagu mulai diputar

@@ -64,7 +64,7 @@
         <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
     </head>
     
-    <body class="antialiased min-h-screen font-sans opacity-0 text-[#1F1F1D] dark:text-white relative">
+    <body class="antialiased min-h-screen font-sans opacity-0 text-[#1F1F1D] dark:text-white relative overflow-x-hidden">
         @if(session()->has('impersonated_by'))
         <div class="bg-amber-400 text-black px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-black">
             <span>⚠️ You are impersonating <strong>{{ auth()->user()->name }}</strong></span>
@@ -152,11 +152,13 @@
                     init() {
                         if (this.isMobile && this.sidebarOpen) {
                             document.body.style.overflow = 'hidden';
+                        } else {
+                            document.body.style.overflow = '';
                         }
                     }
                  }" 
                  @resize.window="updateScreen()"
-                 class="flex min-h-screen relative overflow-x-hidden">
+                 class="flex min-h-screen relative">
 
                 <!-- Backdrop Mobile -->
                 <div x-show="sidebarOpen && isMobile" 
@@ -384,11 +386,12 @@
                     // Listeners
                     window.addEventListener('resize', this.updatePosition);
                     document.addEventListener('turbo:load', () => setTimeout(this.updatePosition, 100));
+                    document.addEventListener('turbo:frame-load', () => setTimeout(this.updatePosition, 100));
                 }
              }"
              x-show="$store.musicPlayer.isMaximized || $store.musicPlayer.miniPlayerVisible"
-             class="z-[60] shadow-2xl transition-all duration-300"
-             :class="$store.musicPlayer.isMaximized ? 'space-y-6 block' : 'w-[calc(100vw-3rem)] sm:w-[380px] max-w-[380px]'">
+             class="shadow-2xl transition-all duration-300"
+             :class="$store.musicPlayer.isMaximized ? 'z-[20] space-y-6 block' : 'z-[60] w-[calc(100vw-3rem)] sm:w-[380px] max-w-[380px]'">
              
              {{-- Mini Player Header (Only visible when not maximized) --}}
              <div x-show="!$store.musicPlayer.isMaximized" 

@@ -1,7 +1,7 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
      @click.outside="closeChat()"   
-     class="fixed -top-6 right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed -top-6 -right-4 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
     <div class="relative w-40 h-40 cursor-pointer group z-10" 
