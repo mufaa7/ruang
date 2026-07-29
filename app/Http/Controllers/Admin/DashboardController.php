@@ -91,6 +91,10 @@ class DashboardController extends Controller
         $terminal = $this->tailLog($logPath, 15);
         $lastException = $this->getLastException($logPath);
 
+        $adminNotes = File::exists(storage_path('app/admin_notes.txt')) 
+            ? File::get(storage_path('app/admin_notes.txt')) 
+            : '';
+
         return view('admin.dashboard', compact(
             'requests',
             'aiCost',
@@ -100,8 +104,16 @@ class DashboardController extends Controller
             'env',
             'recentActivities',
             'terminal',
-            'lastException'
+            'lastException',
+            'adminNotes'
         ));
+    }
+
+    public function saveNotes(Request $request)
+    {
+        $notes = $request->input('admin_notes', '');
+        File::put(storage_path('app/admin_notes.txt'), $notes);
+        return back()->with('success', 'Catatan bash berhasil disimpan!');
     }
 
     private function getMemoryUsage()

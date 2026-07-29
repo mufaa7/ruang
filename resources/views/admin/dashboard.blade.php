@@ -55,6 +55,18 @@
                     @endforelse
                 </div>
             </div>
+
+            {{-- Bash Notes --}}
+            <div class="dev-card p-5">
+                <h2 class="text-[13px] font-bold text-black mb-4">Bash Notes</h2>
+                <form action="{{ route('admin.dashboard.notes') }}" method="POST">
+                    @csrf
+                    <textarea name="admin_notes" rows="4" class="w-full text-[11px] font-mono border border-black p-2 bg-[#f8f9fa] focus:outline-none focus:ring-0 placeholder:text-slate-400" placeholder="Catat command bash penting di sini...">{{ $adminNotes ?? '' }}</textarea>
+                    <div class="mt-2 text-right">
+                        <button type="submit" class="bg-black text-white px-3 py-1 text-[11px] font-bold uppercase hover:bg-slate-800 border border-black">Save Notes</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         {{-- KOLOM 2 --}}

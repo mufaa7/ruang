@@ -131,6 +131,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // â”€â”€ Admin Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 Route::middleware(['auth', 'verified', \App\Http\Middleware\IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/dashboard/notes', [\App\Http\Controllers\Admin\DashboardController::class, 'saveNotes'])->name('dashboard.notes');
     Route::get('/materials', [\App\Http\Controllers\Admin\MaterialController::class, 'index'])->name('materials.index');
     
     // Summary Requests
