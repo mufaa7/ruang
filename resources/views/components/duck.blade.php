@@ -1,5 +1,6 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
+     @click.outside="closeChat()"   
      class="fixed -top-6 right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
@@ -41,11 +42,11 @@
     </style>
 
     <!-- === COMIC BUBBLE (Muncul saat hover pake Tailwind) === -->
-    <div class="absolute top-16 -left-16 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 -rotate-3 group-hover:animate-pulse">
+    <div class="absolute top-5 -left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 -rotate-3 group-hover:animate-pulse">
         <div class="relative bg-amber-400 text-stone-900 font-black px-3 py-1 text-xs rounded-lg border-2 border-stone-900 shadow-[3px_3px_0px_0px_rgba(28,25,23,1)]">
             WOTCHER!
             <!-- Tail balon kata (pointing right to the duck) -->
-            <div class="absolute -right-2 top-1.5 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[7px] border-l-stone-900"></div>
+            <div class="absolute -right-8 top-5 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[7px] border-l-stone-900"></div>
         </div>
     </div>
 
