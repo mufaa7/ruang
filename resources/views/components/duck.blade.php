@@ -1,6 +1,6 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
-     class="fixed -top-8 right-0 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed -top-6 right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak
      @click.away="closeChat()">
 
