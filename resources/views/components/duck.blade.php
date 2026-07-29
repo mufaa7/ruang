@@ -1,10 +1,10 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
-     class="fixed -top-8 right-4 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed -top-8 right-0 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak
      @click.away="closeChat()">
 
-    <div class="relative w-48 h-48 cursor-pointer group z-10" 
+    <div class="relative w-40 h-40 cursor-pointer group z-10" 
      @click="toggleChat()" 
      :class="{ 'animate-bounce': isWalking }">
     
@@ -122,7 +122,6 @@
 
     <!-- Mini Chat Popover (Now below Duck) -->
     <div x-show="chatVisible"
-         @click.away="closeChat()"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
