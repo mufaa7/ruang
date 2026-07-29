@@ -41,11 +41,11 @@
     </style>
 
     <!-- === COMIC BUBBLE (Muncul saat hover pake Tailwind) === -->
-    <div class="absolute top-10 right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 rotate-6 group-hover:animate-pulse">
+    <div class="absolute top-2 -left-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 -rotate-3 group-hover:animate-pulse">
         <div class="bg-amber-400 text-stone-900 font-black px-3 py-1 text-xs rounded-lg border-2 border-stone-900 shadow-[3px_3px_0px_0px_rgba(28,25,23,1)]">
             WOTCHER!
-            <!-- Tail balon kata -->
-            <div class="absolute -bottom-2 left-4 w-0 h-0 border-l-[6px] border-l-transparent border-t-[8px] border-t-stone-900 border-r-[6px] border-r-transparent"></div>
+            <!-- Tail balon kata (pointing right to the duck) -->
+            <div class="absolute -bottom-2 right-3 w-0 h-0 border-l-[6px] border-l-transparent border-t-[8px] border-t-stone-900 border-r-[6px] border-r-transparent"></div>
         </div>
     </div>
 
