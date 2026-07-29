@@ -121,6 +121,7 @@
 
     <!-- Mini Chat Popover (Now below Duck) -->
     <div x-show="chatVisible"
+         @click.stop
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -147,8 +148,8 @@
 
         <!-- Chat Input -->
         <div class="border-t border-slate-100 dark:border-slate-800 p-2 flex gap-2 bg-white dark:bg-slate-900">
-            <input type="text" x-model="chatInput" @keydown.enter="sendMessage()" placeholder="ngomong..." class="flex-1 bg-slate-100 dark:bg-slate-800 text-sm rounded-xl px-3 py-1.5 border-none focus:ring-1 focus:ring-indigo-500 outline-none text-slate-800 dark:text-white" :disabled="isTyping" autocomplete="off">
-            <button @click="sendMessage()" class="w-8 h-8 rounded-full bg-indigo-500 hover:bg-indigo-600 flex items-center justify-center text-white transition-colors disabled:opacity-50" :disabled="!chatInput.trim() || isTyping">
+            <input type="text" x-model="chatInput" @keydown.enter.prevent.stop="sendMessage()" placeholder="ngomong..." class="flex-1 bg-slate-100 dark:bg-slate-800 text-sm rounded-xl px-3 py-1.5 border-none focus:ring-1 focus:ring-indigo-500 outline-none text-slate-800 dark:text-white" :disabled="isTyping" autocomplete="off">
+            <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-indigo-500 hover:bg-indigo-600 flex items-center justify-center text-white transition-colors disabled:opacity-50" :disabled="!chatInput.trim() || isTyping">
                 <i class="ph-bold ph-paper-plane-right text-sm"></i>
             </button>
         </div>
