@@ -352,6 +352,26 @@
                         openAiBanner(data.estimasi_menit);
                         if (aiLoadingText) aiLoadingText.innerText = 'AI sedang menyusun kerangka makalah...';
                         updateProgressBar(0);
+
+                        // SHOW SKELETON IMMEDIATELY
+                        const wrapper = document.getElementById('chapters-wrapper');
+                        if (wrapper && !resume) { // jika buat ulang semua (bukan resume), ganti isi dengan skeleton
+                            wrapper.innerHTML = `
+                                <div class="a4-page border-b border-stone-300 p-8 flex flex-col gap-6">
+                                    <div class="h-8 bg-violet-200 rounded-md w-1/3 mx-auto animate-pulse"></div>
+                                    <div class="h-6 bg-violet-200 rounded w-1/4 animate-pulse"></div>
+                                    <div class="skeleton-subchapter animate-pulse p-4 sm:p-6 rounded-xl border border-violet-100 bg-violet-50/50 space-y-3 mt-4">
+                                        <div class="h-3 bg-violet-200 rounded w-full"></div>
+                                        <div class="h-3 bg-violet-200 rounded w-5/6"></div>
+                                        <div class="h-3 bg-violet-200 rounded w-4/6"></div>
+                                        <div class="h-3 bg-violet-200 rounded w-full mt-4"></div>
+                                        <div class="h-3 bg-violet-200 rounded w-3/4"></div>
+                                        <p class="text-xs text-violet-400 text-center pt-2">⏳ AI sedang meracik kerangka bab dan isinya...</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
                         startAiPolling();
                     } else {
                         closeAiBanner();
