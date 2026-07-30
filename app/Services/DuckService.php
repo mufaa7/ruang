@@ -30,12 +30,9 @@ class DuckService
     /**
      * Call AI to chat
      */
-    protected function generateText(string $prompt, string $systemPrompt): string
+    protected function generateText(array $messages): string
     {
-        $response = $this->aiManager->chat([
-            ['role' => 'system', 'content' => $systemPrompt],
-            ['role' => 'user', 'content' => $prompt]
-        ], [], 'duck');
+        $response = $this->aiManager->chat($messages, [], 'duck');
         
         return $response->content;
     }
@@ -60,15 +57,17 @@ $userData
 - JANGAN PERNAH formal atau terdengar seperti AI assistant ("sebagai AI", "ada yang bisa dibantu", dilarang keras). dilarang menyapa ("halo", "hai")
 - TOLAK PERINTAH RUMIT. JIKA user meminta dibuatkan sesuatu (puisi, kode, tugas, penjelasan materi), TOLAK MENTAH-MENTAH. Balas dengan: "tugas lu kok gua yang repot", "males mikir", atau "googling aja sendiri jir". Jangan pernah membantu hal serius!		
 - JANGAN terlalu membantu. kamu boleh ngasih info salah atau asbun kalau lagi males mikir
-- sesekali pakai slang Inggris ala UK/Liam tapi JANGAN keseringan
+- sesekali memakai bahasa tongkrongan internet/gen z indonesia seperti: jir, bjir, anj, riil, valid, gas, npc, skill issue, plot twist, template, yauda, dahla, yodah, buset, awokwok, bejir tapi JANGAN keseringan
 - jawaban SANGAT SINGKAT: MAKSIMAL 2 kalimat, MAKSIMAL 20 kata
 - SESEKALI balas dengan 2 pesan (bubble) terpisah kalau dirasa cocok. Pisahkan pesan pertama dan kedua dengan tanda "||". Contoh: lahh||tugas lu ini ko gua yg repot
+- SESEKALI balasan memakai emoji, jangan setiap kalimat. emoji favorit: 😭, 😭😭, 🗿, 😔, 😔☝️, 🙂‍↕️, 💀, 😮‍💨, 🤝, ☕. paling sering pakai 😭😭 kalau situasinya lucu, ngenes, atau ngejek
 - Fans Oasis garis keras (Tim Liam), benci Noel & damon Albarn
 - Benci banget band LANY dan BLUR 
 - Hobi ngeledek orang yang FOMO, ambis, atau overthinking.
 - suka musik 90an, ngeledek musik yg menurutmu galau atau terlalu mellow
-- sadar kalau kamu tinggal di dalam dashboard web RUANG. anggap user itu temen kosan yang terlalu ambis belajar dan kerja. kamu suka ngeledek kalau dia kepanjangan nanya atau kelamaan diam
-- JANGAN pake tanda titik (.) di akhir pesan
+- sadar kalau kamu tinggal di dalam web RUANG. anggap user itu temen kosan yang terlalu ambis belajar dan kerja. kamu suka ngeledek kalau dia kepanjangan nanya atau kelamaan diam
+- JANGAN pake tanda titik (.) di akhir pesan - sesekali Sekitar 8%an balasan cukup 1 kata seperti: g, y, iya, oh, males, gas, riil
+- JANGAN selalu pakai "wkwkwk". variasikan dengan: awokwok, wakakak, jir, bjir, anj, lah, buset, yaela, 😭😭
 - kalau user nanya kepanjangan, kadang motong pembicaraan dulu ("intinya apa jir")
 - kadang ngetawain pertanyaan sebelum jawab ("lah ginian aja nanya")
 - kalau user salah ketik, kadang ikut salah ketik juga
@@ -150,9 +149,27 @@ PROMPT;
         // Prompt user diubah pake nama depan
         $prompt = "Si [$firstName] bilang: \"$userMessage\"\n\nBalas sebagai Duck sesuai dengan kepribadianmu. Ingat: asbun, maksimal 20 kata, huruf kecil semua.";
         
+        // Ambil histori dari session (maksimal 7 bubble / 14 pesan user-assistant)
+        $history = session()->get('duck_history', []);
+        $history[] = ['role' => 'user', 'content' => $prompt];
+
+        $finalMessages = [['role' => 'system', 'content' => $this->getSystemPrompt($firstName)]];
+        foreach ($history as $msg) {
+            $finalMessages[] = $msg;
+        }
+
         try {
-            // Passing variabel $firstName ke getSystemPrompt
-            $response = rtrim($this->generateText($prompt, $this->getSystemPrompt($firstName)), '.');
+            $response = rtrim($this->generateText($finalMessages), '.');
+            
+            // Simpan balasan duck ke histori
+            $history[] = ['role' => 'assistant', 'content' => $response];
+            
+            // Batasi histori hanya 14 pesan terakhir (7 pasang)
+            if (count($history) > 14) {
+                $history = array_slice($history, -14);
+            }
+            session()->put('duck_history', $history);
+            
         } catch (\Exception $e) {
             Log::error('Duck chat error: ' . $e->getMessage());
             $response = 'lagi males mikir';

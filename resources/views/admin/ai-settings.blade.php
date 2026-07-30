@@ -166,8 +166,9 @@
                                             </div>
                                             <div>
                                                 <label class="block text-[11px] font-bold text-slate-600 mb-1">MODEL</label>
-                                                <select id="ai_{{ $fKey }}_model" name="ai_{{ $fKey }}_model" class="w-full text-[12px] border border-black rounded-none px-2 py-1.5 focus:border-black bg-white">
+                                                <select id="ai_{{ $fKey }}_model_select" class="feature-model-select w-full text-[12px] border border-black rounded-none px-2 py-1.5 focus:border-black bg-white mb-1" data-target="ai_{{ $fKey }}_model">
                                                 </select>
+                                                <input type="text" id="ai_{{ $fKey }}_model" name="ai_{{ $fKey }}_model" class="w-full text-[12px] border border-black rounded-none px-2 py-1.5 focus:border-black bg-white" placeholder="Enter custom model..." value="{{ $settings["ai_{$fKey}_model"] ?? '' }}" style="display: none;">
                                                 <input type="hidden" id="saved_ai_{{ $fKey }}_model" value="{{ $settings["ai_{$fKey}_model"] ?? '' }}">
                                             </div>
                                         </div>
@@ -265,9 +266,9 @@
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2">
                     <label class="block text-[12px] font-bold text-black mb-1">DEFAULT_MODEL</label>
-                    <select id="modalModel" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white">
-                        <!-- Populated dynamically -->
+                    <select id="modalModelSelect" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white mb-2">
                     </select>
+                    <input type="text" id="modalModel" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white" placeholder="Enter custom model..." style="display: none;">
                 </div>
                 <div>
                     <label class="block text-[12px] font-bold text-black mb-1">TIMEOUT (s)</label>
@@ -346,6 +347,10 @@
             opt.selected = true;
             selectEl.appendChild(opt);
         }
+        const customOpt = document.createElement('option');
+        customOpt.value = '__custom__';
+        customOpt.textContent = '-- Custom Model --';
+        selectEl.appendChild(customOpt);
     }
 
     // Modal Logic
@@ -360,8 +365,31 @@
         document.getElementById('modalRetry').value = document.getElementById('main_ai_' + providerKey + '_retry').value;
         
         const savedModel = document.getElementById('main_ai_' + providerKey + '_model').value;
-        const selectModel = document.getElementById('modalModel');
+        const selectModel = document.getElementById('modalModelSelect');
+        const inputModel = document.getElementById('modalModel');
+        
         populateSelect(selectModel, providerKey, savedModel);
+        
+        if (savedModel && !Array.from(selectModel.options).some(opt => opt.value === savedModel && opt.value !== '__custom__')) {
+            selectModel.value = '__custom__';
+            inputModel.style.display = 'block';
+            inputModel.value = savedModel;
+        } else {
+            inputModel.style.display = 'none';
+            inputModel.value = savedModel;
+        }
+        
+        // Add event listener to modal select
+        selectModel.onchange = function() {
+            if (this.value === '__custom__') {
+                inputModel.style.display = 'block';
+                inputModel.value = '';
+                inputModel.focus();
+            } else {
+                inputModel.style.display = 'none';
+                inputModel.value = this.value;
+            }
+        };
         
         // Reset test UI
         document.getElementById('testIcon').textContent = '🔌';
@@ -462,19 +490,62 @@
             });
         });
 
+        // Feature Model Select Custom toggle
+        document.querySelectorAll('.feature-model-select').forEach(select => {
+            select.addEventListener('change', function() {
+                const targetId = this.getAttribute('data-target');
+                const inputEl = document.getElementById(targetId);
+                if (this.value === '__custom__') {
+                    inputEl.style.display = 'block';
+                    inputEl.value = '';
+                    inputEl.focus();
+                } else {
+                    inputEl.style.display = 'none';
+                    inputEl.value = this.value;
+                }
+            });
+        });
+
         // Feature Model population
         document.querySelectorAll('.feature-provider-select').forEach(select => {
             select.addEventListener('change', function() {
                 const targetId = this.getAttribute('data-target');
-                const targetEl = document.getElementById(targetId);
-                populateSelect(targetEl, this.value, '');
+                const targetSelect = document.getElementById(targetId + '_select');
+                const targetInput = document.getElementById(targetId);
+                
+                // Get the globally saved default model for this provider
+                const globalModel = document.getElementById('main_ai_' + this.value + '_model').value;
+                
+                populateSelect(targetSelect, this.value, globalModel);
+                
+                // Auto inherit the global model
+                targetInput.value = globalModel;
+                
+                // Check if it's custom
+                if (globalModel && !Array.from(targetSelect.options).some(opt => opt.value === globalModel && opt.value !== '__custom__')) {
+                    targetSelect.value = '__custom__';
+                    targetInput.style.display = 'block';
+                } else {
+                    targetSelect.value = globalModel;
+                    targetInput.style.display = 'none';
+                }
             });
             
             // Initialize on load
             const targetId = select.getAttribute('data-target');
-            const targetEl = document.getElementById(targetId);
+            const targetSelect = document.getElementById(targetId + '_select');
+            const targetInput = document.getElementById(targetId);
             const savedVal = document.getElementById('saved_' + targetId).value;
-            populateSelect(targetEl, select.value, savedVal);
+            
+            populateSelect(targetSelect, select.value, savedVal);
+            
+            if (savedVal && !Array.from(targetSelect.options).some(opt => opt.value === savedVal && opt.value !== '__custom__')) {
+                targetSelect.value = '__custom__';
+                targetInput.style.display = 'block';
+            } else {
+                targetSelect.value = savedVal;
+                targetInput.style.display = 'none';
+            }
         });
         
         // Form intercept: when pressing enter in modal, don't submit main form
