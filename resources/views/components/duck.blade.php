@@ -1,7 +1,7 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
      @click.outside="closeChat()"   
-     class="fixed -top-6 right-0 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed -top-6 -right-4 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
     <div class="relative w-40 h-40 cursor-pointer group z-10" 
@@ -12,8 +12,8 @@
     <style>
         /* Animasi napas kembang-kempis santai */
         @keyframes idle-breathe {
-            0%, 100% { transform: scaleY(1) translateY(0); }
-            50% { transform: scaleY(0.94) translateY(3px); }
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.97) translateY(2px); }
         }
         /* Animasi tamborin goyang tipis terus-menerus */
         @keyframes idle-jingle {
@@ -30,7 +30,7 @@
         }
 
         .duck-body { 
-            animation: idle-breathe 3s ease-in-out infinite !important; 
+            animation: idle-breathe 3s ease-in-out infinite; 
             transform-origin: center bottom; 
         }
         .tambourine-group { 
@@ -51,10 +51,10 @@
     </div>
 
     <!-- === PNG DUCK === -->
-    <div class="relative w-full h-full transition-transform duration-300 group-hover:-translate-y-2 group-active:scale-95">
+    <div class="relative w-full h-full">
         <!-- Gambar Bebek -->
         <img src="{{ asset('images/bebek.png') }}" 
-             class="w-full h-full object-contain drop-shadow-xl" 
+             class="w-full h-full object-contain drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-2 group-active:scale-95" 
              :class="['dengerin', 'konser', 'asbun'].includes(mood) ? 'duck-shaking' : 'duck-body'"
              alt="Bebek">
 
@@ -117,7 +117,7 @@
          x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
          class="absolute top-[50px] right-[120px] mt-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-5 py-3 rounded-2xl rounded-tr-none shadow-lg border border-slate-200 dark:border-slate-700 min-w-[140px] max-w-[260px] text-base font-medium shadow-[0_4px_20px_rgba(0,0,0,0.08)] cursor-pointer z-20"
          @click="openChat()">
-        <p x-text="currentMessage" class="leading-relaxed" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"></p>
+        <p x-text="currentMessage" class="leading-relaxed"></p>
     </div>
 
     <!-- Mini Chat Popover (Now below Duck) -->
@@ -129,14 +129,14 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-         class="absolute top-32 right-2 mt-2 w-[calc(100vw-1.5rem)] max-w-[288px] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
+         class="absolute top-32 right-0 mt-2 w-[280px] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
         
         <!-- Chat History -->
         <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
             <template x-for="msg in chatHistory">
                 <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
                     <div class="px-3.5 py-1.5 text-[14.5px] inline-block shadow-none relative"
-                         style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;"
+                         style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; word-break: break-word; text-align: left;"
                          :class="msg.role === 'user' 
                                 ? 'bg-[#007AFF] text-white rounded-[18px] rounded-br-[4px]' 
                                 : 'bg-[#E5E5EA] dark:bg-[#262628] text-black dark:text-white rounded-[18px] rounded-bl-[4px]'">
@@ -217,16 +217,9 @@
             bubbleTimer: null,
             idleTimer: null,
             randomTimer: null,
-            chatBuffer: [],
-            chatDebounceTimer: null,
-            chatHistory: {!! json_encode(session()->get('duck_ui_history', [])) !!},
+            chatHistory: [],
             
             init() {
-                // Scroll ke bawah kalau ada history pas pertama buka
-                if (this.chatHistory.length > 0) {
-                    this.scrollToBottom();
-                }
-                
                 // Initial welcome after 5s
                 setTimeout(() => this.triggerEvent('dashboard'), 5000);
                 
@@ -352,58 +345,14 @@
                 this.chatVisible = false;
             },
 
-            isLastUserMessage(msg) {
-                const index = this.chatHistory.indexOf(msg);
-                if (index === -1) return false;
-                for (let i = index + 1; i < this.chatHistory.length; i++) {
-                    if (this.chatHistory[i].role === 'user') return false;
-                }
-                return true;
-            },
-
-            delaySend() {
-                // Kalau user lagi ngetik dan ada chat tertunda (chatBuffer), tunda lagi
-                if (this.chatDebounceTimer) {
-                    clearTimeout(this.chatDebounceTimer);
-                    this.chatDebounceTimer = setTimeout(() => {
-                        this.processChatBuffer();
-                    }, 2000); // 2 detik setelah user BERHENTI ngetik
-                }
-            },
-
             async sendMessage() {
                 if (!this.chatInput.trim()) return;
                 
                 const userMsg = this.chatInput.trim();
-                const msgIndex = this.chatHistory.length;
-                this.chatHistory.push({ role: 'user', content: userMsg, status: 'sent' });
-                this.chatBuffer.push(userMsg);
-                
+                this.chatHistory.push({ role: 'user', content: userMsg });
                 this.chatInput = '';
-                this.isTyping = false; // Belum ngetik, nunggu dia baca (Seen)
+                this.isTyping = true;
                 this.scrollToBottom();
-
-                clearTimeout(this.chatDebounceTimer);
-                
-                this.chatDebounceTimer = setTimeout(() => {
-                    this.processChatBuffer();
-                }, 800); // Kurangi jadi 0.8 detik biar kerasa lebih cepet
-            },
-            
-            async processChatBuffer() {
-                if (this.chatBuffer.length === 0) return;
-                
-                // Tandai semua pesan user di history jadi 'Seen'
-                for(let i = this.chatHistory.length - 1; i >= 0; i--) {
-                    if(this.chatHistory[i].role === 'user' && this.chatHistory[i].status === 'sent') {
-                        this.chatHistory[i].status = 'seen';
-                    }
-                }
-                
-                this.isTyping = true; // Bebek mulai ngetik setelah Seen
-                
-                const combinedMessage = this.chatBuffer.join('\n');
-                this.chatBuffer = []; // Kosongkan buffer
 
                 try {
                     const res = await fetch('/duck/chat', {
@@ -413,9 +362,7 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                             'Accept': 'application/json'
                         },
-                        body: JSON.stringify({ 
-                            message: combinedMessage
-                        })
+                        body: JSON.stringify({ message: userMsg })
                     });
                     const data = await res.json();
                     
@@ -444,14 +391,11 @@
                 } catch (e) {
                     this.chatHistory.push({ role: 'duck', content: 'ngantuk gue.' });
                 } finally {
-                    // Cek apakah ada ngetik baru saat lagi fetch
-                    if (this.chatBuffer.length === 0) {
-                        this.isTyping = false;
-                    }
+                    this.isTyping = false;
                     this.scrollToBottom();
                     setTimeout(() => {
                         const input = this.$el.querySelector('input');
-                        if (input && this.chatVisible) input.focus();
+                        if (input) input.focus();
                     }, 50);
                 }
             },
