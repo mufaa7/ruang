@@ -341,7 +341,7 @@
                         const chat = document.getElementById('duck-chat-popover');
                         if (duck && chat) {
                             const rect = duck.getBoundingClientRect();
-                            chat.style.top = Math.min(rect.bottom + 4, window.innerHeight - 280) + 'px';
+                            chat.style.top = Math.min(rect.bottom - 36, window.innerHeight - 280) + 'px';
                             chat.style.right = '4px';
                         }
                     });
@@ -367,6 +367,8 @@
                 this.isTyping = true;
                 this.scrollToBottom();
 
+                // Delivered → Seen setelah 0.8 detik
+                setTimeout(() => { userMsgObj.status = 'seen'; }, 800);
                 try {
                     const res = await fetch('/duck/chat', {
                         method: 'POST',
@@ -380,8 +382,6 @@
                     const data = await res.json();
                     
                     if (data.success) {
-                        // Mark as seen when duck replies
-                        userMsgObj.status = 'seen';
                         let messages = data.content.split('||').map(m => m.trim()).filter(m => m);
                         this.chatHistory.push({ role: 'duck', content: messages[0] });
                         
