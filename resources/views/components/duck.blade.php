@@ -350,7 +350,7 @@
                 setTimeout(() => {
                     this.scrollToBottom();
                     const input = this.$el.querySelector('input');
-                    if(input) input.focus();
+                    if(input) input.focus({ preventScroll: true });
                 }, 100);
             },
 
@@ -417,7 +417,7 @@
                     this.scrollToBottom();
                     setTimeout(() => {
                         const input = this.$el.querySelector('input');
-                        if (input) input.focus();
+                        if (input) input.focus({ preventScroll: true });
                     }, 50);
                 }
             },
