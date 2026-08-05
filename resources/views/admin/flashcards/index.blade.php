@@ -45,11 +45,11 @@
                             {{ $set->subject->name ?? '-' }}
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('admin.flashcards.edit', $set) }}" class="text-indigo-600 hover:text-indigo-900 font-bold mr-3">Edit</a>
+                            <a href="{{ route('admin.flashcards.edit', $set) }}" class="text-neutral-900 hover:text-stone-700 font-bold mr-3">Edit</a>
                             <form action="{{ route('admin.flashcards.destroy', $set) }}" method="POST" class="inline-block" onsubmit="return confirm('Delete this flashcard set?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-rose-600 hover:text-rose-900 font-bold">Delete</button>
+                                <button type="submit" class="text-rose-600 hover:text-stone-700 font-bold">Delete</button>
                             </form>
                         </td>
                     </tr>

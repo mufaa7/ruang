@@ -58,7 +58,7 @@
 
             <div class="mt-4 rounded-xl border-2 border-dashed border-stone-300 p-12 text-center bg-stone-50/50">
 
-                <div class="text-5xl mb-5 opacity-50">📚</div>
+                <div class="text-5xl mb-5 opacity-50"><i class="ph ph-books text-[1.1em] align-middle"></i></div>
 
                 <h3 class="text-xl font-bold font-sans">
                     Belum ada referensi
@@ -78,8 +78,8 @@
                     type="button"
                     @click="generateAiReferences(document.querySelector('[data-field=\'judul\']').value, {{ $makalah->id }})"
                     :disabled="generatingAi"
-                    class="w-full sm:w-auto justify-center px-6 min-h-[44px] rounded-xl bg-indigo-50 border border-indigo-200 font-sans text-sm text-indigo-700 hover:bg-indigo-100 flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50">
-                    <span x-show="!generatingAi">✨</span>
+                    class="w-full sm:w-auto justify-center px-6 min-h-[44px] rounded-xl bg-stone-100 border border-stone-300 font-sans text-sm text-neutral-900 hover:bg-stone-200 flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50">
+                    <span x-show="!generatingAi"><i class="ph ph-sparkle text-[1.1em] align-middle"></i></span>
                     <span x-show="generatingAi" class="animate-spin" x-cloak>⏳</span>
                     <span x-text="generatingAi ? 'Sedang mikir...' : 'Generate via AI'"></span>
                 </button>
@@ -109,7 +109,7 @@
 
         <div class="flex justify-between items-center mb-6 border-b pb-4">
             <h2 id="ref-modal-title" class="text-xl font-semibold">Tambah Referensi</h2>
-            <button type="button" onclick="closeReferenceModal()" class="text-stone-400 hover:text-stone-700">✕</button>
+            <button type="button" onclick="closeReferenceModal()" class="text-stone-400 hover:text-stone-700"><i class="ph ph-x text-[1.1em] align-middle"></i></button>
         </div>
 
         <form id="ref-form" action="{{ route('makalah.references.store', $makalah) }}" method="POST">
@@ -121,9 +121,9 @@
                 <div>
                     <label class="block mb-2 text-sm font-medium">Jenis Referensi</label>
                     <select id="ref-type-select" name="type" class="w-full border border-stone-300 rounded-lg p-2.5 text-sm" onchange="toggleRefFields()">
-                        <option value="buku">📘 Buku</option>
-                        <option value="jurnal">📄 Artikel Jurnal</option>
-                        <option value="web">🌐 Website / Artikel Online</option>
+                        <option value="buku"><i class="ph ph-book text-[1.1em] align-middle"></i> Buku</option>
+                        <option value="jurnal"><i class="ph ph-file text-[1.1em] align-middle"></i> Artikel Jurnal</option>
+                        <option value="web"><i class="ph ph-globe text-[1.1em] align-middle"></i> Website / Artikel Online</option>
                     </select>
                 </div>
 

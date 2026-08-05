@@ -108,7 +108,7 @@
                                 <textarea :name="`flashcards[${index}][back]`" x-model="card.back" class="w-full h-full border-none p-2 text-xs focus:outline-none focus:ring-0 bg-transparent resize-none leading-relaxed" rows="2" placeholder="Definisi..."></textarea>
                             </td>
                             <td class="px-1 py-1 text-center align-middle">
-                                <button type="button" @click="removeCard(index)" class="text-rose-600 hover:text-rose-800 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus baris">
+                                <button type="button" @click="removeCard(index)" class="text-rose-600 hover:text-stone-600 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus baris">
                                     ✕
                                 </button>
                             </td>
@@ -126,7 +126,7 @@
             <div class="flex items-center justify-between mb-4 border-b border-black pb-2">
                 <div>
                     <h3 class="text-sm font-bold text-black flex items-center gap-2">
-                        <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                        <svg class="w-4 h-4 text-neutral-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                         Kuis
                     </h3>
                     <p class="text-xs text-slate-500 mt-1">Buat soal-soal kuis pilihan ganda yang akan muncul setelah flashcard tamat. Biarkan kosong jika tidak ingin ada kuis.</p>
@@ -192,7 +192,7 @@
                                         <textarea :name="`questions[${index}][explanation]`" x-model="q.explanation" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight text-slate-500" placeholder="Optional exp..."></textarea>
                                     </td>
                                     <td class="px-1 py-1 text-center align-middle">
-                                        <button type="button" @click="removeQuestion(index)" class="text-rose-600 hover:text-rose-800 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus soal">
+                                        <button type="button" @click="removeQuestion(index)" class="text-rose-600 hover:text-stone-600 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus soal">
                                             ✕
                                         </button>
                                     </td>

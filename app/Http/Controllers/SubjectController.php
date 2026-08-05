@@ -83,17 +83,4 @@ class SubjectController extends Controller
         return redirect()->route('subjects.index')->with('success', 'Mata kuliah dihapus!');
     }
 
-    public function join(Subject $subject): RedirectResponse
-    {
-        $this->subjectService->joinSubject(auth()->user(), $subject);
-
-        return back()->with('success', "Berhasil join {$subject->name}! 🎉");
-    }
-
-    public function leave(Subject $subject): RedirectResponse
-    {
-        $this->subjectService->leaveSubject(auth()->user(), $subject);
-
-        return back()->with('success', "Udah leave {$subject->name}");
-    }
 }

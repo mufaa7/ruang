@@ -17,13 +17,13 @@ class SubjectPolicy
     {
         return $user->isAdmin() || 
                $user->id == $subject->created_by ||
-               $subject->users()->where('users.id', $user->id)->exists();
+               $subject->users()->where('users.id', $user->id)->wherePivot('role', 'owner')->exists();
     }
 
     public function delete(User $user, Subject $subject): bool
     {
         return $user->isAdmin() || 
                $user->id == $subject->created_by ||
-               $subject->users()->where('users.id', $user->id)->exists();
+               $subject->users()->where('users.id', $user->id)->wherePivot('role', 'owner')->exists();
     }
 }

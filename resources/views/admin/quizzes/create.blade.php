@@ -153,7 +153,7 @@
                                 <textarea :name="`questions[${index}][explanation]`" x-model="q.explanation" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight text-slate-500" :placeholder="q.type === 'essay' ? 'Kunci Jawaban/Rubrik' : 'Optional exp...'"></textarea>
                             </td>
                             <td class="px-1 py-1 text-center align-middle">
-                                <button type="button" @click="removeQuestion(index)" class="text-rose-600 hover:text-rose-800 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus soal">
+                                <button type="button" @click="removeQuestion(index)" class="text-rose-600 hover:text-stone-600 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus soal">
                                     ✕
                                 </button>
                             </td>

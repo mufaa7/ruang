@@ -11,7 +11,7 @@
                 </button>
             </form>
         @else
-            <span class="text-xs text-[#4a6741] font-mono bg-[#4a6741]/10 px-3 py-2 rounded-lg">✓ published</span>
+            <span class="text-xs text-[#4a6741] font-mono bg-[#4a6741]/10 px-3 py-2 rounded-lg"><i class="ph ph-check text-[1.1em] align-middle"></i> published</span>
         @endif
         <form method="POST" action="{{ route('papers.destroy', $paper) }}">
             @csrf @method('DELETE')
@@ -81,9 +81,9 @@
                             <div>
                                 <label class="block text-xs text-[#8c8479] mb-1.5">Visibilitas</label>
                                 <select name="visibility" class="w-full bg-[#f5f0e8] border border-stone-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#c45c2a] transition dark:border-slate-700/50">
-                                    <option value="private"      {{ $paper->visibility === 'private'      ? 'selected' : '' }}>🔒 Private</option>
-                                    <option value="subject_only" {{ $paper->visibility === 'subject_only' ? 'selected' : '' }}>🏫 Subject only</option>
-                                    <option value="public"       {{ $paper->visibility === 'public'       ? 'selected' : '' }}>🌍 Public</option>
+                                    <option value="private"      {{ $paper->visibility === 'private'      ? 'selected' : '' }}><i class="ph ph-lock text-[1.1em] align-middle"></i> Private</option>
+                                    <option value="subject_only" {{ $paper->visibility === 'subject_only' ? 'selected' : '' }}><i class="ph ph-buildings text-[1.1em] align-middle"></i> Subject only</option>
+                                    <option value="public"       {{ $paper->visibility === 'public'       ? 'selected' : '' }}><i class="ph ph-globe-hemisphere-west text-[1.1em] align-middle"></i> Public</option>
                                 </select>
                             </div>
                         </div>

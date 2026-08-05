@@ -1,4 +1,4 @@
-<div class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200 dark:border-slate-700/50">
+<div class="sticky top-0 z-40 liquid-glass border-b border-stone-200 dark:border-slate-700/50">
 
     <div class="max-w-6xl mx-auto">
 
@@ -35,7 +35,7 @@
                     id="btn-image"
                     class="toolbar-btn">
 
-                    🖼️
+                    <i class="ph ph-image text-[1.1em] align-middle"></i>️
                     Gambar
 
                 </button>
@@ -44,7 +44,7 @@
                     id="btn-table"
                     class="toolbar-btn">
 
-                    📊
+                    <i class="ph ph-chart-bar text-[1.1em] align-middle"></i>
                     Tabel
 
                 </button>
@@ -71,7 +71,7 @@
                     id="btn-reference"
                     class="toolbar-btn">
 
-                    📚
+                    <i class="ph ph-books text-[1.1em] align-middle"></i>
                     Sitasi
 
                 </button>
@@ -91,7 +91,7 @@
                            rounded-full
                            text-xs">
 
-                    ✔
+                    <i class="ph ph-check text-[1.1em] align-middle"></i>
 
                     Format Akademik
 
@@ -99,9 +99,9 @@
 
                 <button
                     id="btn-ai"
-                    class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                    class="px-4 py-2 rounded-lg bg-neutral-900 text-white hover:bg-neutral-900">
 
-                    ✨
+                    <i class="ph ph-sparkle text-[1.1em] align-middle"></i>
 
                     Bantu AI
 

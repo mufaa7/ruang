@@ -70,7 +70,7 @@ class AiSettingController extends Controller
             ];
         }
 
-        return view('admin.ai-settings', compact('settings', 'providers', 'features', 'stats', 'activeMapping'));
+        return view('admin.settings.ai', compact('settings', 'providers', 'features', 'stats', 'activeMapping'));
     }
 
     public function store(Request $request, AIManager $aiManager)

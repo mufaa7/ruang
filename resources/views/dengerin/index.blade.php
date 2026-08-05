@@ -4,7 +4,7 @@
     <x-slot name="pageHeader">
         <div class="mb-8">
             <h1 class="text-2xl font-bold text-neutral-900 font-geist flex items-center gap-2 dark:text-white">
-                <i class="ph-fill ph-headphones text-3xl text-neutral-800 dark:text-slate-100"></i> Lagu ke-17, tugas masih judul doang.
+                <i class="ph-fill ph-headphones text-3xl text-neutral-900 dark:text-slate-100"></i> Lagu ke-17, tugas masih judul doang.
             </h1>
             <p class="text-sm text-neutral-500 mt-1 dark:text-slate-400">jangan sampe albumnya tamat duluan.</p>
         </div>

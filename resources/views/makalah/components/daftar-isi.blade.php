@@ -15,7 +15,7 @@
             <span
                 class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs bg-sky-100 text-sky-700">
 
-                🔄 Otomatis
+                <i class="ph ph-arrows-clockwise text-[1.1em] align-middle"></i> Otomatis
 
             </span>
 
@@ -61,7 +61,7 @@
 
             <div class="flex items-start gap-3">
 
-                <span class="text-xl">💡</span>
+                <span class="text-xl"><i class="ph ph-lightbulb text-[1.1em] align-middle"></i></span>
 
                 <div>
 

@@ -20,10 +20,12 @@ class DuckController extends Controller
     public function event(Request $request)
     {
         $request->validate([
-            'event' => 'required|string|max:50'
+            'event' => 'required|string|max:50',
+            'page_title' => 'nullable|string|max:200',
+            'page_url' => 'nullable|string|max:200',
         ]);
 
-        $dialogue = $this->duckService->getEventDialogue($request->event);
+        $dialogue = $this->duckService->getEventDialogue($request->event, $request->page_title, $request->page_url);
 
         return response()->json([
             'success' => true,
@@ -37,7 +39,7 @@ class DuckController extends Controller
     public function chat(Request $request)
     {
         $request->validate([
-            'message' => 'required|string|max:500'
+            'message' => 'required|string|max:500',
         ]);
 
         $response = $this->duckService->chat($request->message);

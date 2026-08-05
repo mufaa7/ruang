@@ -31,12 +31,12 @@
                         <td class="px-6 py-4 text-black border-r border-black">{{ $material->subject->name ?? '-' }}</td>
                         <td class="px-6 py-4 font-bold text-black border-r border-black" title="{{ $material->title }}">
                             @if($material->file_path)
-                                <a href="{{ asset('storage/' . $material->file_path) }}" target="_blank" class="hover:underline hover:text-indigo-600 flex items-center gap-1">
+                                <a href="{{ asset('storage/' . $material->file_path) }}" target="_blank" class="hover:underline hover:text-stone-600 flex items-center gap-1">
                                     <i class="ph ph-file-pdf"></i>
                                     {{ Str::limit($material->title, 40) }}
                                 </a>
                             @else
-                                <button type="button" onclick="alert('Isi Teks:\n\n' + {{ json_encode($material->content) }})" class="hover:underline hover:text-indigo-600 flex items-center gap-1">
+                                <button type="button" onclick="alert('Isi Teks:\n\n' + {{ json_encode($material->content) }})" class="hover:underline hover:text-stone-600 flex items-center gap-1">
                                     <i class="ph ph-text-t"></i>
                                     {{ Str::limit($material->title, 40) }}
                                 </button>

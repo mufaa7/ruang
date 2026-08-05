@@ -12,8 +12,8 @@
     <style>
         /* Animasi napas kembang-kempis santai */
         @keyframes idle-breathe {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(0.97) translateY(2px); }
+            0%, 100% { transform: scaleY(1) translateY(0); }
+            50% { transform: scaleY(0.94) translateY(3px); }
         }
         /* Animasi tamborin goyang tipis terus-menerus */
         @keyframes idle-jingle {
@@ -30,7 +30,7 @@
         }
 
         .duck-body { 
-            animation: idle-breathe 3s ease-in-out infinite; 
+            animation: idle-breathe 3s ease-in-out infinite !important; 
             transform-origin: center bottom; 
         }
         .tambourine-group { 
@@ -54,7 +54,7 @@
     <div class="relative w-full h-full">
         <!-- Gambar Bebek -->
         <img src="{{ asset('images/bebek.png') }}" 
-             class="w-full h-full object-contain drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-2 group-active:scale-95" 
+             class="w-full h-full object-contain drop-shadow-xl" 
              :class="['dengerin', 'konser', 'asbun'].includes(mood) ? 'duck-shaking' : 'duck-body'"
              alt="Bebek">
 
@@ -68,9 +68,9 @@
             </div>
             
             <!-- DENGERIN (music notes) -->
-            <div x-show="mood === 'dengerin'" class="animate-bounce text-indigo-500 font-bold">
-                <span class="text-xl absolute right-6 top-2">♪</span>
-                <span class="text-sm absolute right-2 -top-2">♫</span>
+            <div x-show="mood === 'dengerin'" class="animate-bounce text-neutral-900 font-bold">
+                <span class="text-xl absolute right-6 top-2"><i class="ph ph-music-notes text-[1.1em] align-middle"></i></span>
+                <span class="text-sm absolute right-2 -top-2"><i class="ph ph-music-notes-simple text-[1.1em] align-middle"></i></span>
             </div>
 
             <!-- BENGONG (...) -->
@@ -88,22 +88,22 @@
             </div>
 
             <!-- PEDE (Sparkles) -->
-            <div x-show="mood === 'pede'" class="animate-pulse text-amber-400 text-xl absolute right-4 top-0">✨</div>
+            <div x-show="mood === 'pede'" class="animate-pulse text-amber-400 text-xl absolute right-4 top-0"><i class="ph ph-sparkle text-[1.1em] align-middle"></i></div>
 
             <!-- ASBUN (Talkative bubble) -->
-            <div x-show="mood === 'asbun'" class="animate-bounce text-sky-400 text-xl absolute right-4 top-0">🗯️</div>
+            <div x-show="mood === 'asbun'" class="animate-bounce text-sky-400 text-xl absolute right-4 top-0"><i class="ph ph-chat-circle text-[1.1em] align-middle"></i>️</div>
 
             <!-- LAPER (Chicken leg / food) -->
-            <div x-show="mood === 'laper'" class="animate-pulse text-red-400 text-xl absolute right-4 top-0">🍗</div>
+            <div x-show="mood === 'laper'" class="animate-pulse text-red-400 text-xl absolute right-4 top-0"><i class="ph ph-bone text-[1.1em] align-middle"></i></div>
 
             <!-- KONSER (Mic) -->
             <div x-show="mood === 'konser'" class="animate-bounce text-purple-500">
-                <span class="text-xl absolute right-6 top-2">🎤</span>
-                <span class="text-sm absolute right-2 -top-2">♪</span>
+                <span class="text-xl absolute right-6 top-2"><i class="ph ph-microphone text-[1.1em] align-middle"></i></span>
+                <span class="text-sm absolute right-2 -top-2"><i class="ph ph-music-notes text-[1.1em] align-middle"></i></span>
             </div>
 
             <!-- OVERTHINKING (Swirl) -->
-            <div x-show="mood === 'overthinking'" class="animate-spin text-slate-500 text-xl absolute right-4 top-0" style="transform-origin: center;">🌀</div>
+            <div x-show="mood === 'overthinking'" class="animate-spin text-slate-500 text-xl absolute right-4 top-0" style="transform-origin: center;"><i class="ph ph-spiral text-[1.1em] align-middle"></i></div>
         </div>
     </div>
 
@@ -117,7 +117,7 @@
          x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
          class="absolute top-[50px] right-[120px] mt-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-5 py-3 rounded-2xl rounded-tr-none shadow-lg border border-slate-200 dark:border-slate-700 min-w-[140px] max-w-[260px] text-base font-medium shadow-[0_4px_20px_rgba(0,0,0,0.08)] cursor-pointer z-20"
          @click="openChat()">
-        <p x-text="currentMessage" class="leading-relaxed"></p>
+        <p x-text="currentMessage" class="leading-relaxed" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"></p>
     </div>
 
     <!-- Mini Chat Popover (Now below Duck) -->
@@ -132,26 +132,33 @@
          class="absolute top-32 right-2 mt-2 w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
         
         <!-- Chat History -->
-        <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-slate-50/50 dark:bg-slate-900/50" id="duck-chat-history">
+        <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
             <template x-for="msg in chatHistory">
                 <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
-                    <span class="text-[10px] font-medium mb-0.5 opacity-50 px-1" x-text="msg.role === 'user' ? 'Lu' : 'Duck'"></span>
-                    <div class="px-3 py-1.5 rounded-2xl text-[13px] inline-block"
+                    <div class="px-3.5 py-1.5 text-[14.5px] inline-block shadow-none relative"
+                         style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;"
                          :class="msg.role === 'user' 
-                                ? 'bg-indigo-600 text-white rounded-tr-sm' 
-                                : 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-sm'">
+                                ? 'bg-[#007AFF] text-white rounded-[18px] rounded-br-[4px]' 
+                                : 'bg-[#E5E5EA] dark:bg-[#262628] text-black dark:text-white rounded-[18px] rounded-bl-[4px]'">
                         <span x-text="msg.content"></span>
                     </div>
+                    <!-- Read Receipt -->
+                    <template x-if="msg.role === 'user' && msg.status && isLastUserMessage(msg)">
+                        <div class="flex justify-end w-full mt-1 pr-1">
+                            <span class="text-[10px] text-slate-400 font-sans tracking-wide" x-text="msg.status === 'seen' ? 'Seen' : 'Delivered'"></span>
+                        </div>
+                    </template>
                 </div>
             </template>
-            <div x-show="isTyping" class="text-xs text-slate-500 italic px-1 animate-pulse">duck ngetik...</div>
+            <div x-show="isTyping" class="text-[11px] text-slate-400 italic px-2 animate-pulse font-sans">duck ngetik...</div>
         </div>
 
         <!-- Chat Input -->
-        <div class="border-t border-slate-100 dark:border-slate-800 p-2 flex gap-2 bg-white dark:bg-slate-900">
-            <input type="text" x-model="chatInput" @keydown.enter.prevent.stop="sendMessage()" placeholder="ngomong..." class="flex-1 bg-slate-100 dark:bg-slate-800 text-base rounded-xl px-3 py-1.5 border-none focus:ring-1 focus:ring-indigo-500 outline-none text-slate-800 dark:text-white" :readonly="isTyping" autocomplete="off">
-            <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-indigo-500 hover:bg-indigo-600 flex items-center justify-center text-white transition-colors disabled:opacity-50" :disabled="!chatInput.trim() || isTyping">
-                <i class="ph-bold ph-paper-plane-right text-sm"></i>
+        <div class="border-t border-slate-200 dark:border-[#2C2C2E] p-2 flex gap-2 bg-[#F9F9F9] dark:bg-[#1C1C1E] font-sans items-center">
+            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none" autocomplete="off" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007AFF] hover:opacity-80 flex items-center justify-center text-white transition-opacity disabled:opacity-30 shrink-0" :disabled="!chatInput.trim()">
+                <i class="ph-bold ph-arrow-up text-[16px]"></i>
+
             </button>
         </div>
     </div>
@@ -210,9 +217,16 @@
             bubbleTimer: null,
             idleTimer: null,
             randomTimer: null,
-            chatHistory: [],
+            chatBuffer: [],
+            chatDebounceTimer: null,
+            chatHistory: {!! json_encode(session()->get('duck_ui_history', [])) !!},
             
             init() {
+                // Scroll ke bawah kalau ada history pas pertama buka
+                if (this.chatHistory.length > 0) {
+                    this.scrollToBottom();
+                }
+                
                 // Initial welcome after 5s
                 setTimeout(() => this.triggerEvent('dashboard'), 5000);
                 
@@ -338,14 +352,58 @@
                 this.chatVisible = false;
             },
 
+            isLastUserMessage(msg) {
+                const index = this.chatHistory.indexOf(msg);
+                if (index === -1) return false;
+                for (let i = index + 1; i < this.chatHistory.length; i++) {
+                    if (this.chatHistory[i].role === 'user') return false;
+                }
+                return true;
+            },
+
+            delaySend() {
+                // Kalau user lagi ngetik dan ada chat tertunda (chatBuffer), tunda lagi
+                if (this.chatDebounceTimer) {
+                    clearTimeout(this.chatDebounceTimer);
+                    this.chatDebounceTimer = setTimeout(() => {
+                        this.processChatBuffer();
+                    }, 2000); // 2 detik setelah user BERHENTI ngetik
+                }
+            },
+
             async sendMessage() {
                 if (!this.chatInput.trim()) return;
                 
                 const userMsg = this.chatInput.trim();
-                this.chatHistory.push({ role: 'user', content: userMsg });
+                const msgIndex = this.chatHistory.length;
+                this.chatHistory.push({ role: 'user', content: userMsg, status: 'sent' });
+                this.chatBuffer.push(userMsg);
+                
                 this.chatInput = '';
-                this.isTyping = true;
+                this.isTyping = false; // Belum ngetik, nunggu dia baca (Seen)
                 this.scrollToBottom();
+
+                clearTimeout(this.chatDebounceTimer);
+                
+                this.chatDebounceTimer = setTimeout(() => {
+                    this.processChatBuffer();
+                }, 800); // Kurangi jadi 0.8 detik biar kerasa lebih cepet
+            },
+            
+            async processChatBuffer() {
+                if (this.chatBuffer.length === 0) return;
+                
+                // Tandai semua pesan user di history jadi 'Seen'
+                for(let i = this.chatHistory.length - 1; i >= 0; i--) {
+                    if(this.chatHistory[i].role === 'user' && this.chatHistory[i].status === 'sent') {
+                        this.chatHistory[i].status = 'seen';
+                    }
+                }
+                
+                this.isTyping = true; // Bebek mulai ngetik setelah Seen
+                
+                const combinedMessage = this.chatBuffer.join('\n');
+                this.chatBuffer = []; // Kosongkan buffer
 
                 try {
                     const res = await fetch('/duck/chat', {
@@ -355,7 +413,9 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                             'Accept': 'application/json'
                         },
-                        body: JSON.stringify({ message: userMsg })
+                        body: JSON.stringify({ 
+                            message: combinedMessage
+                        })
                     });
                     const data = await res.json();
                     
@@ -384,11 +444,14 @@
                 } catch (e) {
                     this.chatHistory.push({ role: 'duck', content: 'ngantuk gue.' });
                 } finally {
-                    this.isTyping = false;
+                    // Cek apakah ada ngetik baru saat lagi fetch
+                    if (this.chatBuffer.length === 0) {
+                        this.isTyping = false;
+                    }
                     this.scrollToBottom();
                     setTimeout(() => {
                         const input = this.$el.querySelector('input');
-                        if (input) input.focus();
+                        if (input && this.chatVisible) input.focus();
                     }, 50);
                 }
             },

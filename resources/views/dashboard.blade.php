@@ -2,10 +2,6 @@
     <x-slot name="pageTitle">Beranda</x-slot>
     <x-slot name="pageSubtitle">hari ini, {{ strtolower(now()->translatedFormat('l, d F Y')) }}. semoga sehat selalu.</x-slot>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
-        .quote-editor { font-family: 'Source Serif 4', Georgia, serif; }
-    </style>
 
     <div class="animate-fadeIn">
 
@@ -13,12 +9,12 @@
     <div class="mb-10 relative z-0">
         {{-- No shapes or vinyl here anymore, moved to app layout --}}
 
-        <div class="flex items-start justify-between relative z-10">
-            <div class="max-w-2xl">
-                <h1 id="dynamicGreeting" class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between relative z-10 md:gap-4">
+            <div class="w-full md:max-w-2xl mt-4 md:mt-0">
+                <h1 id="dynamicGreeting" class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white pr-20 md:pr-0">
                     {!! $greeting !!}
                 </h1>
-                <blockquote class="mt-4 border-l-2 border-stone-200 pl-4 dark:border-slate-700/50">
+                <blockquote class="mt-4 border-l-2 border-stone-200 pl-4 dark:border-slate-700/50 pr-2 md:pr-0">
                     <p class="quote text-sm sm:text-base text-neutral-600 leading-relaxed dark:text-slate-300">
                         "{{ $quote['text'] }}"
                     </p>
@@ -29,7 +25,7 @@
             </div>
 
             {{-- Flip Clock --}}
-            <div class="hidden lg:flex flex-col items-end justify-start">
+            <div class="absolute top-0 right-0 md:relative md:top-auto md:right-auto flex flex-col items-end justify-start scale-[0.6] sm:scale-75 md:scale-100 origin-top-right md:origin-right shrink-0 mt-0 md:-mt-10 lg:mt-0">
                 <div x-data="{
                         hours: '{{ now()->format('H') }}',
                         minutes: '{{ now()->format('i') }}',
@@ -80,15 +76,15 @@
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-2">
                 <h3 class="text-sm font-medium text-neutral-400 tracking-widest uppercase">ngapain.?</h3>
                 <div class="flex flex-wrap gap-3 sm:gap-4">
-                    <a href="{{ route('makalah.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-neutral-500 hover:text-indigo-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
+                    <a href="{{ route('makalah.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-neutral-500 hover:text-stone-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
                         <i class="ph ph-pencil-simple-line text-lg"></i>
                         <span>nugas</span>
                     </a>
-                    <a href="#" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-neutral-500 hover:text-emerald-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
+                    <a href="{{ route('coretan.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-neutral-500 hover:text-emerald-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
                         <i class="ph ph-notebook text-lg"></i>
                         <span>nyatet</span>
                     </a>
-                    <a href="#" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-neutral-500 hover:text-rose-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
+                    <a href="{{ route('subjects.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-neutral-500 hover:text-rose-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
                         <i class="ph ph-target text-lg"></i>
                         <span>latihan</span>
                     </a>
@@ -103,7 +99,7 @@
             <div class="col-span-1 md:col-span-8 row-span-2">
                 {{-- Continue Writing --}}
         @if(isset($activeDoc) && $activeDoc)
-            <a href="{{ route('makalah.edit', $activeDoc->id) }}" class="dashboard-card group block p-6 sm:p-8 lg:p-10 h-full flex flex-col justify-between transition-all active:scale-[0.98]">
+            <a href="{{ route('makalah.edit', $activeDoc->id) }}" class="dashboard-card group block p-6 sm:p-8 h-full flex flex-col justify-between transition-all active:scale-[0.98]">
                 <span class="text-sm text-neutral-500 dark:text-slate-400">
                     lanjutin yg tadi.
                 </span>
@@ -125,7 +121,7 @@
                 </div>
             </a>
         @else
-            <div class="dashboard-card border-dashed border-stone-300 p-6 sm:p-8 lg:p-10 h-full flex flex-col justify-center text-center dark:border-slate-700">
+            <div class="dashboard-card border-dashed border-stone-300 p-6 sm:p-8 h-full flex flex-col justify-center text-center dark:border-slate-700">
                 <h2 class="text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-white">
                     belom ada yg dikerjain.
                 </h2>
@@ -133,7 +129,7 @@
                     bikin makalah pertama dulu.
                 </p>
                 <div class="mt-6">
-                    <a href="{{ route('makalah.create') }}" class="inline-flex rounded-xl bg-neutral-900 px-6 min-h-11 items-center justify-center text-sm font-medium text-white transition hover:bg-neutral-800 active:scale-95">
+                    <a href="{{ route('makalah.create') }}" class="inline-flex rounded-xl bg-neutral-900 px-6 min-h-11 items-center justify-center text-sm font-medium text-white transition hover:bg-stone-700 active:scale-95">
                         mulai nulis
                     </a>
                 </div>
@@ -143,113 +139,7 @@
 
             <div class="col-span-1 md:col-span-4 row-span-2">
                 {{-- Focus --}}
-                <style>
-                    .pomodoro-timer {
-                        width: 220px;
-                        height: 220px;
-                        border-radius: 999px;
-                        background: #fff;
-                        border: 2px solid #ece8e2;
-                        position: relative;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        box-shadow: 0 10px 25px rgba(0,0,0,.04);
-                        z-index: 10;
-                        transition: .4s;
-                    }
-                    .pomodoro-timer-inner {
-                        width: 170px;
-                        height: 170px;
-                        border-radius: 999px;
-                        border: 1px solid #ececec;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        background: #fff;
-                        z-index: 10;
-                    }
-                    .pomodoro-time {
-                        font-family: 'Cormorant Garamond', serif;
-                        font-size: 64px;
-                        line-height: 1;
-                        color: #171717;
-                    }
-                    .pomodoro-mode {
-                        margin-top: 8px;
-                        letter-spacing: .3em;
-                        text-transform: uppercase;
-                        color: #888;
-                        font-size: 11px;
-                    }
-                    /* The realistic 60 ticks using repeating conic gradient */
-                    .pomodoro-timer::before {
-                        content: "";
-                        position: absolute;
-                        inset: 4px;
-                        border-radius: 999px;
-                        background: repeating-conic-gradient(from 0deg, #d9d5ce 0deg 2deg, transparent 2deg 6deg);
-                        opacity: .7;
-                        z-index: 1;
-                    }
-                    .pomodoro-timer-knob {
-                        position: absolute;
-                        right: -52px;
-                        width: 64px;
-                        height: 120px;
-                        background: #f5f4f2;
-                        border-radius: 0 60px 60px 0;
-                        border: 2px solid #e5e2dc;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        transform: translateX(-45px);
-                        opacity: 0;
-                        transition: .45s cubic-bezier(.22,1,.36,1);
-                        z-index: 0;
-                        cursor: pointer;
-                    }
-                    /* For touch devices, make knob slightly visible or fully functional */
-                    @media (hover: none) {
-                        .pomodoro-timer-knob {
-                            transform: translateX(-15px);
-                            opacity: 1;
-                        }
-                    }
-                    .group:hover .pomodoro-timer-knob,
-                    .is-running .pomodoro-timer-knob {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                    @media (hover: none) {
-                        .is-running .pomodoro-timer-knob {
-                            transform: translateX(0) !important;
-                        }
-                    }
-                    .is-running .pomodoro-timer-knob {
-                        transform: translateX(-15px) !important;
-                    }
-                    .pomodoro-knob-grip {
-                        width: 14px;
-                        height: 72px;
-                        border-radius: 999px;
-                        background: repeating-linear-gradient(90deg, #bbb, #bbb 2px, transparent 2px, transparent 4px);
-                    }
-                    .group:hover .pomodoro-timer {
-                        transform: rotate(-3deg);
-                        box-shadow: 0 20px 45px rgba(0,0,0,.08);
-                    }
-                    /* Running pulse animation */
-                    @keyframes pulse-timer {
-                        0% { box-shadow: 0 10px 25px rgba(0,0,0,.04); border-color: #ece8e2; }
-                        50% { box-shadow: 0 15px 35px rgba(16,185,129,.15); border-color: #a7f3d0; }
-                        100% { box-shadow: 0 10px 25px rgba(0,0,0,.04); border-color: #ece8e2; }
-                    }
-                    .is-running .pomodoro-timer {
-                        animation: pulse-timer 2s infinite ease-in-out;
-                    }
-                </style>
+
                 <div x-data class="dashboard-card h-full flex flex-col items-center justify-center group overflow-hidden relative" :class="$store.pomodoro.isRunning ? 'is-running' : ''">
                     <p class="absolute top-6 left-6 text-sm text-neutral-500 dark:text-slate-400">
                         fokus.
@@ -277,7 +167,7 @@
                         </div>
                     </div>
 
-                    <button @click="$store.pomodoro.reset()" class="absolute bottom-6 text-[10px] uppercase tracking-widest text-neutral-400 hover:text-neutral-600 transition active:scale-95 p-2">
+                    <button @click="$store.pomodoro.reset()" class="absolute bottom-6 text-[10px] uppercase tracking-widest text-neutral-400 hover:text-stone-600 transition active:scale-95 p-2">
                         reset
                     </button>
                 </div>
@@ -285,7 +175,7 @@
 
             <div class="col-span-1 md:col-span-5 flex flex-col gap-6 lg:gap-8">
                 {{-- Music --}}
-                <div class="dashboard-card p-4 sm:p-8 lg:p-10">
+                <div class="dashboard-card p-6 sm:p-8">
                    {{-- Premium Music Widget --}}
 @if(isset($currentTrack) && $currentTrack)
 
@@ -346,12 +236,13 @@
     }
 </style>
 
-<div class="ruang-music-widget group mt-6 flex flex-row items-center gap-4 sm:items-start sm:gap-6">
+<div class="ruang-music-widget group mt-6 flex flex-row items-start gap-4 pb-8 sm:pb-0 sm:gap-6" id="wonderwall-widget">
+    <audio id="wonderwall-audio" src="{{ asset('audio/wonderwall.mp3') }}" preload="auto"></audio>
     {{-- Artwork --}}
-    <div class="relative h-32 w-32 shrink-0 sm:h-40 sm:w-40">
+    <div class="ruang-artwork relative z-20 h-40 w-40 shrink-0">
         {{-- Vinyl --}}
         <div
-            class="ruang-vinyl absolute left-[68%] top-1/2 z-0 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%] sm:h-[130px] sm:w-[130px]"
+            class="ruang-vinyl absolute left-[68%] top-1/2 -z-10 h-[130px] w-[130px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%]"
             style="background: radial-gradient(circle at center, #e8ddc4 0 11%, #141414 12%), repeating-radial-gradient(circle, #151515 0, #151515 .8px, #202020 .8px, #202020 1.6px);"
         >
             <div class="absolute left-4 top-4 h-8 w-20 rounded-full bg-white/10 blur-xl"></div>
@@ -376,14 +267,11 @@
         <img
             src="{{ asset('images/wonderwall.jpg') }}"
             alt="Wonderwall"
-            class="relative z-20 h-full w-full rounded-[12px] object-cover shadow-[0_22px_55px_rgba(0,0,0,.12)] transition duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 sm:rounded-[16px]"
+            class="ruang-cover relative z-20 h-full w-full rounded-[12px] object-cover shadow-[0_22px_55px_rgba(0,0,0,.12)] transition duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 sm:rounded-[16px]"
         />
 
         {{-- Lyrics typewriter --}}
-        <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+1rem+18px)] z-30 w-[200px] font-mono text-[9px] text-neutral-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-neutral-400 sm:w-[250px] sm:text-[11px]">
-            <p class="ruang-line" data-text="Because maybeee,"></p>
-            <p class="ruang-line mt-0.5" data-text="you're gonna be the one that saves me"></p>
-            <p class="ruang-line mt-0.5" data-text="And after all, you're my wonderwall"></p>
+        <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+12px)] z-30 w-[220px] font-mono text-[10px] text-neutral-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-neutral-400 sm:w-[250px] sm:top-[calc(100%+40px)] sm:text-[10px]">
         </div>
     </div>
 
@@ -421,12 +309,12 @@
 
             <div class="relative">
                 <div class="h-[2px] rounded-full bg-stone-200 dark:bg-slate-800"></div>
-                <div class="absolute left-[52%] -top-[5px] h-3 w-3 rounded-full bg-neutral-900 dark:bg-white"></div>
+                <div class="ruang-progress absolute left-[41%] -top-[5px] h-3 w-3 rounded-full bg-neutral-900 dark:bg-white transition-all duration-[46s] ease-linear"></div>
             </div>
 
             <div class="mt-3 flex items-center justify-between text-xs text-neutral-400 sm:text-sm">
-                <span>01:43</span>
-                <span>02:35</span>
+                <span>01:22</span>
+                <span>02:08</span>
             </div>
 
             <div class="mt-4 flex items-center justify-center gap-6 text-neutral-400">
@@ -434,8 +322,8 @@
                     <i class="ph-fill ph-skip-back text-[15px]"></i>
                 </button>
 
-                <button type="button" aria-label="Putar lagu" class="text-neutral-900 dark:text-white">
-                    <i class="ph-fill ph-play text-[20px]"></i>
+                <button type="button" id="wonderwall-play-btn" aria-label="Putar lagu" class="text-neutral-900 dark:text-white transition-transform active:scale-90">
+                    <i id="wonderwall-play-icon" class="ph-fill ph-play text-[20px]"></i>
                 </button>
 
                 <button type="button" aria-label="Lagu berikutnya">
@@ -451,31 +339,63 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
     if (widget.dataset.lyricsBound === '1') return;
     widget.dataset.lyricsBound = '1';
 
-    const lineEls = Array.from(widget.querySelectorAll('.ruang-line'));
-    const CHAR_DELAY = 45;
-    const LINE_GAP = 200;
+    // Player Logic
+    const audio = widget.querySelector('#wonderwall-audio');
+    const playBtn = widget.querySelector('#wonderwall-play-btn');
+    const playIcon = widget.querySelector('#wonderwall-play-icon');
+    const vinyl = widget.querySelector('.ruang-vinyl');
+    const cover = widget.querySelector('.ruang-cover');
+    const progress = widget.querySelector('.ruang-progress');
+    const lyricsBox = widget.querySelector('.ruang-lyrics');
+    
+    // Lyrics Data and Timings (in seconds)
+    const lyricsData = [
+        { 
+            time: 0.1, 
+            delay: 80,
+            lines: [
+                "And all the roads we have to walk", 
+                "are winding",
+                "And all the lights that lead us there",
+                "are blinding"
+            ] 
+        },
+        { 
+            time: 11.5, 
+            delay: 80,
+            lines: [
+                "There are many things that I", 
+                "would like to say to you",
+                "But I don't know how"
+            ] 
+        },
+        { 
+            time: 21.5, 
+            delay: 120,
+            lines: [
+                "Because maybeeee", 
+                "You're gonna be the one that saves me",
+                "And after all",
+                "You're my wonderwall"
+            ] 
+        }
+    ];
 
-    let runId = 0;
+    let typeRunId = 0;
+    let activeBlock = -1;
 
-    function resetLines() {
-        lineEls.forEach(function (el) {
-            el.textContent = '';
-            el.classList.remove('caret');
-        });
-    }
-
-    function typeLine(el, myRun) {
+    function typeLine(el, myRun, delay) {
         return new Promise(function (resolve) {
             const text = el.dataset.text;
             let i = 0;
             el.classList.add('caret');
 
             (function step() {
-                if (myRun !== runId) return;
+                if (myRun !== typeRunId) return;
                 el.textContent = text.slice(0, i);
                 i++;
                 if (i <= text.length) {
-                    setTimeout(step, CHAR_DELAY);
+                    setTimeout(step, delay);
                 } else {
                     el.classList.remove('caret');
                     resolve();
@@ -484,27 +404,112 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
         });
     }
 
-    async function runSequence(myRun) {
-        resetLines();
-        for (let idx = 0; idx < lineEls.length; idx++) {
-            if (myRun !== runId) return;
-            await typeLine(lineEls[idx], myRun);
-            if (myRun !== runId) return;
-            if (idx === lineEls.length - 1) {
-                lineEls[idx].classList.add('caret');
+    function renderLyricsBlock(blockIndex, overrideDelay = null) {
+        typeRunId++;
+        const myRun = typeRunId;
+        lyricsBox.innerHTML = '';
+        const block = lyricsData[blockIndex];
+        const lines = block.lines;
+        const delay = overrideDelay !== null ? overrideDelay : (block.delay || 80);
+        
+        const els = lines.map((text, i) => {
+            const p = document.createElement('p');
+            p.className = 'ruang-line' + (i > 0 ? ' mt-0.5' : '');
+            p.dataset.text = text;
+            lyricsBox.appendChild(p);
+            return p;
+        });
+        
+        (async function() {
+            for (let idx = 0; idx < els.length; idx++) {
+                if (myRun !== typeRunId) return;
+                await typeLine(els[idx], myRun, delay);
+                if (myRun !== typeRunId) return;
+                if (idx === els.length - 1) {
+                    els[idx].classList.add('caret');
+                }
+                await new Promise(r => setTimeout(r, 200));
             }
-            await new Promise(function (r) { setTimeout(r, LINE_GAP); });
-        }
+        })();
     }
 
-    widget.addEventListener('mouseenter', function () {
-        runId++;
-        runSequence(runId);
+    if (playBtn && audio) {
+        let isPlaying = false;
+        
+        const stopPlaying = () => {
+            isPlaying = false;
+            audio.pause();
+            audio.currentTime = 0;
+            playIcon.classList.replace('ph-pause', 'ph-play');
+            
+            // Revert animations
+            vinyl.classList.remove('!animation-[ruang-vinyl-spin_4s_linear_infinite]', 'left-[92%]');
+            cover.classList.remove('-translate-x-2', '-translate-y-1');
+            progress.classList.remove('left-[100%]');
+            lyricsBox.classList.remove('opacity-100');
+            
+            // Reset lyrics state
+            activeBlock = -1;
+            lyricsBox.innerHTML = '';
+        };
+
+        playBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (isPlaying) {
+                stopPlaying();
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    playIcon.classList.replace('ph-play', 'ph-pause');
+                    
+                    // Trigger animations
+                    vinyl.classList.add('!animation-[ruang-vinyl-spin_4s_linear_infinite]', 'left-[92%]');
+                    cover.classList.add('-translate-x-2', '-translate-y-1');
+                    progress.classList.add('left-[100%]');
+                    lyricsBox.classList.add('opacity-100');
+                }).catch(err => alert('Gagal memutar lagu: ' + err.message));
+            }
+        });
+        
+        audio.addEventListener('timeupdate', () => {
+            if (isPlaying) {
+                let newBlock = -1;
+                for (let i = lyricsData.length - 1; i >= 0; i--) {
+                    if (audio.currentTime >= lyricsData[i].time) {
+                        newBlock = i;
+                        break;
+                    }
+                }
+                
+                if (newBlock !== activeBlock && newBlock !== -1) {
+                    activeBlock = newBlock;
+                    renderLyricsBlock(newBlock);
+                }
+            }
+        });
+
+        audio.addEventListener('ended', stopPlaying);
+    }
+    
+    // Hover logic when not playing
+    widget.addEventListener('mouseenter', () => {
+        if (audio && playBtn) {
+            // Check if playing property is false (meaning not currently triggered by play button)
+            if (playIcon.classList.contains('ph-play')) {
+                // Selalu tampilkan lirik reff (block 2) dengan kecepatan khusus 60ms saat di-hover tanpa di-play
+                renderLyricsBlock(2, 60);
+            }
+        }
     });
 
-    widget.addEventListener('mouseleave', function () {
-        runId++;
-        resetLines();
+    widget.addEventListener('mouseleave', () => {
+        if (audio && playBtn) {
+            if (playIcon.classList.contains('ph-play')) {
+                typeRunId++; // stop any ongoing typing
+                lyricsBox.innerHTML = '';
+                activeBlock = -1;
+            }
+        }
     });
 });
 </script>
@@ -513,7 +518,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
 
 <div class="rounded-2xl bg-stone-100 p-8 sm:p-10 text-center dark:bg-slate-900/80">
 
-    <div class="text-4xl sm:text-5xl">🎵</div>
+    <div class="text-4xl sm:text-5xl"><i class="ph ph-music-note text-[1.1em] align-middle"></i></div>
 
     <h3 class="mt-4 sm:mt-5 font-semibold text-neutral-900 dark:text-white">
         Belum ada lagu.
@@ -530,7 +535,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                 </div>
 
                 {{-- Kalender --}}
-                <div class="dashboard-card p-4 sm:p-6 pb-6 sm:pb-8" x-data="calendarManager()">
+                <div class="dashboard-card p-6 sm:p-8" x-data="calendarManager()">
 
                     @php
                         // use Carbon\Carbon; // Ensure no redeclaration if used elsewhere
@@ -557,9 +562,9 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                     {{-- Nama hari --}}
                     <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-2">
 
-                        @foreach(['Sen','Sel','Rab','Kam','Jum','Sab','Min'] as $day)
+                        @foreach(['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] as $day)
 
-                            <div class="text-center text-[9px] sm:text-[10px] uppercase tracking-widest sm:tracking-[.28em] font-medium text-neutral-400">
+                            <div class="text-center text-[11px] sm:text-xs uppercase tracking-widest sm:tracking-[.28em] font-medium {{ $day === 'Sun' ? 'text-red-500 dark:text-red-400' : 'text-neutral-400' }}">
                                 {{ $day }}
                             </div>
 
@@ -580,20 +585,33 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
 
                             @php
                                 $isToday = $day == $today->day;
-                                $agenda = $agendas->get($day)?->first();
+                                $agendasForDay = $agendas->get($day) ?? collect();
+                                $agenda = $agendasForDay->first();
                                 $deadline = $deadlinesByDay->get($day)?->first();
 
                                 $dateStr = $today->copy()->setDay($day)->format('Y-m-d');
+                                $isSunday = ($offset + $day - 1) % 7 == 6;
+
+                                $hasAgenda = $agendasForDay->isNotEmpty();
+                                $agendasData = $agendasForDay->map(function($a) {
+                                    return ['id' => $a->id, 'title' => $a->title];
+                                })->toJson();
+                                $base64Agendas = base64_encode($agendasData);
+                                
+                                $textColor = $isSunday ? 'text-red-500 dark:text-red-400 font-bold' : 'text-neutral-900 dark:text-white';
+                                if ($hasAgenda) {
+                                    $textColor = 'text-white font-bold';
+                                }
                             @endphp
 
                             <div
-                                @click="openModal('{{ $dateStr }}')"
+                                @click="openModal('{{ $dateStr }}', '{{ $base64Agendas }}')"
                                 class="
                                     group
                                     relative
-                                    aspect-[0.92]
-                                    rounded-xl sm:rounded-[18px]
-                                    p-1 sm:p-3
+                                    aspect-square sm:aspect-[0.92]
+                                    rounded-lg sm:rounded-[18px]
+                                    p-1.5 sm:p-3
                                     transition-all
                                     duration-300
                                     cursor-pointer
@@ -606,11 +624,11 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                         ? 'border-2 border-neutral-900 bg-white shadow-sm'
                                         : 'border border-[#ececec] bg-white hover:border-neutral-400'
                                     }}
-                                 dark:bg-slate-900"
+                                 dark:bg-slate-900 flex flex-col justify-center sm:justify-start items-center sm:items-start"
                             >
 
                                 <span
-                                    class="text-[12px] sm:text-[18px] leading-none text-neutral-900 flex justify-center sm:justify-start dark:text-white"
+                                    class="text-[16px] sm:text-[22px] leading-none flex items-center justify-center {{ $hasAgenda ? 'w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-stone-800 shadow-sm' : '' }} {{ $textColor }}"
                                     style="font-family:'Cormorant Garamond', serif;">
                                     {{ $day }}
                                 </span>
@@ -652,77 +670,102 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                     </div>
 
                     <!-- Modal Tambah Agenda -->
-                    <div x-show="isModalOpen"
-                         style="display: none;"
-                         class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-
+                    <template x-teleport="body">
                         <div x-show="isModalOpen"
-                             x-transition.opacity
-                             @click="closeModal()"
-                             class="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm"></div>
+                             style="display: none;"
+                             class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6">
 
-                        <div x-show="isModalOpen"
-                             x-transition.scale.95
-                             class="relative w-full max-w-md bg-white rounded-[24px] sm:rounded-[32px] shadow-2xl p-6 sm:p-8 z-10 dark:bg-slate-800">
+                            <div x-show="isModalOpen"
+                                 x-transition.opacity
+                                 @click="closeModal()"
+                                 class="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm"></div>
 
-                            <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 mb-6 dark:text-white">Tambah Agenda</h3>
+                            <div x-show="isModalOpen"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
+                                 x-transition:enter-end="transform translate-y-0 sm:scale-100 opacity-100"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="transform translate-y-0 sm:scale-100 opacity-100"
+                                 x-transition:leave-end="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
+                                 class="relative w-full max-w-md bg-white rounded-t-[24px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-2xl p-6 sm:p-8 z-10 dark:bg-slate-800">
 
-                            <form action="{{ route('agendas.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="date" x-model="selectedDate">
+                                <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 mb-6 dark:text-white">Agenda</h3>
 
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Tanggal</label>
-                                        <input type="text" x-model="selectedDate" readonly class="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-neutral-100 border-none rounded-xl text-neutral-500 cursor-not-allowed">
+                                <!-- Existing Agendas -->
+                                <template x-if="dayAgendas.length > 0">
+                                    <div class="mb-6 space-y-2">
+                                        <template x-for="agenda in dayAgendas" :key="agenda.id">
+                                            <div class="px-4 py-3 bg-stone-50 dark:bg-slate-900/50 border border-stone-200 dark:border-slate-700/50 rounded-xl flex justify-between items-center group">
+                                                <span class="text-sm font-medium text-neutral-900 dark:text-white" x-text="agenda.title"></span>
+                                                <form :action="'/agendas/' + agenda.id" method="POST" class="inline m-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="p-1.5 text-neutral-400 hover:text-red-500 transition opacity-0 group-hover:opacity-100" title="Hapus Agenda">
+                                                        <i class="ph ph-trash text-lg"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </template>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Judul Agenda</label>
-                                        <input type="text" name="title" required placeholder="Ngapain hari ini?"
-                                            class="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-white border-2 border-neutral-200 rounded-xl sm:rounded-2xl text-neutral-900 placeholder-neutral-400 focus:border-neutral-900 focus:ring-0 transition-colors text-sm sm:text-base dark:bg-slate-900 dark:border-slate-700 dark:text-white">
-                                    </div>
-                                </div>
+                                </template>
 
-                                <div class="mt-8 flex gap-3">
-                                    <button type="button" @click="closeModal()"
-                                        class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border-2 border-neutral-200 text-neutral-600 font-medium hover:border-neutral-300 hover:bg-neutral-50 transition active:scale-[0.98] text-sm sm:text-base dark:border-slate-700 dark:text-slate-300">
-                                        batal.
-                                    </button>
-                                    <button type="submit"
-                                        class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 transition active:scale-[0.98] text-sm sm:text-base">
-                                        simpan.
-                                    </button>
-                                </div>
-                            </form>
+                                <form action="{{ route('agendas.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="date" :value="selectedDate">
+
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Tambah Agenda Baru</label>
+                                            <input type="text" name="title" required placeholder="Ngapain hari ini?"
+                                                class="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-white border-2 border-stone-200 rounded-xl sm:rounded-2xl text-neutral-900 placeholder-neutral-400 focus:border-stone-800 focus:ring-0 transition-colors text-sm sm:text-base dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-8 flex gap-3">
+                                        <button type="button" @click="closeModal()"
+                                            class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border-2 border-stone-200 text-neutral-600 font-medium hover:border-stone-300 hover:bg-stone-50 transition active:scale-[0.98] text-sm sm:text-base dark:border-slate-700 dark:text-slate-300">
+                                            batal.
+                                        </button>
+                                        <button type="submit"
+                                            class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-neutral-900 text-white font-medium hover:bg-stone-700 transition active:scale-[0.98] text-sm sm:text-base">
+                                            tambah.
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    </template>
 
                 </div>
             </div>
 
             <div class="col-span-1 md:col-span-4 row-span-2">
                 {{-- Activity --}}
-            <div class="dashboard-card p-6 sm:p-8 lg:p-10 h-full">
+            <div class="dashboard-card p-6 sm:p-8 h-full">
                 <p class="text-sm text-neutral-500 dark:text-slate-400">
                     aktivitas.
                 </p>
                 <div class="mt-8 space-y-5 sm:space-y-6">
                     @forelse($activities as $activity)
-                        <div class="flex gap-4 group cursor-pointer">
-                            <div class="mt-1 h-10 w-10 shrink-0 rounded-full bg-stone-100 flex items-center justify-center text-neutral-600 transition-transform group-hover:scale-110 group-hover:bg-stone-200 dark:bg-slate-900/80 dark:text-slate-300">
-                                <i class="{{ $activity['icon'] }} text-lg"></i>
+                        <div class="flex justify-between items-center group cursor-pointer">
+                            <div class="flex gap-4">
+                                <div class="mt-1 h-10 w-10 shrink-0 rounded-full bg-stone-100 flex items-center justify-center text-neutral-600 transition-transform group-hover:scale-110 group-hover:bg-stone-200 dark:bg-slate-900/80 dark:text-slate-300">
+                                    <i class="{{ $activity['icon'] }} text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-sm sm:text-base text-neutral-900 group-hover:text-stone-600 transition-colors dark:text-white">
+                                        {{ $activity['title'] }}
+                                    </h4>
+                                    <p class="text-xs sm:text-sm text-neutral-500 mt-0.5 sm:mt-1 dark:text-slate-400">
+                                        {{ $activity['time'] }}
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-medium text-sm sm:text-base text-neutral-900 group-hover:text-indigo-600 transition-colors dark:text-white">
-                                    {{ $activity['title'] }}
-                                </h4>
-                                <p class="text-xs sm:text-sm text-neutral-500 mt-0.5 sm:mt-1 dark:text-slate-400">
-                                    {{ $activity['time'] }}
-                                </p>
-                            </div>
+                            <i class="ph ph-caret-right opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400"></i>
                         </div>
                     @empty
                         <div class="text-center py-6">
+                            <i class="ph-thin ph-wind text-4xl text-neutral-300 dark:text-slate-600 mb-2"></i>
                             <h3 class="text-lg font-semibold text-neutral-900 dark:text-white">
                                 belom ada apa apa.
                             </h3>
@@ -739,7 +782,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                         <p class="text-sm text-neutral-500 dark:text-slate-400">
                             deadline.
                         </p>
-                        <button @click="openCreateModal()" class="text-neutral-400 hover:text-neutral-900 transition active:scale-90 p-1" title="Tambah Deadline">
+                        <button @click="openCreateModal()" class="text-neutral-400 hover:text-stone-600 transition active:scale-90 p-1" title="Tambah Deadline">
                             <i class="ph ph-plus text-xl"></i>
                         </button>
                     </div>
@@ -751,7 +794,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     {{ $task->due_date->diffForHumans() }}
                                 </span>
                                 <div class="flex items-center gap-1 sm:gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                                    <button @click="openEditModal({{ $task->id }}, '{{ addslashes($task->title) }}', '{{ $task->due_date->format('Y-m-d\TH:i') }}')" class="p-1 text-neutral-400 hover:text-indigo-600 transition">
+                                    <button @click="openEditModal({{ $task->id }}, '{{ addslashes($task->title) }}', '{{ $task->due_date->format('Y-m-d\TH:i') }}')" class="p-1 text-neutral-400 hover:text-stone-600 transition">
                                         <i class="ph ph-pencil-simple text-sm sm:text-base"></i>
                                     </button>
                                     <form action="{{ route('deadlines.destroy', $task->id) }}" method="POST" class="inline">
@@ -775,7 +818,8 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                             <hr class="my-4 border-stone-200 dark:border-slate-700/50">
                         @endunless
                     @empty
-                        <div class="mt-6 sm:mt-8">
+                        <div class="mt-6 sm:mt-8 text-center sm:text-left">
+                            <i class="ph-thin ph-coffee text-4xl text-neutral-300 dark:text-slate-600 mb-2"></i>
                             <h3 class="text-lg sm:text-xl font-semibold text-neutral-900 dark:text-white">
                                 aman.
                             </h3>
@@ -786,42 +830,52 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                     @endforelse
 
                     <!-- Modal Deadline -->
-                    <div x-show="isOpen"
-                         style="display: none;"
-                         class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-                         x-transition.opacity>
+                    <template x-teleport="body">
+                        <div x-show="isOpen"
+                             style="display: none;"
+                             class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6"
+                             x-transition.opacity>
 
-                        <div class="bg-white rounded-2xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative dark:bg-slate-900"
-                             @click.outside="isOpen = false">
-                            <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 mb-6 dark:text-white" x-text="isEdit ? 'Edit Deadline' : 'Tambah Deadline'"></h3>
+                            <div class="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm" @click="isOpen = false"></div>
 
-                            <form :action="formAction" method="POST">
-                                @csrf
-                                <template x-if="isEdit">
-                                    <input type="hidden" name="_method" value="PUT">
-                                </template>
+                            <div x-show="isOpen"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
+                                 x-transition:enter-end="transform translate-y-0 sm:scale-100 opacity-100"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="transform translate-y-0 sm:scale-100 opacity-100"
+                                 x-transition:leave-end="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
+                                 class="bg-white rounded-t-[24px] sm:rounded-[32px] mt-auto sm:mt-0 w-full max-w-md p-6 sm:p-8 shadow-2xl relative dark:bg-slate-900">
+                                <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 mb-6 dark:text-white" x-text="isEdit ? 'Edit Deadline' : 'Tambah Deadline'"></h3>
 
-                                <div class="mb-5">
-                                    <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Judul Tugas</label>
-                                    <input type="text" name="title" x-model="form.title" class="w-full rounded-xl border-stone-200 bg-stone-50 px-4 min-h-11 text-sm text-neutral-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
-                                </div>
+                                <form :action="formAction" method="POST">
+                                    @csrf
+                                    <template x-if="isEdit">
+                                        <input type="hidden" name="_method" value="PUT">
+                                    </template>
 
-                                <div class="mb-8">
-                                    <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Tenggat Waktu (Deadline)</label>
-                                    <input type="datetime-local" name="due_date" x-model="form.due_date" class="w-full rounded-xl border-stone-200 bg-stone-50 px-4 min-h-11 text-sm text-neutral-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
-                                </div>
+                                    <div class="mb-5">
+                                        <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Judul Tugas</label>
+                                        <input type="text" name="title" x-model="form.title" class="w-full rounded-xl border-stone-200 bg-stone-50 px-4 min-h-11 text-sm text-neutral-900 focus:border-neutral-800 focus:ring-stone-800 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
+                                    </div>
 
-                                <div class="flex justify-end gap-3">
-                                    <button type="button" @click="isOpen = false" class="px-5 min-h-11 rounded-xl font-medium text-sm text-neutral-500 hover:bg-stone-100 transition active:scale-95 dark:text-slate-400">
-                                        Batal
-                                    </button>
-                                    <button type="submit" class="px-5 min-h-11 rounded-xl font-medium text-sm bg-neutral-900 text-white hover:bg-neutral-800 transition active:scale-95">
-                                        Simpan
-                                    </button>
-                                </div>
-                            </form>
+                                    <div class="mb-8">
+                                        <label class="block text-sm font-medium text-neutral-500 mb-2 dark:text-slate-400">Tenggat Waktu (Deadline)</label>
+                                        <input type="datetime-local" name="due_date" x-model="form.due_date" class="w-full rounded-xl border-stone-200 bg-stone-50 px-4 min-h-11 text-sm text-neutral-900 focus:border-neutral-800 focus:ring-stone-800 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
+                                    </div>
+
+                                    <div class="flex justify-end gap-3">
+                                        <button type="button" @click="isOpen = false" class="px-5 min-h-11 rounded-xl font-medium text-sm text-neutral-500 hover:bg-stone-100 transition active:scale-95 dark:text-slate-400">
+                                            Batal
+                                        </button>
+                                        <button type="submit" class="px-5 min-h-11 rounded-xl font-medium text-sm bg-neutral-900 text-white hover:bg-stone-700 transition active:scale-95">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    </template>
                 </div>
 
                 {{-- Target --}}
@@ -840,7 +894,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                             $percentage = min(100, ($todayWords / 1000) * 100);
                         @endphp
                         <div class="mt-5 h-2 rounded-full bg-stone-200 overflow-hidden dark:bg-slate-800">
-                            <div class="h-full rounded-full bg-indigo-600 transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
+                            <div class="h-full rounded-full bg-neutral-900 transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
                         </div>
                         <p class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-slate-400">
                             {{ round($percentage) }}% selesai
@@ -867,8 +921,14 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
             Alpine.data('calendarManager', () => ({
                 isModalOpen: false,
                 selectedDate: '',
-                openModal(dateStr) {
+                dayAgendas: [],
+                openModal(dateStr, base64Agendas = '') {
                     this.selectedDate = dateStr;
+                    try {
+                        this.dayAgendas = base64Agendas ? JSON.parse(atob(base64Agendas)) : [];
+                    } catch(e) {
+                        this.dayAgendas = [];
+                    }
                     this.isModalOpen = true;
                 },
                 closeModal() {

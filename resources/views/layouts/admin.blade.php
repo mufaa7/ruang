@@ -44,7 +44,7 @@
     <body class="antialiased min-h-screen bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
         @if(session()->has('impersonated_by'))
         <div class="bg-amber-400 text-black px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-black">
-            <span>⚠️ You are impersonating <strong>{{ auth()->user()->name }}</strong></span>
+            <span><i class="ph ph-warning text-[1.1em] align-middle"></i>️ You are impersonating <strong>{{ auth()->user()->name }}</strong></span>
             <form action="{{ route('impersonate.leave') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="bg-black text-white px-3 py-1 text-xs border border-black hover:bg-slate-800">Leave Impersonate</button>

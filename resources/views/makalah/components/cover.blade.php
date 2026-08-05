@@ -6,8 +6,8 @@
 
     {{-- Generate Full Makalah Button --}}
     <div class="mb-12 font-sans border-b border-stone-200 pb-8">
-        <button type="button" id="btn-generate-full" class="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105 transition transform inline-flex items-center gap-2">
-            <span>✨</span> Generate Isi Makalah dengan AI
+        <button type="button" id="btn-generate-full" class="px-6 py-3 rounded-full bg-gradient-to-r from-neutral-800 to-purple-600 text-white font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105 transition transform inline-flex items-center gap-2">
+            <span><i class="ph ph-sparkle text-[1.1em] align-middle"></i></span> Generate Isi Makalah dengan AI
         </button>
         <p class="text-xs text-stone-400 mt-3">Isi judul makalah di bawah, lalu klik tombol ini. AI akan meracik seluruh isinya (Bab I - III) untukmu.</p>
     </div>

@@ -4,12 +4,12 @@
     <div class="mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
             <h1 class="text-2xl font-bold text-neutral-900 font-geist dark:text-white">
-                Tulis aja apa yang lewat di kepala. ✍️
+                Tulis aja apa yang lewat di kepala. <i class="ph ph-signature text-[1.1em] align-middle"></i>️
             </h1>
             <p class="text-sm text-neutral-500 mt-0.5 dark:text-slate-400">gapapa random, ga semua harus jadi makalah.</p>
         </div>
         <button onclick="document.getElementById('modal-new-note').classList.remove('hidden')"
-                class="w-full sm:w-auto justify-center px-4 py-2.5 min-h-[44px] bg-neutral-900 text-white font-semibold text-sm rounded-xl hover:bg-neutral-800 shadow-sm transition-all flex items-center gap-2 active:scale-95">
+                class="w-full sm:w-auto justify-center px-4 py-2.5 min-h-[44px] bg-neutral-900 text-white font-semibold text-sm rounded-xl hover:bg-stone-700 shadow-sm transition-all flex items-center gap-2 active:scale-95">
             <i class="ph-bold ph-plus text-lg"></i>
             Coretan Baru
         </button>
@@ -22,7 +22,7 @@
     </div>
     @endif
 
-    <div class="h-[calc(100vh-172px)] min-h-[480px] bg-white border border-stone-200 rounded-[24px] overflow-hidden flex flex-col md:flex-row shadow-sm animate-fadeIn dark:bg-slate-900 dark:border-slate-700/50">
+    <div class="md:h-[calc(100vh-172px)] min-h-[480px] bg-white border border-stone-200 rounded-[24px] overflow-hidden flex flex-col md:flex-row shadow-sm animate-fadeIn dark:bg-slate-900 dark:border-slate-700/50">
 
         {{-- ========== KIRI: DAFTAR ========== --}}
         <aside id="sidebar-container" class="w-full md:w-[320px] lg:w-[360px] h-[200px] md:h-auto bg-stone-50 border-b md:border-b-0 md:border-r border-stone-200 flex flex-col shrink-0 overflow-hidden dark:bg-slate-900/50 dark:border-slate-700/50">
@@ -84,12 +84,12 @@
                                     </div>
                                 @endif
 
-                                {{-- 📌 Pin toggle --}}
+                                {{-- <i class="ph ph-push-pin text-[1.1em] align-middle"></i> Pin toggle --}}
                                 <form method="POST" action="{{ route('coretan.pin', $note->id) }}" class="relative z-20">
                                     @csrf
                                     <button type="submit" title="{{ $note->is_pinned ? 'Lepas pin' : 'Pin catatan ini' }}"
                                             class="text-[12px] transition-all {{ $note->is_pinned ? 'opacity-100' : 'opacity-0 group-hover/card:opacity-100 grayscale hover:grayscale-0' }}">
-                                        📌
+                                        <i class="ph ph-push-pin text-[1.1em] align-middle"></i>
                                     </button>
                                 </form>
                             </div>
@@ -104,7 +104,7 @@
                             </span>
 
                             @if($totalCount > 0)
-                            <span class="text-[9px] font-bold text-emerald-700 bg-emerald-100 border border-emerald-200 px-1.5 py-0.5 rounded-md">✓ {{ $doneCount }}/{{ $totalCount }}</span>
+                            <span class="text-[9px] font-bold text-emerald-700 bg-emerald-100 border border-emerald-200 px-1.5 py-0.5 rounded-md"><i class="ph ph-check text-[1.1em] align-middle"></i> {{ $doneCount }}/{{ $totalCount }}</span>
                             @endif
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                     <span class="text-xs text-neutral-400 line-through truncate pr-2">{{ $trash->title }}</span>
                     <form method="POST" action="{{ route('coretan.restore', $trash->id) }}">
                         @csrf
-                        <button class="text-[10px] font-bold text-neutral-500 hover:text-neutral-900 uppercase shrink-0 dark:text-slate-400">Kembaliin</button>
+                        <button class="text-[10px] font-bold text-neutral-500 hover:text-stone-600 uppercase shrink-0 dark:text-slate-400">Kembaliin</button>
                     </form>
                 </div>
                 @endforeach
@@ -173,11 +173,11 @@
                     {{-- Aksi --}}
                     <div class="flex items-center gap-1 shrink-0 w-full sm:w-auto justify-end">
                         {{-- Font size control --}}
-                        <button type="button" onclick="changeFontSize(-2)" class="w-9 h-9 sm:w-7 sm:h-7 flex items-center justify-center text-neutral-400 hover:text-neutral-700 hover:bg-stone-100 rounded-lg transition-colors text-xs font-bold active:scale-95">A−</button>
-                        <button type="button" onclick="changeFontSize(2)"  class="w-9 h-9 sm:w-7 sm:h-7 flex items-center justify-center text-neutral-400 hover:text-neutral-700 hover:bg-stone-100 rounded-lg transition-colors text-sm font-bold active:scale-95">A+</button>
+                        <button type="button" onclick="changeFontSize(-2)" class="w-9 h-9 sm:w-7 sm:h-7 flex items-center justify-center text-neutral-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-colors text-xs font-bold active:scale-95">A−</button>
+                        <button type="button" onclick="changeFontSize(2)"  class="w-9 h-9 sm:w-7 sm:h-7 flex items-center justify-center text-neutral-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-colors text-sm font-bold active:scale-95">A+</button>
                         <div class="w-px h-5 bg-stone-200 mx-1 dark:bg-slate-800"></div>
                         {{-- Simpan --}}
-                        <button type="submit" id="btn-simpan" class="px-3 py-1.5 min-h-[36px] bg-neutral-900 text-white hover:bg-neutral-800 font-semibold text-xs rounded-xl transition-colors shadow-sm active:scale-95">
+                        <button type="submit" id="btn-simpan" class="px-3 py-1.5 min-h-[36px] bg-neutral-900 text-white hover:bg-stone-700 font-semibold text-xs rounded-xl transition-colors shadow-sm active:scale-95">
                             Simpan
                         </button>
                         {{-- Hapus --}}
@@ -198,7 +198,7 @@
                     {{-- Textarea auto-font --}}
                     <textarea name="content" id="note-content"
                               oninput="handleContentInput(this)"
-                              class="block w-full font-serif-editor leading-relaxed text-neutral-800 outline-none resize-none bg-transparent border-none focus:ring-0 p-0 mb-10 placeholder:text-neutral-300 transition-all dark:text-slate-100"
+                              class="block w-full font-serif-editor leading-relaxed text-neutral-900 outline-none resize-none bg-transparent border-none focus:ring-0 p-0 mb-10 placeholder:text-neutral-300 transition-all dark:text-slate-100"
                               style="font-size: {{ strlen(strip_tags($activeNote->content)) < 80 ? '22' : (strlen(strip_tags($activeNote->content)) < 300 ? '17' : '14') }}px; min-height: 240px;"
                               placeholder="Ada ide apa hari ini? Tulis aja...">{{ strip_tags($activeNote->content) }}</textarea>
 
@@ -218,7 +218,7 @@
                                     <i class="ph-bold ph-check text-[10px]"></i>
                                     @endif
                                 </button>
-                                <span class="text-sm text-neutral-800 flex-1 {{ ($item['done'] ?? false) ? 'line-through text-neutral-400' : '' }} dark:text-slate-100"
+                                <span class="text-sm text-neutral-900 flex-1 {{ ($item['done'] ?? false) ? 'line-through text-neutral-400' : '' }} dark:text-slate-100"
                                       contenteditable="true" onblur="updateCheckText({{ $i }}, this)">{{ $item['text'] ?? '' }}</span>
                                 <button type="button" onclick="removeCheck({{ $i }})" class="opacity-0 group-hover:opacity-100 text-neutral-300 hover:text-rose-500 transition-all shrink-0">
                                     <i class="ph-bold ph-x text-sm"></i>
@@ -229,7 +229,7 @@
                             <div class="flex items-center gap-2.5">
                                 <div class="w-5 h-5 rounded-md border-2 border-dashed border-stone-300 shrink-0 dark:border-slate-700"></div>
                                 <input type="text" id="new-check-input" placeholder="Tambah to-do, tekan Enter..." onkeydown="addCheckOnEnter(event)"
-                                       class="text-sm font-medium text-neutral-800 bg-transparent border-none outline-none focus:ring-0 p-0 placeholder:text-neutral-400 flex-1 dark:text-slate-100" />
+                                       class="text-sm font-medium text-neutral-900 bg-transparent border-none outline-none focus:ring-0 p-0 placeholder:text-neutral-400 flex-1 dark:text-slate-100" />
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                 <h3 class="text-lg font-bold text-neutral-900 font-geist dark:text-white">Belum ada coretan sama sekali</h3>
                 <p class="text-sm text-neutral-500 mt-2 max-w-sm dark:text-slate-400">Ga harus bagus, ga harus panjang. Yang penting mulai.</p>
                 <button onclick="document.getElementById('modal-new-note').classList.remove('hidden')"
-                        class="mt-5 px-6 py-2.5 bg-neutral-900 text-white font-semibold text-sm rounded-xl shadow-sm hover:bg-neutral-800 transition-colors flex items-center gap-2 mx-auto">
+                        class="mt-5 px-6 py-2.5 bg-neutral-900 text-white font-semibold text-sm rounded-xl shadow-sm hover:bg-stone-700 transition-colors flex items-center gap-2 mx-auto">
                     <i class="ph-bold ph-plus text-lg"></i>
                     Mulai Coret-coret
                 </button>
@@ -259,7 +259,7 @@
         <div class="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm" onclick="document.getElementById('modal-new-note').classList.add('hidden')"></div>
         <div class="relative bg-white rounded-[24px] max-w-md w-full p-6 shadow-2xl border border-stone-200 z-10 dark:bg-slate-900 dark:border-slate-700/50">
             <div class="flex items-center justify-between pb-4 border-b border-stone-100 mb-5">
-                <h3 class="text-lg font-bold text-neutral-900 font-geist dark:text-white">✍️ Bikin coretan baru</h3>
+                <h3 class="text-lg font-bold text-neutral-900 font-geist dark:text-white"><i class="ph ph-signature text-[1.1em] align-middle"></i>️ Bikin coretan baru</h3>
                 <button onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="p-1.5 hover:bg-stone-100 rounded-full text-neutral-400 transition-colors">
                     <i class="ph ph-x text-xl"></i>
                 </button>
@@ -278,7 +278,7 @@
                 </div>
                 <div class="pt-2 flex flex-col-reverse sm:flex-row items-center sm:justify-end gap-3">
                     <button type="button" onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="w-full sm:w-auto justify-center px-5 py-2.5 min-h-[44px] bg-stone-100 text-neutral-700 font-semibold text-sm rounded-xl transition-colors hover:bg-stone-200 active:scale-95 dark:bg-slate-900/80 dark:text-slate-200">Ntar dulu</button>
-                    <button type="submit" class="w-full sm:w-auto justify-center px-5 py-2.5 min-h-[44px] bg-neutral-900 text-white font-semibold text-sm rounded-xl hover:bg-neutral-800 shadow-sm transition-colors active:scale-95">Yuk, buat!</button>
+                    <button type="submit" class="w-full sm:w-auto justify-center px-5 py-2.5 min-h-[44px] bg-neutral-900 text-white font-semibold text-sm rounded-xl hover:bg-stone-700 shadow-sm transition-colors active:scale-95">Yuk, buat!</button>
                 </div>
             </form>
         </div>
@@ -351,7 +351,7 @@
             if (newSidebar) {
                 document.getElementById('sidebar-container').innerHTML = newSidebar.innerHTML;
             }
-            btn.innerText = 'Tersimpan ✓';
+            btn.innerText = 'Tersimpan <i class="ph ph-check text-[1.1em] align-middle"></i>';
             setTimeout(() => btn.innerText = originalText, 2000);
         })
         .catch(err => {
@@ -456,7 +456,7 @@
             const doneClass = item.done
                 ? 'bg-neutral-900 border-neutral-900 text-white'
                 : 'border-stone-300 hover:border-neutral-400';
-            const textClass = item.done ? 'line-through text-neutral-400' : 'text-neutral-800';
+            const textClass = item.done ? 'line-through text-neutral-400' : 'text-neutral-900';
             div.innerHTML = `
                 <button type="button" onclick="toggleCheck(${idx})"
                         class="w-5 h-5 rounded-md border-2 shrink-0 flex items-center justify-center transition-all ${doneClass}">

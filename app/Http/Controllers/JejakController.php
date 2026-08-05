@@ -10,11 +10,11 @@ class JejakController extends Controller
 {
     // Label per tipe aktivitas — asbun style 😎
     private array $activityTypes = [
-        'note.created'      => ['emoji' => '✏️', 'label' => 'Coretan'],
-        'paper.published'   => ['emoji' => '📄', 'label' => 'Makalah'],
-        'paper.created'     => ['emoji' => '🖊️', 'label' => 'Nulis Baru'],
-        'quiz.generated'    => ['emoji' => '🧪', 'label' => 'Latihan'],
-        'material.uploaded' => ['emoji' => '📚', 'label' => 'Upload Materi'],
+        'note.created'      => ['emoji' => '<i class="fi fi-sr-pencil"></i>', 'label' => 'Coretan'],
+        'paper.published'   => ['emoji' => '<i class="fi fi-sr-document"></i>', 'label' => 'Makalah'],
+        'paper.created'     => ['emoji' => '<i class="fi fi-sr-pen-nib"></i>', 'label' => 'Nulis Baru'],
+        'quiz.generated'    => ['emoji' => '<i class="fi fi-sr-flask"></i>', 'label' => 'Latihan'],
+        'material.uploaded' => ['emoji' => '<i class="fi fi-sr-books"></i>', 'label' => 'Upload Materi'],
     ];
 
     public function index(Request $request): View

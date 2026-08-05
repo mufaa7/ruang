@@ -46,9 +46,9 @@ Jenis Dokumen
 
 <div class="mt-2">
 
-<div class="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 px-4 py-2 text-sm">
+<div class="inline-flex items-center rounded-full bg-stone-100 text-neutral-900 px-4 py-2 text-sm">
 
-📄 Makalah
+<i class="ph ph-file text-[1.1em] align-middle"></i> Makalah
 
 </div>
 
@@ -78,7 +78,7 @@ rows="2"
 
 required
 
-class="w-full rounded-xl border border-stone-200 p-4 resize-none transition-colors focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+class="w-full rounded-xl border border-stone-200 p-4 resize-none transition-colors focus:ring-2 focus:ring-stone-800 focus:border-neutral-800"
 
 placeholder="Contoh : Analisis Inflasi Indonesia Tahun 2025"
 
@@ -104,7 +104,7 @@ Sub Judul
 
 name="sub_judul"
 
-class="w-full rounded-xl border border-stone-200 p-3 transition-colors focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+class="w-full rounded-xl border border-stone-200 p-3 transition-colors focus:ring-2 focus:ring-stone-800 focus:border-neutral-800"
 
 placeholder="Opsional"
 
@@ -126,7 +126,7 @@ Mata Kuliah
 
 name="mata_kuliah"
 
-class="w-full rounded-xl border border-stone-200 p-3 transition-colors focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+class="w-full rounded-xl border border-stone-200 p-3 transition-colors focus:ring-2 focus:ring-stone-800 focus:border-neutral-800"
 
 placeholder="Ekonomi Makro"
 
@@ -146,7 +146,7 @@ Nama Dosen
 
 name="nama_dosen"
 
-class="w-full rounded-xl border border-stone-200 p-3 transition-colors focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+class="w-full rounded-xl border border-stone-200 p-3 transition-colors focus:ring-2 focus:ring-stone-800 focus:border-neutral-800"
 
 placeholder="Dr. Ahmad"
 
@@ -166,37 +166,37 @@ Yang akan dibuat otomatis
 
 <div class="grid grid-cols-2 gap-y-2 mt-4 text-sm">
 
-<div>✅ Cover</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Cover</div>
 
-<div>✅ Kata Pengantar</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Kata Pengantar</div>
 
-<div>✅ Daftar Isi</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Daftar Isi</div>
 
-<div>✅ BAB I</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> BAB I</div>
 
-<div>✅ BAB II</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> BAB II</div>
 
-<div>✅ BAB III</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> BAB III</div>
 
-<div>✅ BAB IV</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> BAB IV</div>
 
-<div>✅ BAB V</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> BAB V</div>
 
-<div>✅ Penutup</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Penutup</div>
 
-<div>✅ Daftar Pustaka</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Daftar Pustaka</div>
 
-<div>✅ Nomor Halaman</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Nomor Halaman</div>
 
-<div>✅ Format TNR 12</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Format TNR 12</div>
 
-<div>✅ Margin Akademik</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Margin Akademik</div>
 
-<div>✅ Export Word</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Export Word</div>
 
-<div>✅ Export PDF</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Export PDF</div>
 
-<div>✅ Daftar Isi Otomatis</div>
+<div><i class="ph ph-check-circle text-[1.1em] align-middle"></i> Daftar Isi Otomatis</div>
 
 </div>
 
@@ -222,7 +222,7 @@ Batal
 
 <button
 
-class="w-full sm:w-auto px-6 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 transition-all active:scale-95"
+class="w-full sm:w-auto px-6 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-stone-700 transition-all active:scale-95"
 
 >
 

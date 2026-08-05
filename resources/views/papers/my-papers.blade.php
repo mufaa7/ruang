@@ -3,7 +3,7 @@
     <x-slot name="pageSubtitle">{{ auth()->user()->papers()->count() }} karya total</x-slot>
     <x-slot name="headerActions">
         <a href="{{ route('papers.create') }}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-semibold rounded-xl shadow-sm hover:bg-neutral-800 transition-colors">
+           class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-semibold rounded-xl shadow-sm hover:bg-stone-700 transition-colors">
             <i class="ph-bold ph-plus text-lg"></i>
             Jurnal Baru
         </a>
@@ -16,7 +16,7 @@
                class="px-4 py-2.5 min-h-[44px] flex items-center justify-center text-sm transition-colors border-b-2 -mb-px
                {{ request('status', '') === $val
                    ? 'border-neutral-900 text-neutral-900 font-bold'
-                   : 'border-transparent text-neutral-500 hover:text-neutral-900 font-medium' }} dark:text-white dark:text-slate-400">
+                   : 'border-transparent text-neutral-500 hover:text-stone-600 font-medium' }} dark:text-white dark:text-slate-400">
                 {{ $label }}
             </a>
         @endforeach
@@ -40,7 +40,7 @@
 
                     <div class="flex-1 min-w-0">
                         <a href="{{ route('papers.edit', $paper) }}"
-                           class="font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors line-clamp-1 text-base dark:text-white">
+                           class="font-bold text-neutral-900 group-hover:text-stone-700 transition-colors line-clamp-1 text-base dark:text-white">
                             {{ $paper->title }}
                         </a>
                         @if($paper->abstract)
@@ -57,12 +57,12 @@
 
                     <div class="flex flex-col sm:flex-row items-center gap-2 shrink-0 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                         <a href="{{ route('papers.edit', $paper) }}"
-                           class="w-[44px] h-[44px] flex items-center justify-center text-neutral-400 hover:text-neutral-900 bg-stone-50 hover:bg-stone-100 rounded-xl transition-colors active:scale-95 dark:bg-slate-900/50">
+                           class="w-[44px] h-[44px] flex items-center justify-center text-neutral-400 hover:text-stone-600 bg-stone-50 hover:bg-stone-100 rounded-xl transition-colors active:scale-95 dark:bg-slate-900/50">
                             <i class="ph-bold ph-pencil-simple text-base"></i>
                         </a>
                         @if($paper->status === 'published')
                             <a href="{{ route('papers.show', $paper) }}"
-                               class="w-[44px] h-[44px] flex items-center justify-center text-neutral-400 hover:text-neutral-900 bg-stone-50 hover:bg-stone-100 rounded-xl transition-colors active:scale-95 dark:bg-slate-900/50">
+                               class="w-[44px] h-[44px] flex items-center justify-center text-neutral-400 hover:text-stone-600 bg-stone-50 hover:bg-stone-100 rounded-xl transition-colors active:scale-95 dark:bg-slate-900/50">
                                 <i class="ph-bold ph-arrow-square-out text-base"></i>
                             </a>
                         @endif
@@ -79,7 +79,7 @@
         <div class="text-center py-20 border border-dashed border-stone-200 bg-stone-50/50 rounded-[20px] dark:border-slate-700/50">
             <i class="ph-fill ph-files text-5xl text-neutral-300 mb-3 block"></i>
             <p class="font-medium text-neutral-500 text-sm dark:text-slate-400">"Every journey starts with a single word."</p>
-            <a href="{{ route('papers.create') }}" class="mt-5 inline-flex justify-center items-center gap-2 px-6 py-2.5 min-h-[44px] bg-neutral-900 text-white text-sm font-semibold rounded-xl hover:bg-neutral-800 transition-colors shadow-sm active:scale-95 w-full sm:w-auto">
+            <a href="{{ route('papers.create') }}" class="mt-5 inline-flex justify-center items-center gap-2 px-6 py-2.5 min-h-[44px] bg-neutral-900 text-white text-sm font-semibold rounded-xl hover:bg-stone-700 transition-colors shadow-sm active:scale-95 w-full sm:w-auto">
                 <i class="ph-bold ph-plus text-lg"></i> Tulis Jurnal Pertama
             </a>
         </div>

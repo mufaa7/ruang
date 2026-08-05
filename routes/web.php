@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Deadlines & Agendas
     Route::resource('deadlines', \App\Http\Controllers\DeadlineController::class)->only(['store', 'update', 'destroy']);
-    Route::resource('agendas', \App\Http\Controllers\AgendaController::class)->only(['store', 'destroy']);
+    Route::resource('agendas', \App\Http\Controllers\AgendaController::class)->only(['store', 'update', 'destroy']);
 
     // Papers
     Route::prefix('my/papers')->name('papers.')->group(function () {
@@ -70,8 +70,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{subject}/edit', [SubjectController::class, 'edit'])->name('edit');
         Route::put('/{subject}', [SubjectController::class, 'update'])->name('update');
         Route::delete('/{subject}', [SubjectController::class, 'destroy'])->name('destroy');
-        Route::post('/{subject}/join', [SubjectController::class, 'join'])->name('join');
-        Route::post('/{subject}/leave', [SubjectController::class, 'leave'])->name('leave');
+        // Route::post('/{subject}/join', [SubjectController::class, 'join'])->name('join');
+        // Route::post('/{subject}/leave', [SubjectController::class, 'leave'])->name('leave');
         
         // AI Summarizer Route
         Route::post('/{subject}/notes/ai', [\App\Http\Controllers\NoteController::class, 'generateAi'])->name('notes.ai');

@@ -40,9 +40,9 @@
                 <div>
                     <label class="block text-xs font-semibold text-[#8c8479] uppercase tracking-widest mb-2">Visibilitas</label>
                     <select name="visibility" class="w-full bg-white dark:bg-slate-900/70 border border-stone-300 rounded-lg px-4 py-3 text-sm text-[#1a1814] focus:outline-none focus:border-[#c45c2a] transition dark:border-slate-700">
-                        <option value="private"      {{ old('visibility', 'private') === 'private'      ? 'selected' : '' }}>🔒 Private</option>
-                        <option value="subject_only" {{ old('visibility') === 'subject_only' ? 'selected' : '' }}>🏫 Subject only</option>
-                        <option value="public"       {{ old('visibility') === 'public'       ? 'selected' : '' }}>🌍 Public</option>
+                        <option value="private"      {{ old('visibility', 'private') === 'private'      ? 'selected' : '' }}><i class="ph ph-lock text-[1.1em] align-middle"></i> Private</option>
+                        <option value="subject_only" {{ old('visibility') === 'subject_only' ? 'selected' : '' }}><i class="ph ph-buildings text-[1.1em] align-middle"></i> Subject only</option>
+                        <option value="public"       {{ old('visibility') === 'public'       ? 'selected' : '' }}><i class="ph ph-globe-hemisphere-west text-[1.1em] align-middle"></i> Public</option>
                     </select>
                 </div>
             </div>

@@ -54,7 +54,7 @@
                         </td>
                         <td class="px-6 py-4 text-center border-r border-black">
                             @if($quiz->targets_count > 0)
-                                <span class="inline-flex items-center px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-bold border border-indigo-200">
+                                <span class="inline-flex items-center px-2 py-0.5 bg-stone-200 text-neutral-950 text-xs font-bold border border-stone-300">
                                     {{ $quiz->targets_count }} user
                                 </span>
                             @else

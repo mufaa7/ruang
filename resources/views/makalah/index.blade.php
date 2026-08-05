@@ -7,7 +7,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-slate-700/50">
             <div>
                 <h1 class="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight dark:text-white">
-                    Beban Akademik <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;">📝</span>
+                    Beban Akademik <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-notepad text-[1.1em] align-middle"></i></span>
                 </h1>
                 <p class="text-sm text-neutral-500 mt-2 dark:text-slate-400">
                     Kalo pusing mending ditinggal tidur aja dulu. Tugasnya nggak bakal lari kemana-mana kok.
@@ -15,7 +15,7 @@
             </div>
 
             {{-- Tombol Bikin Makalah --}}
-            <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto self-start sm:self-auto min-h-11 px-5 justify-center bg-neutral-900 text-white hover:bg-neutral-800 font-medium text-sm rounded-xl flex items-center gap-2 transition-all active:scale-95">
+            <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto self-start sm:self-auto min-h-11 px-5 justify-center bg-neutral-900 text-white hover:bg-stone-700 font-medium text-sm rounded-xl flex items-center gap-2 transition-all active:scale-95">
                 <i class="ph ph-plus text-lg"></i>
                 Bikin Makalah
             </a>
@@ -30,7 +30,7 @@
                     
                     {{-- Status Indicator (Top Right Dot) --}}
                     <div class="absolute top-6 right-6 flex items-center gap-2">
-                        <div class="h-2 w-2 rounded-full {{ $m->status === 'final' ? 'bg-emerald-500' : 'bg-indigo-500 animate-pulse' }}"></div>
+                        <div class="h-2 w-2 rounded-full {{ $m->status === 'final' ? 'bg-emerald-500' : 'bg-neutral-900 animate-pulse' }}"></div>
                     </div>
 
                     <div class="flex flex-col h-full">
@@ -40,7 +40,7 @@
                             </span>
                         </div>
                         
-                        <h3 class="font-bold text-lg sm:text-xl text-neutral-900 leading-snug mb-2 group-hover:text-indigo-600 transition-colors line-clamp-3 dark:text-white">
+                        <h3 class="font-bold text-lg sm:text-xl text-neutral-900 leading-snug mb-2 group-hover:text-stone-600 transition-colors line-clamp-3 dark:text-white">
                             {{ $m->judul ?: 'Tugas Nggak Jelas Tanpa Judul' }}
                         </h3>
 
@@ -57,7 +57,7 @@
                             {{-- Quick Export & Delete Icons (Selalu Muncul di Mobile, Muncul saat hover di Desktop) --}}
                             <div class="flex gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 relative z-10 w-full sm:w-auto justify-between sm:justify-end">
                                 <div class="flex gap-2">
-                                    <a href="{{ route('makalah.export.pdf', $m) }}" target="_blank" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-neutral-400 hover:text-indigo-600 bg-stone-50 hover:bg-indigo-50 rounded-lg transition-colors active:scale-90 dark:bg-slate-900/50" title="Export PDF">
+                                    <a href="{{ route('makalah.export.pdf', $m) }}" target="_blank" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-neutral-400 hover:text-stone-600 bg-stone-50 hover:bg-stone-100 rounded-lg transition-colors active:scale-90 dark:bg-slate-900/50" title="Export PDF">
                                         <i class="ph ph-file-pdf text-lg sm:text-xl"></i>
                                     </a>
                                     <a href="{{ route('makalah.export.word', $m) }}" data-turbo="false" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-neutral-400 hover:text-emerald-600 bg-stone-50 hover:bg-emerald-50 rounded-lg transition-colors active:scale-90 dark:bg-slate-900/50" title="Export Word">
@@ -83,9 +83,9 @@
                 <div class="w-16 h-16 bg-stone-50 rounded-full flex items-center justify-center mb-6 dark:bg-slate-900/50">
                     <i class="ph ph-empty text-3xl text-neutral-400"></i>
                 </div>
-                <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Belum ada beban kehidupan di sini <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;">☕</span></h3>
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Belum ada beban kehidupan di sini <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-coffee text-[1.1em] align-middle"></i></span></h3>
                 <p class="text-neutral-500 mt-2 mb-8 max-w-sm dark:text-slate-400">Bikin aja dulu selembar, nggak usah mikir terlalu jauh, yang penting mulai ngetik aja.</p>
-                <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto px-6 min-h-11 inline-flex items-center justify-center bg-neutral-900 text-white hover:bg-neutral-800 font-medium rounded-xl transition-all active:scale-95">
+                <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto px-6 min-h-11 inline-flex items-center justify-center bg-neutral-900 text-white hover:bg-stone-700 font-medium rounded-xl transition-all active:scale-95">
                     Mulai Nulis Makalah
                 </a>
             </div>

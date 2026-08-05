@@ -131,8 +131,14 @@
                             'stopping'
                         );
 
+                        // Trigger reflow to restart CSS animations
+                        void btn.offsetWidth;
+
                         if(this.sidebarOpen){
                             btn.classList.add('stopping');
+                            setTimeout(()=>{
+                                btn.classList.remove('stopping');
+                            }, 600);
                         } else {
                             btn.classList.add('spinning');
                             setTimeout(()=>{

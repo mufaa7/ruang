@@ -95,7 +95,7 @@ class DashboardController extends Controller
             ? File::get(storage_path('app/admin_notes.txt')) 
             : '';
 
-        return view('admin.dashboard', compact(
+        return view('admin.dashboard.index', compact(
             'requests',
             'aiCost',
             'server',

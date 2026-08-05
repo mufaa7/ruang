@@ -12,7 +12,7 @@
         <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full sm:w-auto justify-end">
             <span id="save-status"
                 class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
-                ✔ Tersimpan
+                <i class="ph ph-check text-[1.1em] align-middle"></i> Tersimpan
             </span>
 
             <div class="flex items-center gap-2 w-full sm:w-auto">
@@ -119,7 +119,7 @@
 
     {{-- Sticky AI Progress Banner (menggantikan modal) --}}
     <div id="ai-progress-banner" class="fixed top-0 inset-x-0 z-[100] hidden">
-        <div class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-4 py-3 shadow-lg">
+        <div class="bg-gradient-to-r from-violet-600 to-neutral-900 text-white px-4 py-3 shadow-lg">
             <div class="max-w-4xl mx-auto flex items-center gap-3 flex-wrap">
                 <i class="ph ph-robot text-xl animate-pulse shrink-0"></i>
                 <div class="flex-1 min-w-0">
@@ -132,7 +132,7 @@
                 <div class="flex items-center gap-2 shrink-0">
                     <button id="ai-cancel-btn"
                         class="text-xs px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition font-medium">
-                        ⛔ Batalkan
+                        <i class="ph ph-prohibit text-[1.1em] align-middle"></i> Batalkan
                     </button>
                 </div>
             </div>
@@ -146,7 +146,7 @@
     <div id="ai-confirm-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 border border-stone-200">
             <div class="flex items-start gap-3 mb-4">
-                <span id="ai-confirm-icon" class="text-2xl shrink-0">⚠️</span>
+                <span id="ai-confirm-icon" class="text-2xl shrink-0"><i class="ph ph-warning text-[1.1em] align-middle"></i>️</span>
                 <div>
                     <h3 id="ai-confirm-title" class="font-bold text-slate-900 text-base">Konfirmasi</h3>
                     <p id="ai-confirm-body" class="text-sm text-stone-500 mt-1 leading-relaxed"></p>
@@ -203,13 +203,13 @@
             }
 
             function showSaved() {
-                saveStatus.innerHTML = '✔ Tersimpan';
+                saveStatus.innerHTML = '<i class="ph ph-check text-[1.1em] align-middle"></i> Tersimpan';
                 saveStatus.className = 'inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700';
             }
 
             function showError() {
                 if(saveStatus) {
-                    saveStatus.innerHTML = '✖ Gagal Disimpan';
+                    saveStatus.innerHTML = '<i class="ph ph-x text-[1.1em] align-middle"></i> Gagal Disimpan';
                     saveStatus.className = 'inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-red-100 text-red-700';
                 }
             }
@@ -273,7 +273,7 @@
                 });
                 clearInterval(pollingInterval);
                 closeAiBanner();
-                showToast('⛔ Proses AI dibatalkan.', 'error');
+                showToast('<i class="ph ph-prohibit text-[1.1em] align-middle"></i> Proses AI dibatalkan.', 'error');
             });
 
             document.addEventListener('click', async (e) => {
@@ -298,9 +298,9 @@
             const confirmBtns   = document.getElementById('ai-confirm-buttons');
             const confirmIcon   = document.getElementById('ai-confirm-icon');
 
-            function showConfirmModal({ icon = '⚠️', title, body, buttons }) {
+            function showConfirmModal({ icon = '<i class="ph ph-warning text-[1.1em] align-middle"></i>️', title, body, buttons }) {
                 return new Promise(resolve => {
-                    confirmIcon.textContent  = icon;
+                    confirmIcon.innerHTML    = icon;
                     confirmTitle.textContent = title;
                     confirmBody.innerHTML    = body;
                     confirmBtns.innerHTML    = '';
@@ -308,7 +308,7 @@
 
                     buttons.forEach(({ label, style, value }) => {
                         const btn = document.createElement('button');
-                        btn.textContent = label;
+                        btn.innerHTML   = label;
                         btn.className   = `w-full min-h-[44px] rounded-xl font-medium text-sm transition active:scale-95 ${style}`;
                         btn.onclick = () => {
                             confirmModal.classList.replace('flex', 'hidden');
@@ -323,15 +323,15 @@
                     let resume = false;
 
                     const bodyText = hasChapters 
-                        ? `AI akan meracik kerangka dan isi makalah untuk:<br><br><strong class="text-slate-900 text-base">"${title}"</strong><br><br><span class="text-red-600 font-medium">⚠️ Perhatian: Struktur bab yang ada di layar saat ini akan dihapus dan diganti sepenuhnya dengan buatan AI.</span><br><br>Estimasi waktu: <strong>5–10 menit</strong>`
+                        ? `AI akan meracik kerangka dan isi makalah untuk:<br><br><strong class="text-slate-900 text-base">"${title}"</strong><br><br><span class="text-red-600 font-medium"><i class="ph ph-warning text-[1.1em] align-middle"></i>️ Perhatian: Struktur bab yang ada di layar saat ini akan dihapus dan diganti sepenuhnya dengan buatan AI.</span><br><br>Estimasi waktu: <strong>5–10 menit</strong>`
                         : `AI akan membuat kerangka dan isi makalah untuk:<br><br><strong class="text-slate-900 text-base">"${title}"</strong><br><br>Estimasi waktu: <strong>5–10 menit</strong>`;
 
                     const action = await showConfirmModal({
-                        icon: '✨',
+                        icon: '<i class="ph ph-sparkle text-[1.1em] align-middle"></i>',
                         title: 'Generate Makalah dengan AI',
                         body: bodyText,
                         buttons: [
-                            { label: '🚀  Ya, racik dengan AI sekarang!', style: 'bg-violet-600 text-white hover:bg-violet-700', value: 'ok' },
+                            { label: '<i class="ph ph-rocket text-[1.1em] align-middle"></i>  Ya, racik dengan AI sekarang!', style: 'bg-violet-600 text-white hover:bg-violet-700', value: 'ok' },
                             { label: 'Batal', style: 'text-stone-400 hover:text-stone-600 text-xs mt-2', value: 'cancel' },
                         ]
                     });
@@ -375,12 +375,12 @@
                         startAiPolling();
                     } else {
                         closeAiBanner();
-                        showToast('❌ ' + (data.message || 'Gagal memulai proses AI.'), 'error');
+                        showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> ' + (data.message || 'Gagal memulai proses AI.'), 'error');
                     }
                 } catch (err) {
                     console.error('AI Generation Error:', err);
                     closeAiBanner();
-                    showToast('❌ Terjadi kesalahan koneksi.', 'error');
+                    showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> Terjadi kesalahan koneksi.', 'error');
                 }
             });
 
@@ -421,7 +421,7 @@
                             // Toast sub-bab selesai
                             if (lastProgressStatus && data.ai_status === 'processing_chapter') {
                                 const match = lastProgressStatus.match(/Menulis '(.+?)'/);
-                                if (match) showToast(`✅ "${match[1]}" selesai ditulis`);
+                                if (match) showToast(`<i class="ph ph-check-circle text-[1.1em] align-middle"></i> "${match[1]}" selesai ditulis`);
                             }
 
                             lastProgressStatus = data.ai_progress;
@@ -440,13 +440,13 @@
                         if (data.ai_status === 'completed') {
                             clearInterval(pollingInterval);
                             updateProgressBar(100);
-                            if (aiLoadingText) aiLoadingText.innerText = 'Selesai! ✅';
-                            showToast('🎉 Makalah selesai dibuat oleh AI!');
+                            if (aiLoadingText) aiLoadingText.innerHTML = 'Selesai! <i class="ph ph-check-circle text-[1.1em] align-middle"></i>';
+                            showToast('<i class="ph ph-confetti text-[1.1em] align-middle"></i> Makalah selesai dibuat oleh AI!');
                             setTimeout(() => closeAiBanner(), 3000);
                         } else if (data.ai_status === 'failed') {
                             clearInterval(pollingInterval);
                             closeAiBanner();
-                            showToast('❌ Proses AI gagal: ' + data.ai_progress, 'error');
+                            showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> Proses AI gagal: ' + data.ai_progress, 'error');
                         } else if (data.ai_status === 'cancelled') {
                             clearInterval(pollingInterval);
                             closeAiBanner();
@@ -480,7 +480,7 @@
 
                         // Tampilkan skeleton
                         btn.disabled = true;
-                        btn.textContent = '⏳ Menulis...';
+                        btn.innerHTML = '<i class="ph ph-spinner animate-spin text-[1.1em] align-middle"></i> Menulis...';
                         if (editor) {
                             editor.innerHTML = '<div class="animate-pulse space-y-3 p-2"><div class="h-3 bg-violet-200 rounded w-full"></div><div class="h-3 bg-violet-200 rounded w-5/6"></div><div class="h-3 bg-violet-200 rounded w-4/6"></div></div>';
                         }
@@ -494,16 +494,16 @@
                             if (data.success && editor) {
                                 editor.innerHTML = data.content;
                                 initEditors();
-                                showToast('✅ Sub-bab berhasil ditulis ulang oleh AI!');
+                                showToast('<i class="ph ph-check-circle text-[1.1em] align-middle"></i> Sub-bab berhasil ditulis ulang oleh AI!');
                             } else {
-                                showToast('❌ ' + (data.message || 'Gagal menulis ulang.'), 'error');
+                                showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> ' + (data.message || 'Gagal menulis ulang.'), 'error');
                                 if (editor) editor.innerHTML = '';
                             }
                         } catch(e) {
-                            showToast('❌ Koneksi bermasalah.', 'error');
+                            showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> Koneksi bermasalah.', 'error');
                         } finally {
                             btn.disabled = false;
-                            btn.textContent = '🔄 Tulis Ulang';
+                            btn.innerHTML = '<i class="ph ph-arrows-clockwise text-[1.1em] align-middle"></i> Tulis Ulang';
                         }
                     });
                 });

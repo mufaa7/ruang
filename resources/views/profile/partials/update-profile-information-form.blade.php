@@ -33,7 +33,7 @@
                     <p class="text-sm mt-2 text-slate-800 dark:text-slate-300">
                         Email lu belum diverifikasi nih.
 
-                        <button form="send-verification" class="underline text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button form="send-verification" class="underline text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-800">
                             Klik di sini buat kirim ulang link verifikasi.
                         </button>
                     </p>

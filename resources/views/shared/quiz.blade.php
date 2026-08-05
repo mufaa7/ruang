@@ -9,11 +9,11 @@
 
         // Pesan random berdasarkan skor
         $msgs = [
-            100 => ['🏆 Sempurna!', 'Nilai lu memuaskan, pertahankan (kalo bisa).'],
-            80  => ['🔥 Luar Biasa!', 'Dikit lagi nyempurnain. Tetep keren sih.'],
-            60  => ['😤 Lumayan.', 'Masih bisa lebih baik. Coba lagi abis ngopi.'],
-            40  => ['💀 Aduh.', 'Belajar lagi ya. Pembahasan di bawah tuh gratis lho.'],
-            0   => ['🤦 Serius?', 'Ini kuis apa random klik? Buka catatan dulu kali.'],
+            100 => ['<i class="ph ph-trophy text-[1.1em] align-middle"></i> Sempurna!', 'Nilai lu memuaskan, pertahankan (kalo bisa).'],
+            80  => ['<i class="ph ph-fire text-[1.1em] align-middle"></i> Luar Biasa!', 'Dikit lagi nyempurnain. Tetep keren sih.'],
+            60  => ['<i class="ph ph-sneezing text-[1.1em] align-middle"></i> Lumayan.', 'Masih bisa lebih baik. Coba lagi abis ngopi.'],
+            40  => ['<i class="ph ph-skull text-[1.1em] align-middle"></i> Aduh.', 'Belajar lagi ya. Pembahasan di bawah tuh gratis lho.'],
+            0   => ['<i class="ph ph-face-palm text-[1.1em] align-middle"></i> Serius?', 'Ini kuis apa random klik? Buka catatan dulu kali.'],
         ];
         $msgKey = 0;
         foreach ([100,80,60,40,0] as $threshold) {
@@ -27,17 +27,17 @@
         {{-- ── Banner Header ── --}}
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
             <div>
-                <a href="{{ $backUrl }}" class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-2">
+                <a href="{{ $backUrl }}" class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-stone-600 transition-colors mb-2">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                     Cabut Dulu
                 </a>
                 <h1 class="text-2xl font-bold text-slate-900 dark:text-white font-geist flex items-center gap-2">
-                    📝 {{ $quiz->title }}
+                    <i class="ph ph-notepad text-[1.1em] align-middle"></i> {{ $quiz->title }}
                 </h1>
                 <p class="text-sm text-slate-500 font-medium mt-1">
                     {{ $quiz->subject->name ?? 'Kuis' }} · {{ $total }} soal
                     @if($quiz->time_limit_minutes) · {{ $quiz->time_limit_minutes }} menit @endif
-                    @if($result) · <span class="text-indigo-500">Mode Review</span> @endif
+                    @if($result) · <span class="text-neutral-900">Mode Review</span> @endif
                 </p>
             </div>
             @if($result)
@@ -56,7 +56,7 @@
         @if($result)
         <div class="mb-8 rounded-2xl border {{ $score >= 70 ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10' : 'border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/10' }} p-5">
             <div class="flex items-center gap-4">
-                <div class="text-3xl">{{ $score >= 70 ? '🏆' : '😤' }}</div>
+                <div class="text-3xl">{{ $score >= 70 ? '<i class="ph ph-trophy text-[1.1em] align-middle"></i>' : '<i class="ph ph-sneezing text-[1.1em] align-middle"></i>' }}</div>
                 <div>
                     <p class="font-bold text-slate-900 dark:text-white text-base">{{ $msgTitle }}</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{{ $msgBody }}</p>
@@ -121,7 +121,7 @@
                             @if($result && $question->type === 'multiple_choice')
                                 {{ $isCorrect ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400' }}
                             @else
-                                bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400
+                                bg-stone-200 dark:bg-neutral-950/40 text-neutral-900 dark:text-stone-500
                             @endif">
                             {{ $index + 1 }}
                         </span>
@@ -132,7 +132,7 @@
                     @if($result && $question->type === 'multiple_choice')
                         <span class="text-xs font-bold
                             {{ $isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400' }}">
-                            {{ $isCorrect ? '✓ Benar' : '✗ Salah' }}
+                            {{ $isCorrect ? '<i class="ph ph-check text-[1.1em] align-middle"></i> Benar' : '<i class="ph ph-x text-[1.1em] align-middle"></i> Salah' }}
                         </span>
                     @endif
                 </div>
@@ -167,15 +167,15 @@
                                 @endif
                             @else
                                 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300
-                                hover:border-indigo-300 dark:hover:border-indigo-600 hover:bg-indigo-50/60 dark:hover:bg-indigo-900/20
-                                has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 dark:has-[:checked]:bg-indigo-900/30
+                                hover:border-stone-400 dark:hover:border-neutral-900 hover:bg-stone-100/60 dark:hover:bg-neutral-950/20
+                                has-[:checked]:border-neutral-800 has-[:checked]:bg-stone-100 dark:has-[:checked]:bg-neutral-950/30
                             @endif">
                             <input type="radio"
                                    name="answers[{{ $question->id }}]"
                                    value="{{ $key }}"
                                    {{ $result ? 'disabled' : 'required' }}
                                    {{ $isSelected ? 'checked' : '' }}
-                                   class="text-indigo-600 border-slate-300 dark:border-slate-600 focus:ring-indigo-500 shrink-0">
+                                   class="text-neutral-900 border-slate-300 dark:border-slate-600 focus:ring-stone-800 shrink-0">
                             <span class="font-bold w-4 shrink-0
                                 @if($result)
                                     @if($isAnswer) text-emerald-600 dark:text-emerald-400
@@ -209,7 +209,7 @@
                               rows="4"
                               {{ $result ? 'disabled' : '' }}
                               class="w-full border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 text-sm text-slate-900 dark:text-slate-100
-                                     bg-slate-50 dark:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+                                     bg-slate-50 dark:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-stone-800 focus:border-transparent
                                      resize-none placeholder:text-slate-400 disabled:opacity-70 disabled:cursor-default"
                               placeholder="Tulis jawaban essay kamu di sini...">{{ $result ? ($result['submitted_answers'][$question->id] ?? '') : '' }}</textarea>
                 </div>
@@ -219,8 +219,8 @@
                 @if($result && $question->explanation)
                 <div x-show="showPembahasan" x-transition:enter="transition ease-out duration-200"
                      x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
-                     class="mx-3 mb-3 p-4 rounded-xl border border-dashed border-indigo-200 dark:border-indigo-800 bg-indigo-50/60 dark:bg-indigo-900/10">
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-indigo-500 dark:text-indigo-400 mb-1.5">Pembahasan</p>
+                     class="mx-3 mb-3 p-4 rounded-xl border border-dashed border-stone-300 dark:border-neutral-950 bg-stone-100/60 dark:bg-neutral-950/10">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-neutral-900 dark:text-stone-500 mb-1.5">Pembahasan</p>
                     <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{{ $question->explanation }}</p>
                 </div>
                 @endif
@@ -231,8 +231,8 @@
             @if(!$result)
             <div class="sticky bottom-4 pt-2">
                 <button type="submit"
-                        class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white rounded-2xl font-bold text-sm transition-all
-                               shadow-lg shadow-indigo-200 dark:shadow-indigo-900/40 flex items-center justify-center gap-2">
+                        class="w-full py-3.5 bg-neutral-900 hover:bg-neutral-900 active:scale-[0.99] text-white rounded-2xl font-bold text-sm transition-all
+                               shadow-lg shadow-stone-300 dark:shadow-neutral-950/40 flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                     </svg>
@@ -246,7 +246,7 @@
         @if($result)
         <div class="mt-6 text-center">
             <a href="{{ $backUrl }}"
-               class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+               class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-stone-600 dark:hover:text-stone-500 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>

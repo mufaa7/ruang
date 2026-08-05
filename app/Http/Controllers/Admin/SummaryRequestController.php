@@ -15,7 +15,7 @@ class SummaryRequestController extends Controller
             ->latest()
             ->paginate(20);
 
-        return view('admin.summary_requests.index', compact('requests'));
+        return view('admin.summary-requests.index', compact('requests'));
     }
 
     public function fulfill(SummaryRequest $summaryRequest)
@@ -25,7 +25,7 @@ class SummaryRequestController extends Controller
                 ->with('error', 'Request ini sudah dikerjakan.');
         }
 
-        return view('admin.summary_requests.fulfill', compact('summaryRequest'));
+        return view('admin.summary-requests.fulfill', compact('summaryRequest'));
     }
 
     public function storeNote(Request $request, SummaryRequest $summaryRequest)

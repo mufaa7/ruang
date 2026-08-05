@@ -23,6 +23,25 @@ class AgendaController extends Controller
         return back()->with('success', 'Agenda berhasil ditambahkan.');
     }
 
+    public function update(Request $request, Agenda $agenda)
+    {
+        if ($agenda->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'date'  => 'required|date',
+        ]);
+
+        $agenda->update([
+            'title' => $request->title,
+            'date'  => $request->date,
+        ]);
+
+        return back()->with('success', 'Agenda berhasil diperbarui.');
+    }
+
     public function destroy(Agenda $agenda)
     {
         if ($agenda->user_id !== auth()->id()) {

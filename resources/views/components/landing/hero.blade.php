@@ -31,7 +31,7 @@
                 justru mengendap?
             </blockquote>
             <div class="hero-song">
-                <small>♫ always playing</small>
+                <small><i class="ph ph-music-notes-simple text-[1.1em] align-middle"></i> always playing</small>
                 <h3>Wonderwall</h3>
                 <p>Oasis</p>
             </div>

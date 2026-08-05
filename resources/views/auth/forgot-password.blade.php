@@ -27,7 +27,7 @@
             </x-primary-button>
             
             <div class="text-center mt-6">
-                <a class="text-sm text-indigo-600 hover:text-indigo-500 transition py-2 px-4 rounded-xl active:scale-95 inline-block" href="{{ route('login') }}">
+                <a class="text-sm text-neutral-900 hover:text-stone-600 transition py-2 px-4 rounded-xl active:scale-95 inline-block" href="{{ route('login') }}">
                     {{ __('Kembali ke Login') }}
                 </a>
             </div>
