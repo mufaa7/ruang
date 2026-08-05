@@ -156,7 +156,7 @@
 
         <!-- Chat Input -->
         <div class="border-t border-slate-200 dark:border-[#2C2C2E] p-2 flex gap-2 bg-[#F9F9F9] dark:bg-[#1C1C1E] font-sans items-center">
-            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none min-w-0" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; word-spacing: 0;">
+            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" @focus="const _y = window.scrollY; setTimeout(() => window.scrollTo(0, _y), 50)" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none min-w-0" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; word-spacing: 0;">
             <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007AFF] hover:opacity-80 flex items-center justify-center text-white transition-opacity disabled:opacity-30 shrink-0" :disabled="!chatInput.trim()">
                 <i class="ph-bold ph-arrow-up text-[16px]"></i>
 
@@ -366,14 +366,16 @@
                 const userMsgObj = { role: 'user', content: userMsg, status: 'delivered', id: msgId };
                 this.chatHistory.push(userMsgObj);
                 this.chatInput = '';
+                this.isTyping = false; // Jangan tampilkan typing dulu
+                this.scrollToBottom();
+
+                // Tunggu 0.8 detik → Seen, lalu baru tampilkan isTyping
+                await new Promise(resolve => setTimeout(resolve, 800));
+                const mSeen = this.chatHistory.find(x => x.id === msgId);
+                if (mSeen) mSeen.status = 'seen';
                 this.isTyping = true;
                 this.scrollToBottom();
 
-                // Delivered → Seen setelah 0.8 detik (update by id agar Alpine detect)
-                setTimeout(() => {
-                    const m = this.chatHistory.find(x => x.id === msgId);
-                    if (m) m.status = 'seen';
-                }, 800);
                 try {
                     const res = await fetch('/duck/chat', {
                         method: 'POST',
