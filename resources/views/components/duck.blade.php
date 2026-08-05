@@ -129,7 +129,8 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-         class="fixed top-16 right-1 w-[min(280px,calc(100vw-8px))] md:absolute md:top-32 md:right-2 md:w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-[200]">
+         id="duck-chat-popover"
+         class="fixed top-36 right-1 w-[min(280px,calc(100vw-8px))] md:absolute md:top-32 md:right-2 md:w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-[200]">
         
         <!-- Chat History -->
         <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
@@ -333,9 +334,20 @@
             openChat() {
                 this.chatVisible = true;
                 this.bubbleVisible = false;
+                // Reposition chat below duck on mobile
+                if (window.innerWidth < 768) {
+                    this.$nextTick(() => {
+                        const duck = document.getElementById('duck-mascot');
+                        const chat = document.getElementById('duck-chat-popover');
+                        if (duck && chat) {
+                            const rect = duck.getBoundingClientRect();
+                            chat.style.top = Math.min(rect.bottom + 4, window.innerHeight - 280) + 'px';
+                            chat.style.right = '4px';
+                        }
+                    });
+                }
                 setTimeout(() => {
                     this.scrollToBottom();
-                    // focus input
                     const input = this.$el.querySelector('input');
                     if(input) input.focus();
                 }, 100);
