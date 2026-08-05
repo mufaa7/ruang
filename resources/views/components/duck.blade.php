@@ -130,18 +130,18 @@
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
          id="duck-chat-popover"
-         class="fixed top-36 right-1 w-[min(280px,calc(100vw-8px))] md:absolute md:top-32 md:right-2 md:w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-[200]">
+         class="fixed top-36 right-1 w-72 md:absolute md:top-32 md:right-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-[200]">
         
         <!-- Chat History -->
         <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
             <template x-for="msg in chatHistory">
                 <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
                     <div class="px-3.5 py-1.5 text-[14.5px] inline-block shadow-none relative"
-                         style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; word-break: break-word; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal;"
+                         style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow-wrap: break-word; text-align: left;"
                          :class="msg.role === 'user' 
                                 ? 'bg-[#007AFF] text-white rounded-[18px] rounded-br-[4px]' 
                                 : 'bg-[#E5E5EA] dark:bg-[#262628] text-black dark:text-white rounded-[18px] rounded-bl-[4px]'">
-                        <span x-text="msg.content" style="word-spacing: normal; letter-spacing: normal;"></span>
+                        <span x-text="msg.content"></span>
                     </div>
                     <!-- Read Receipt -->
                     <template x-if="msg.role === 'user' && msg.status && isLastUserMessage(msg)">
