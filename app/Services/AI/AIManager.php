@@ -165,6 +165,33 @@ class AIManager extends Manager
             'feature_name' => $feature
         ], $config);
 
-        return $this->driver($providerName)->chat($messages, $mergedConfig);
+        $maxAttempts = max(1, (int) $mergedConfig['retry']);
+        // Override with minimum 3 attempts for rate limits if user set retry to 0
+        if ($maxAttempts === 1) {
+            $maxAttempts = 3; 
+        }
+
+        $attempts = 0;
+        while ($attempts < $maxAttempts) {
+            $attempts++;
+            try {
+                return $this->driver($providerName)->chat($messages, $mergedConfig);
+            } catch (\Exception $e) {
+                if ($attempts >= $maxAttempts) {
+                    throw $e;
+                }
+                
+                // Cek apakah error 429 (Rate Limit) atau timeout
+                $errorMsg = strtolower($e->getMessage());
+                if (str_contains($errorMsg, '429') || str_contains($errorMsg, 'rate limit') || str_contains($errorMsg, 'timeout')) {
+                    // Jeda 3 detik sebelum mencoba lagi
+                    sleep(3);
+                    continue;
+                }
+                
+                // Kalau error lain (misal API key salah), langsung lempar errornya
+                throw $e;
+            }
+        }
     }
 }

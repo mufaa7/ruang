@@ -187,7 +187,7 @@ class AiCopilotController extends Controller
             $makalah->chapters()->delete();
         }
 
-        GenerateMakalahJob::dispatch($makalah, $request->input('title'));
+        dispatch(new GenerateMakalahJob($makalah, $request->input('title')))->afterResponse();
 
         // Hitung estimasi waktu untuk UX (Temuan #14)
         $subchapterCount = $resume

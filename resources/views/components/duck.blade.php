@@ -51,7 +51,7 @@
     </div>
 
     <!-- === PNG DUCK === -->
-    <div class="relative w-full h-full">
+    <div class="relative w-full h-full transition-transform duration-300 group-hover:-translate-y-2 group-active:scale-95">
         <!-- Gambar Bebek -->
         <img src="{{ asset('images/bebek.png') }}" 
              class="w-full h-full object-contain drop-shadow-xl" 
