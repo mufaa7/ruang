@@ -242,8 +242,8 @@
 
             scheduleRandomEvent() {
                 clearTimeout(this.randomTimer);
-                // Random time between 3 to 10 minutes (180,000 to 600,000 ms)
-                const nextTime = Math.floor(Math.random() * (600000 - 180000 + 1)) + 180000;
+                // Random time between 30s to 90s (30,000 to 90,000 ms) biar bebek sering ngoceh
+                const nextTime = Math.floor(Math.random() * (90000 - 30000 + 1)) + 30000;
                 
                 this.randomTimer = setTimeout(() => {
                     // Hanya nyeletuk random kalau lagi aktif (tidak ngantuk) dan chat tertutup
@@ -350,7 +350,8 @@
                 setTimeout(() => {
                     this.scrollToBottom();
                     const input = this.$el.querySelector('input');
-                    if(input) input.focus({ preventScroll: true });
+                    // Jangan auto-focus di mobile (menyebabkan keyboard pop up & layar lompat/naik)
+                    if(input && window.innerWidth >= 768) input.focus({ preventScroll: true });
                 }, 100);
             },
 
