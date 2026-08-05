@@ -242,8 +242,8 @@
 
             scheduleRandomEvent() {
                 clearTimeout(this.randomTimer);
-                // Random time between 30s to 90s (30,000 to 90,000 ms) biar bebek sering ngoceh
-                const nextTime = Math.floor(Math.random() * (90000 - 30000 + 1)) + 30000;
+                // Random time between 2 to 8 minutes (120,000 to 480,000 ms)
+                const nextTime = Math.floor(Math.random() * (480000 - 120000 + 1)) + 120000;
                 
                 this.randomTimer = setTimeout(() => {
                     // Hanya nyeletuk random kalau lagi aktif (tidak ngantuk) dan chat tertutup
