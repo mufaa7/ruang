@@ -179,7 +179,7 @@ class AiCopilotController extends Controller
 
         $makalah->update([
             'ai_status'   => 'queued',
-            'ai_progress' => 'Menunggu antrean untuk membuat kerangka makalah...',
+            'ai_progress' => 'Antrean server: Menunggu mesin AI dipanaskan (30-60 detik)...',
         ]);
 
         // Hapus bab lama hanya jika tidak resume
