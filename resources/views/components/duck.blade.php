@@ -156,7 +156,7 @@
 
         <!-- Chat Input -->
         <div class="border-t border-slate-200 dark:border-[#2C2C2E] p-2 flex gap-2 bg-[#F9F9F9] dark:bg-[#1C1C1E] font-sans items-center">
-            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none min-w-0" autocomplete="off" inputmode="text" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px;">
+            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none min-w-0" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; word-spacing: 0;">
             <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007AFF] hover:opacity-80 flex items-center justify-center text-white transition-opacity disabled:opacity-30 shrink-0" :disabled="!chatInput.trim()">
                 <i class="ph-bold ph-arrow-up text-[16px]"></i>
 
@@ -219,7 +219,8 @@
             idleTimer: null,
             randomTimer: null,
             chatHistory: [],
-            
+            msgCounter: 0,
+
             init() {
                 // Initial welcome after 5s
                 setTimeout(() => this.triggerEvent('dashboard'), 5000);
@@ -361,14 +362,18 @@
                 if (!this.chatInput.trim()) return;
                 
                 const userMsg = this.chatInput.trim();
-                const userMsgObj = { role: 'user', content: userMsg, status: 'delivered' };
+                const msgId = ++this.msgCounter;
+                const userMsgObj = { role: 'user', content: userMsg, status: 'delivered', id: msgId };
                 this.chatHistory.push(userMsgObj);
                 this.chatInput = '';
                 this.isTyping = true;
                 this.scrollToBottom();
 
-                // Delivered → Seen setelah 0.8 detik
-                setTimeout(() => { userMsgObj.status = 'seen'; }, 800);
+                // Delivered → Seen setelah 0.8 detik (update by id agar Alpine detect)
+                setTimeout(() => {
+                    const m = this.chatHistory.find(x => x.id === msgId);
+                    if (m) m.status = 'seen';
+                }, 800);
                 try {
                     const res = await fetch('/duck/chat', {
                         method: 'POST',
@@ -426,7 +431,7 @@
 
             isLastUserMessage(msg) {
                 const userMsgs = this.chatHistory.filter(m => m.role === 'user');
-                return userMsgs.length > 0 && userMsgs[userMsgs.length - 1] === msg;
+                return userMsgs.length > 0 && userMsgs[userMsgs.length - 1].id === msg.id;
             }
         }));
     });
