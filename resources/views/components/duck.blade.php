@@ -1,7 +1,7 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
      @click.outside="closeChat()"   
-     class="fixed -top-6 right-0 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed -top-6 -right-4 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
     <div class="relative w-40 h-40 cursor-pointer group z-10" 
@@ -129,7 +129,7 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-         class="absolute top-32 right-1 mt-2 w-[min(280px,calc(100vw-8px))] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
+         class="fixed top-16 right-1 w-[min(280px,calc(100vw-8px))] md:absolute md:top-32 md:right-2 md:w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-[200]">
         
         <!-- Chat History -->
         <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
