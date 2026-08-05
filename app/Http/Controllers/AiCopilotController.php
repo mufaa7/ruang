@@ -90,13 +90,13 @@ class AiCopilotController extends Controller
         $total = 0;
         $done  = 0;
         if (in_array($makalah->ai_status, ['processing_chapter', 'completed'])) {
-            $total = \App\Models\MakalahSubchapter::whereHas('chapter', function($q) use ($makalah) {
-                $q->where('makalah_id', $makalah->id);
-            })->count();
+            $chapterIds = $makalah->chapters()->pluck('id');
             
-            $done = \App\Models\MakalahSubchapter::whereHas('chapter', function($q) use ($makalah) {
-                $q->where('makalah_id', $makalah->id);
-            })->whereNotNull('content')->where('content', '!=', '')->count();
+            if ($chapterIds->isNotEmpty()) {
+                $total = \App\Models\MakalahSubchapter::whereIn('makalah_chapter_id', $chapterIds)->count();
+                $done  = \App\Models\MakalahSubchapter::whereIn('makalah_chapter_id', $chapterIds)
+                            ->whereNotNull('content')->where('content', '!=', '')->count();
+            }
         }
 
         return response()->json([
