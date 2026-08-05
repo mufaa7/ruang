@@ -338,7 +338,13 @@
                     
                     if (action === 'cancel') return;
 
-                    if (aiLoadingText) aiLoadingText.innerText = 'Menghubungi AI...';
+                    // Disable button to prevent double clicks
+                    btnGenerate.classList.add('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+                    btnGenerate.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Loading...';
+
+                    // Tampilkan banner *sebelum* nunggu API response biar user tau ini lagi loading
+                    openAiBanner(10); // default 10 mnt, ntar diupdate
+                    if (aiLoadingText) aiLoadingText.innerText = 'Menghubungi server...';
                     
                     const res = await fetch("{{ route('api.ai.generate-full', $makalah) }}", {
                         method: 'POST',
@@ -349,8 +355,10 @@
                     const data = await res.json();
                     
                     if (data.success) {
+                        // Update banner pake estimasi asli dari server
                         openAiBanner(data.estimasi_menit);
-                        if (aiLoadingText) aiLoadingText.innerText = 'AI sedang menyusun kerangka makalah...';
+                        // Jangan overwrite text ini biar ketarik dari database pas polling (biar keliatan status antrean)
+                        if (aiLoadingText) aiLoadingText.innerText = 'Antrean server: Menunggu mesin AI dipanaskan (30-60 detik)...';
                         updateProgressBar(0);
 
                         // SHOW SKELETON IMMEDIATELY
@@ -375,11 +383,15 @@
                         startAiPolling();
                     } else {
                         closeAiBanner();
+                        btnGenerate.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+                        btnGenerate.innerHTML = '<i class="ph ph-sparkle text-[1.1em] align-middle"></i> Proses Pake AI';
                         showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> ' + (data.message || 'Gagal memulai proses AI.'), 'error');
                     }
                 } catch (err) {
                     console.error('AI Generation Error:', err);
                     closeAiBanner();
+                    btnGenerate.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+                    btnGenerate.innerHTML = '<i class="ph ph-sparkle text-[1.1em] align-middle"></i> Proses Pake AI';
                     showToast('<i class="ph ph-x-circle text-[1.1em] align-middle"></i> Terjadi kesalahan koneksi.', 'error');
                 }
             });
