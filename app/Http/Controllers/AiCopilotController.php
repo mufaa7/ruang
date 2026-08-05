@@ -86,13 +86,17 @@ class AiCopilotController extends Controller
     {
         $this->authorize('view', $makalah);
 
-        // Hitung progress sub-bab untuk progress bar
+        // Hitung progress sub-bab untuk progress bar (Optimized for memory)
         $total = 0;
         $done  = 0;
         if (in_array($makalah->ai_status, ['processing_chapter', 'completed'])) {
-            $subchapters = $makalah->chapters()->with('subchapters')->get()->flatMap->subchapters;
-            $total = $subchapters->count();
-            $done  = $subchapters->filter(fn($s) => !empty(trim($s->content)))->count();
+            $total = \App\Models\MakalahSubchapter::whereHas('chapter', function($q) use ($makalah) {
+                $q->where('makalah_id', $makalah->id);
+            })->count();
+            
+            $done = \App\Models\MakalahSubchapter::whereHas('chapter', function($q) use ($makalah) {
+                $q->where('makalah_id', $makalah->id);
+            })->whereNotNull('content')->where('content', '!=', '')->count();
         }
 
         return response()->json([
