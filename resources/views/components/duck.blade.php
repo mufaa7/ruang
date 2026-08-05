@@ -137,7 +137,7 @@
             <template x-for="msg in chatHistory">
                 <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
                     <div class="px-3.5 py-1.5 text-[14.5px] inline-block shadow-none relative"
-                         style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow-wrap: break-word; text-align: left;"
+                         style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; text-align: left; text-justify: none; word-spacing: 0; overflow-wrap: break-word;"
                          :class="msg.role === 'user' 
                                 ? 'bg-[#007AFF] text-white rounded-[18px] rounded-br-[4px]' 
                                 : 'bg-[#E5E5EA] dark:bg-[#262628] text-black dark:text-white rounded-[18px] rounded-bl-[4px]'">
