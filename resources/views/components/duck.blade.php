@@ -1,7 +1,7 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
      @click.outside="closeChat()"   
-     class="fixed -top-6 -right-4 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed -top-6 right-0 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
     <div class="relative w-40 h-40 cursor-pointer group z-10" 
@@ -129,7 +129,7 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-         class="absolute top-32 right-2 mt-2 w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
+         class="absolute top-32 right-2 mt-2 w-[calc(100vw-1.5rem)] max-w-[288px] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20">
         
         <!-- Chat History -->
         <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
@@ -155,7 +155,7 @@
 
         <!-- Chat Input -->
         <div class="border-t border-slate-200 dark:border-[#2C2C2E] p-2 flex gap-2 bg-[#F9F9F9] dark:bg-[#1C1C1E] font-sans items-center">
-            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none" autocomplete="off" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none min-w-0" autocomplete="off" inputmode="text" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px;">
             <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007AFF] hover:opacity-80 flex items-center justify-center text-white transition-opacity disabled:opacity-30 shrink-0" :disabled="!chatInput.trim()">
                 <i class="ph-bold ph-arrow-up text-[16px]"></i>
 
