@@ -177,10 +177,13 @@ class DashboardController extends Controller
     {
         if (!File::exists($filepath)) return [];
         
-        $file = file($filepath);
-        if (!$file) return [];
+        $size = filesize($filepath);
+        $offset = max(0, $size - 50000); // read last 50KB to avoid memory exhaustion
+        $content = file_get_contents($filepath, false, null, $offset);
+        if (!$content) return [];
         
-        $tail = array_slice($file, -$lines);
+        $fileLines = explode("\n", $content);
+        $tail = array_slice($fileLines, -$lines);
         $formatted = [];
         
         foreach ($tail as $line) {
@@ -214,11 +217,16 @@ class DashboardController extends Controller
     {
         if (!File::exists($filepath)) return 'No exceptions found.';
         
-        // Read file backwards to find last exception
-        $file = file($filepath);
-        $file = array_reverse($file);
+        $size = filesize($filepath);
+        $offset = max(0, $size - 200000); // read last 200KB to avoid memory exhaustion
+        $content = file_get_contents($filepath, false, null, $offset);
+        if (!$content) return 'No exceptions found.';
         
-        foreach ($file as $line) {
+        // Read file backwards to find last exception
+        $fileLines = explode("\n", $content);
+        $fileLines = array_reverse($fileLines);
+        
+        foreach ($fileLines as $line) {
             if (str_contains(strtolower($line), 'exception:')) {
                 // Extract just the exception message
                 if (preg_match('/Exception: (.*)/', $line, $matches)) {
