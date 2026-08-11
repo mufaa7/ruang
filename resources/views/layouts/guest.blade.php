@@ -42,8 +42,8 @@
     <!-- Subtle Gradient blobs for dark mode -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(185,28,28,0.06),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(217,119,6,0.06),transparent_40%)]"></div>
 
-    <!-- Film Grain Overlay for 90s Oasis Vibe -->
-    <div class="absolute inset-0 opacity-[0.05]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+    <!-- Film Grain Overlay (Replaced SVG with PNG to prevent Chromium GPU glitch) -->
+    <div class="absolute inset-0 opacity-[0.1]" style="background-image: url('{{ asset('images/background1.png') }}'); background-repeat: repeat;"></div>
 
     <!-- Noel Gallagher's Guitar Background -->
     <div class="absolute -left-32 sm:-left-64 top-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] opacity-[0.15] pointer-events-none">
