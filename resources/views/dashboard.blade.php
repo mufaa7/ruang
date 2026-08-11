@@ -11,21 +11,23 @@
 
         <div class="flex flex-col md:flex-row md:items-start md:justify-between relative z-10 md:gap-4">
             <div class="w-full md:max-w-2xl mt-4 md:mt-0">
-                <h1 id="dynamicGreeting" class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#1F1F1D] dark:text-white pr-20 md:pr-0">
+                <h1 id="dynamicGreeting" class="text-2xl sm:text-3xl font-semibold tracking-tight text-white dark:text-white pr-20 md:pr-0">
                     {!! $greeting !!}
                 </h1>
-                <blockquote class="mt-4 border-l-2 border-[#D6D0C4] pl-4 dark:border-slate-700/50 pr-2 md:pr-0">
-                    <p class="quote text-sm sm:text-base text-neutral-600 leading-relaxed dark:text-slate-300">
+                <blockquote class="mt-4 border-l-2 border-[#1e293b] pl-4 dark:border-slate-700/50 pr-2 md:pr-0">
+                    <p class="quote text-sm sm:text-base text-blue-200 leading-relaxed dark:text-slate-300">
                         "{{ $quote['text'] }}"
                     </p>
-                    <footer class="mt-1 text-xs sm:text-sm font-medium text-[#A8A296]">
+                    <footer class="mt-1 text-xs sm:text-sm font-medium text-slate-300">
                         — {{ $quote['author'] }}
                     </footer>
                 </blockquote>
             </div>
 
-            {{-- Flip Clock --}}
-            <div class="absolute top-0 right-0 md:relative md:top-auto md:right-auto flex flex-col items-end justify-start scale-[0.6] sm:scale-75 md:scale-100 origin-top-right md:origin-right shrink-0 mt-0 md:-mt-10 lg:mt-0">
+            {{-- Flip Clock on a Stage --}}
+            <div class="absolute -top-8 right-0 md:relative md:top-auto md:right-auto flex flex-col items-center justify-start scale-[0.6] sm:scale-75 md:scale-100 origin-top-right md:origin-center shrink-0 -mt-2 lg:-mt-8 lg:-mr-5 lg:translate-x-2 lg:-translate-y-2">
+                
+                {{-- The Clock Box --}}
                 <div x-data="{
                         hours: '{{ now()->format('H') }}',
                         minutes: '{{ now()->format('i') }}',
@@ -37,36 +39,38 @@
                             }, 1000);
                         }
                     }"
-                    class="relative font-mono font-extrabold text-4xl grid grid-cols-2 text-center text-white shadow-lg gap-x-px border-4 border-yellow-100 rounded-lg">
-
-                    <!-- clock stand -->
-                    <div class="absolute inset-x-0 -bottom-2 mx-auto flex justify-center">
-                        <div class="w-3/4 h-2 bg-yellow-100 rounded-b"></div>
+                    class="relative font-mono font-extrabold text-4xl flex items-center gap-2 text-center text-white z-10 px-4 py-3 bg-[#0f172a]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    
+                    <!-- left timer (hours) -->
+                    <div class="relative w-14 h-16 bg-gradient-to-b from-slate-800 to-slate-900 rounded-lg shadow-inner flex items-center justify-center border border-slate-700 overflow-hidden">
+                        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-black/60 z-10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"></div>
+                        <span class="relative z-0 drop-shadow-md" x-text="hours">00</span>
                     </div>
 
-                    <!-- left timer (hours) -->
-                    <div class="relative py-3 px-3">
-                        <div class="absolute inset-0 w-full h-full grid grid-rows-2 rounded-l-md overflow-hidden">
-                            <div class="bg-gradient-to-br from-gray-800 to-gray-900"></div>
-                            <div class="bg-gradient-to-br from-gray-700 to-gray-900"></div>
-                        </div>
-                        <div class="relative" x-text="hours">00</div>
-                        <div class="absolute inset-0 w-full h-full flex items-center justify-center">
-                            <div class="h-px w-full bg-gray-800"></div>
-                        </div>
+                    <!-- blinker -->
+                    <div class="flex flex-col gap-2 opacity-50 animate-pulse">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
                     </div>
 
                     <!-- right timer (minutes) -->
-                    <div class="relative py-3 px-3">
-                        <div class="absolute inset-0 w-full h-full grid grid-rows-2 rounded-r-md overflow-hidden">
-                            <div class="bg-gradient-to-br from-gray-800 to-gray-900"></div>
-                            <div class="bg-gradient-to-br from-gray-700 to-gray-900"></div>
-                        </div>
-                        <div class="relative" x-text="minutes">00</div>
-                        <div class="absolute inset-0 w-full h-full flex items-center justify-center">
-                            <div class="h-px w-full bg-gray-800"></div>
-                        </div>
+                    <div class="relative w-14 h-16 bg-gradient-to-b from-slate-800 to-slate-900 rounded-lg shadow-inner flex items-center justify-center border border-slate-700 overflow-hidden">
+                        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-black/60 z-10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"></div>
+                        <span class="relative z-0 drop-shadow-md" x-text="minutes">00</span>
                     </div>
+                </div>
+
+                {{-- The Stage (Panggung) --}}
+                <div class="relative flex flex-col items-center justify-center -mt-2 z-0">
+                    <!-- Top plate (Glass) -->
+                    <div class="w-[180px] h-3 bg-white/10 backdrop-blur-md rounded-t-xl border-t border-x border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] relative z-10"></div>
+                    <!-- Bottom base (Dark) -->
+                    <div class="w-[200px] h-6 bg-gradient-to-b from-slate-900 to-black rounded-b-2xl border-b border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] relative z-0 overflow-hidden">
+                        <!-- Stage spotlight effect -->
+                        <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-amber-300/40 to-transparent"></div>
+                    </div>
+                    <!-- Ground reflection/shadow -->
+                    <div class="w-[160px] h-3 bg-amber-500/10 blur-xl rounded-full mt-2"></div>
                 </div>
             </div>
         </div>
@@ -74,17 +78,17 @@
         {{-- QUICK ACTIONS --}}
         <div class="mt-10 mb-2">
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-2">
-                <h3 class="text-sm font-medium text-[#A8A296] tracking-widest uppercase">ngapain.?</h3>
+                <h3 class="text-sm font-medium text-amber-300/80 tracking-widest uppercase">ngapain.?</h3>
                 <div class="flex flex-wrap gap-3 sm:gap-4">
-                    <a href="{{ route('makalah.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-[#7C756C] hover:text-stone-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
+                    <a href="{{ route('makalah.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-blue-200/80 hover:text-white font-medium active:scale-95 transition-transform">
                         <i class="ph ph-pencil-simple-line text-lg"></i>
                         <span>nugas</span>
                     </a>
-                    <a href="{{ route('coretan.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-[#7C756C] hover:text-emerald-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
+                    <a href="{{ route('coretan.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-blue-200/80 hover:text-cyan-300 font-medium active:scale-95 transition-transform">
                         <i class="ph ph-notebook text-lg"></i>
                         <span>nyatet</span>
                     </a>
-                    <a href="{{ route('subjects.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-[#7C756C] hover:text-rose-600 font-medium active:scale-95 transition-transform dark:text-slate-400">
+                    <a href="{{ route('subjects.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-blue-200/80 hover:text-rose-300 font-medium active:scale-95 transition-transform">
                         <i class="ph ph-target text-lg"></i>
                         <span>latihan</span>
                     </a>
@@ -100,36 +104,36 @@
                 {{-- Continue Writing --}}
         @if(isset($activeDoc) && $activeDoc)
             <a href="{{ route('makalah.edit', $activeDoc->id) }}" class="dashboard-card group block p-6 sm:p-8 h-full flex flex-col justify-between transition-all active:scale-[0.98]">
-                <span class="text-sm text-[#7C756C] dark:text-slate-400">
+                <span class="text-sm text-amber-300/80">
                     lanjutin yg tadi.
                 </span>
-                <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1F1F1D] leading-tight dark:text-white">
+                <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
                     {{ $activeDoc->judul }}
                 </h2>
 
-                <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-[#7C756C] dark:text-slate-400">
+                <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-blue-200/60">
                     <span>{{ number_format($wordCount) }} kata</span>
                     <span class="hidden sm:inline">&middot;</span>
                     <span>terakhir dibuka {{ $activeDoc->updated_at ? $activeDoc->updated_at->diffForHumans() : 'Baru Saja' }}</span>
                 </div>
 
-                <hr class="my-6 border-[#D6D0C4] dark:border-slate-700/50">
+                <hr class="my-6 border-white/10">
 
-                <div class="flex items-center gap-2 font-medium text-[#1F1F1D] text-sm sm:text-base dark:text-white">
+                <div class="flex items-center gap-2 font-medium text-white text-sm sm:text-base">
                     lanjutin lagi
                     <i class="ph ph-arrow-right text-xl transition-transform duration-300 group-hover:translate-x-1"></i>
                 </div>
             </a>
         @else
-            <div class="dashboard-card border-dashed border-stone-300 p-6 sm:p-8 h-full flex flex-col justify-center text-center dark:border-slate-700">
-                <h2 class="text-xl sm:text-2xl font-semibold text-[#1F1F1D] dark:text-white">
+            <div class="dashboard-card border-dashed border-white/20 p-6 sm:p-8 h-full flex flex-col justify-center text-center">
+                <h2 class="text-xl sm:text-2xl font-semibold text-white">
                     belom ada yg dikerjain.
                 </h2>
-                <p class="mt-2 text-sm sm:text-base text-[#7C756C] dark:text-slate-400">
+                <p class="mt-2 text-sm sm:text-base text-blue-200/80">
                     bikin makalah pertama dulu.
                 </p>
                 <div class="mt-6">
-                    <a href="{{ route('makalah.create') }}" class="inline-flex rounded-xl bg-[#1F1F1D] px-6 min-h-11 items-center justify-center text-sm font-medium text-white transition hover:bg-[#34302C] active:scale-95">
+                    <a href="{{ route('makalah.create') }}" class="inline-flex rounded-xl bg-white/10 border border-white/20 px-6 min-h-11 items-center justify-center text-sm font-medium text-white transition hover:bg-white/20 active:scale-95">
                         mulai nulis
                     </a>
                 </div>
@@ -141,7 +145,7 @@
                 {{-- Focus --}}
 
                 <div x-data class="dashboard-card h-full flex flex-col items-center justify-center group overflow-hidden relative" :class="$store.pomodoro.isRunning ? 'is-running' : ''">
-                    <p class="absolute top-6 left-6 text-sm text-[#7C756C] dark:text-slate-400">
+                    <p class="absolute top-6 left-6 text-sm text-amber-300/80">
                         fokus.
                     </p>
                     <div class="relative flex items-center justify-center py-10 sm:py-8">
@@ -160,14 +164,14 @@
                         {{-- Knob --}}
                         <div class="pomodoro-timer-knob" @click="$store.pomodoro.toggle()" :title="$store.pomodoro.isRunning ? 'Pause' : 'Mulai Fokus'">
                             <div class="pomodoro-knob-grip"></div>
-                            <span class="absolute right-[-4px] text-[8px] tracking-widest uppercase font-medium text-[#A8A296] rotate-90 opacity-0 group-hover:opacity-100 transition"
+                            <span class="absolute right-[-4px] text-[8px] tracking-widest uppercase font-medium text-slate-300 rotate-90 opacity-0 group-hover:opacity-100 transition"
                                   style="transform: rotate(90deg) translateY(-25px); transform-origin: left top;"
                                   x-text="$store.pomodoro.isRunning ? 'PAUSE' : 'PLAY'">
                             </span>
                         </div>
                     </div>
 
-                    <button @click="$store.pomodoro.reset()" class="absolute bottom-6 text-[10px] uppercase tracking-widest text-[#A8A296] hover:text-stone-600 transition active:scale-95 p-2">
+                    <button @click="$store.pomodoro.reset()" class="absolute bottom-6 text-[10px] uppercase tracking-widest text-slate-300 hover:text-white transition active:scale-95 p-2">
                         reset
                     </button>
                 </div>
@@ -180,20 +184,20 @@
 @if(isset($currentTrack) && $currentTrack)
 
 <div class="flex justify-between items-center">
-    <p class="text-sm text-[#7C756C] dark:text-slate-400">
+    <p class="text-sm text-amber-300/80">
         lagi muter.
     </p>
 
     <div class="flex items-center gap-3">
         <span
-            class="lowercase text-[12px] tracking-[0.2em] text-[#141414] italic font-black"
+            class="lowercase text-[12px] tracking-[0.2em] text-white italic font-black"
             style="font-family:'Arial Black',sans-serif; transform:skewX(-6deg);">
             oasis
         </span>
         <div class="flex items-end gap-[2px] opacity-20">
-            <span class="w-[2px] h-4 rounded-full bg-[#2D2A28]"></span>
-            <span class="w-[2px] h-7 rounded-full bg-[#2D2A28]"></span>
-            <span class="w-[2px] h-5 rounded-full bg-[#2D2A28]"></span>
+            <span class="w-[2px] h-4 rounded-full bg-white/20"></span>
+            <span class="w-[2px] h-7 rounded-full bg-white/20"></span>
+            <span class="w-[2px] h-5 rounded-full bg-white/20"></span>
         </div>
     </div>
 </div>
@@ -213,8 +217,9 @@
         transition-property: left, width, height, margin, padding, opacity !important;
     }
 
-    .ruang-music-widget.group:hover .ruang-vinyl {
-        animation: ruang-vinyl-spin 4s linear infinite !important;
+    .ruang-music-widget.group:hover .ruang-vinyl,
+    .ruang-vinyl.is-playing {
+        animation: ruang-vinyl-spin 2s linear infinite !important;
     }
 
     .ruang-lyrics p {
@@ -241,27 +246,11 @@
     {{-- Artwork --}}
     <div class="ruang-artwork relative z-20 h-40 w-40 shrink-0">
         {{-- Vinyl --}}
-        <div
-            class="ruang-vinyl absolute left-[68%] top-1/2 -z-10 h-[130px] w-[130px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%]"
-            style="background: radial-gradient(circle at center, #e8ddc4 0 11%, #141414 12%), repeating-radial-gradient(circle, #151515 0, #151515 .8px, #202020 .8px, #202020 1.6px);"
-        >
-            <div class="absolute left-4 top-4 h-8 w-20 rounded-full bg-white/10 blur-xl"></div>
-
-            <div class="absolute inset-0 flex items-center justify-center">
-                <div class="flex h-8 w-8 flex-col items-center justify-center rounded-full bg-[#e8ddc4] leading-none shadow-inner sm:h-10 sm:w-10">
-                    <span class="text-[4px] font-bold tracking-[0.18em] text-[#4F4A44] dark:text-slate-200">
-                        OASIS
-                    </span>
-                    <span class="mt-[2px] text-[3px] text-[#7C756C] dark:text-slate-400">
-                        Wonderwall
-                    </span>
-                    <span class="mt-[1px] text-[3px] text-[#7C756C] dark:text-slate-400">
-                        1995
-                    </span>
-                    <span class="mt-[2px] h-1.5 w-1.5 rounded-full bg-[#1F1F1D]"></span>
-                </div>
-            </div>
-        </div>
+        <img
+            src="{{ asset('images/oasis.png') }}"
+            alt="Vinyl"
+            class="ruang-vinyl absolute left-[68%] top-1/2 -z-10 h-[130px] w-[130px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%] object-cover"
+        />
 
         {{-- Cover album --}}
         <img
@@ -271,7 +260,7 @@
         />
 
         {{-- Lyrics typewriter --}}
-        <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+12px)] z-30 w-[220px] font-mono text-[10px] text-[#7C756C] opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-[#A8A296] sm:w-[250px] sm:top-[calc(100%+40px)] sm:text-[10px]">
+        <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+12px)] z-30 w-[220px] font-mono text-[10px] text-blue-200 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-slate-300 sm:w-[250px] sm:top-[calc(100%+40px)] sm:text-[10px]">
         </div>
     </div>
 
@@ -280,17 +269,17 @@
         <div class="flex items-start justify-between">
             <div>
                 <h3
-                    class="text-[20px] font-normal leading-none text-[#1F1F1D] dark:text-white sm:text-[36px]"
+                    class="text-[20px] font-normal leading-none text-white dark:text-white sm:text-[36px]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
                     Wonderwall
                 </h3>
 
-                <p class="mt-1 text-[14px] font-light text-[#7C756C] dark:text-slate-400 sm:mt-2 sm:text-[18px]">
+                <p class="mt-1 text-[14px] font-light text-blue-200 dark:text-slate-400 sm:mt-2 sm:text-[18px]">
                     Oasis
                 </p>
 
-                <p class="mt-0.5 text-[10px] tracking-[0.01em] text-[#A8A296] sm:mt-1 sm:text-[13px]">
+                <p class="mt-0.5 text-[10px] tracking-[0.01em] text-slate-300 sm:mt-1 sm:text-[13px]">
                     (What's the Story) Morning Glory?
                     <span class="mx-1.5 hidden sm:inline">&bull;</span>
                     <br class="sm:hidden" />
@@ -308,21 +297,21 @@
             </div>
 
             <div class="relative">
-                <div class="h-[2px] rounded-full bg-[#D6D0C4] dark:bg-slate-800"></div>
-                <div class="ruang-progress absolute left-[41%] -top-[5px] h-3 w-3 rounded-full bg-[#1F1F1D] dark:bg-white transition-all duration-[46s] ease-linear"></div>
+                <div class="h-[2px] rounded-full bg-[#1e293b] dark:bg-slate-800"></div>
+                <div class="ruang-progress absolute left-[41%] -top-[5px] h-3 w-3 rounded-full bg-white/20 dark:bg-white transition-all duration-[46s] ease-linear"></div>
             </div>
 
-            <div class="mt-3 flex items-center justify-between text-xs text-[#A8A296] sm:text-sm">
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-300 sm:text-sm">
                 <span>01:22</span>
                 <span>02:08</span>
             </div>
 
-            <div class="mt-4 flex items-center justify-center gap-6 text-[#A8A296]">
+            <div class="mt-4 flex items-center justify-center gap-6 text-slate-300">
                 <button type="button" aria-label="Lagu sebelumnya">
                     <i class="ph-fill ph-skip-back text-[15px]"></i>
                 </button>
 
-                <button type="button" id="wonderwall-play-btn" aria-label="Putar lagu" class="text-[#1F1F1D] dark:text-white transition-transform active:scale-90">
+                <button type="button" id="wonderwall-play-btn" aria-label="Putar lagu" class="text-white dark:text-white transition-transform active:scale-90">
                     <i id="wonderwall-play-icon" class="ph-fill ph-play text-[20px]"></i>
                 </button>
 
@@ -443,7 +432,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
             playIcon.classList.replace('ph-pause', 'ph-play');
             
             // Revert animations
-            vinyl.classList.remove('!animation-[ruang-vinyl-spin_4s_linear_infinite]', 'left-[92%]');
+            vinyl.classList.remove('is-playing', 'left-[92%]');
             cover.classList.remove('-translate-x-2', '-translate-y-1');
             progress.classList.remove('left-[100%]');
             lyricsBox.classList.remove('opacity-100');
@@ -463,7 +452,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                     playIcon.classList.replace('ph-play', 'ph-pause');
                     
                     // Trigger animations
-                    vinyl.classList.add('!animation-[ruang-vinyl-spin_4s_linear_infinite]', 'left-[92%]');
+                    vinyl.classList.add('is-playing', 'left-[92%]');
                     cover.classList.add('-translate-x-2', '-translate-y-1');
                     progress.classList.add('left-[100%]');
                     lyricsBox.classList.add('opacity-100');
@@ -516,15 +505,15 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
 
 @else
 
-<div class="rounded-2xl bg-[#EFECE5] p-8 sm:p-10 text-center dark:bg-slate-900/80">
+<div class="rounded-2xl border border-white/10 bg-white/5 p-8 sm:p-10 text-center text-slate-300">
 
-    <div class="text-4xl sm:text-5xl"><i class="ph ph-music-note text-[1.1em] align-middle"></i></div>
+    <div class="text-4xl sm:text-5xl opacity-50"><i class="ph ph-music-note text-[1.1em] align-middle"></i></div>
 
-    <h3 class="mt-4 sm:mt-5 font-semibold text-[#1F1F1D] dark:text-white">
+    <h3 class="mt-4 sm:mt-5 font-semibold text-white">
         Belum ada lagu.
     </h3>
 
-    <p class="mt-2 text-sm text-[#7C756C] dark:text-slate-400">
+    <p class="mt-2 text-sm text-slate-400">
         Putar sesuatu dulu.
     </p>
 
@@ -550,11 +539,11 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                     @endphp
 
                     <div class="flex items-center justify-between mb-6">
-                        <p class="text-sm text-[#7C756C] dark:text-slate-400">
+                        <p class="text-sm text-amber-300/80">
                             kalender.
                         </p>
 
-                        <h4 class="text-sm text-[#4F4A44] font-medium dark:text-slate-200">
+                        <h4 class="text-sm text-slate-200 font-medium dark:text-slate-200">
                             {{ $today->translatedFormat('F Y') }}
                         </h4>
                     </div>
@@ -564,7 +553,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
 
                         @foreach(['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] as $day)
 
-                            <div class="text-center text-[11px] sm:text-xs uppercase tracking-widest sm:tracking-[.28em] font-medium {{ $day === 'Sun' ? 'text-red-500 dark:text-red-400' : 'text-[#A8A296]' }}">
+                            <div class="text-center text-[11px] sm:text-xs uppercase tracking-widest sm:tracking-[.28em] font-medium {{ $day === 'Sun' ? 'text-red-500 dark:text-red-400' : 'text-slate-300' }}">
                                 {{ $day }}
                             </div>
 
@@ -598,7 +587,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                 })->toJson();
                                 $base64Agendas = base64_encode($agendasData);
                                 
-                                $textColor = $isSunday ? 'text-red-500 dark:text-red-400 font-bold' : 'text-[#1F1F1D] dark:text-white';
+                                $textColor = $isSunday ? 'text-red-500 dark:text-red-400 font-bold' : 'text-white dark:text-white';
                                 if ($hasAgenda) {
                                     $textColor = 'text-white font-bold';
                                 }
@@ -610,7 +599,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     group
                                     relative
                                     aspect-square sm:aspect-[0.92]
-                                    rounded-lg sm:rounded-[18px]
+                                    rounded-[20px] sm:rounded-[18px]
                                     p-1.5 sm:p-3
                                     transition-all
                                     duration-300
@@ -621,14 +610,14 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     active:scale-95
 
                                     {{ $isToday
-                                        ? 'border-2 border-[#1F1F1D] bg-white shadow-sm'
-                                        : 'border border-[#ececec] bg-white hover:border-[#A8A296]'
+                                        ? 'border-2 border-amber-300/80 bg-amber-300/10 shadow-[0_0_15px_rgba(252,211,77,0.2)]'
+                                        : 'border border-white/10 bg-white/5 hover:border-amber-300/50 hover:bg-white/10'
                                     }}
-                                 dark:bg-slate-900 flex flex-col justify-center sm:justify-start items-center sm:items-start"
+                                 flex flex-col justify-center sm:justify-start items-center sm:items-start"
                             >
 
                                 <span
-                                    class="text-[16px] sm:text-[22px] leading-none flex items-center justify-center {{ $hasAgenda ? 'w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-stone-800 shadow-sm' : '' }} {{ $textColor }}"
+                                    class="text-[16px] sm:text-[22px] leading-none flex items-center justify-center {{ $hasAgenda ? 'w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/20 border border-white/20 shadow-sm' : '' }} {{ $textColor }}"
                                     style="font-family:'Cormorant Garamond', serif;">
                                     {{ $day }}
                                 </span>
@@ -641,7 +630,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     @endif
 
                                     @if($agenda)
-                                        <p class="text-[9px] text-[#7C756C] line-clamp-1 dark:text-slate-400" title="{{ $agenda->title }}">
+                                        <p class="text-[9px] text-blue-200 line-clamp-1 dark:text-slate-400" title="{{ $agenda->title }}">
                                             • {{ $agenda->title }}
                                         </p>
                                     @endif
@@ -653,14 +642,14 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                         <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
                                     @endif
                                     @if($agenda)
-                                        <span class="h-1.5 w-1.5 rounded-full bg-[#1F1F1D]"></span>
+                                        <span class="h-1.5 w-1.5 rounded-full bg-white/20"></span>
                                     @endif
                                 </div>
 
                                 @if($isToday)
-                                    <span class="absolute bottom-1.5 sm:bottom-3 left-1/2 sm:left-3 -translate-x-1/2 sm:translate-x-0 h-[2px] w-4 sm:w-7 rounded-full bg-[#1F1F1D]"></span>
+                                    <span class="absolute bottom-1.5 sm:bottom-3 left-1/2 sm:left-3 -translate-x-1/2 sm:translate-x-0 h-[2px] w-4 sm:w-7 rounded-full bg-white/20"></span>
                                 @elseif(!$agenda && !$deadline)
-                                    <span class="absolute bottom-1.5 sm:bottom-3 left-1/2 sm:left-3 -translate-x-1/2 sm:translate-x-0 h-[2px] w-3 sm:w-5 rounded-full bg-neutral-200 transition group-hover:bg-[#A8A296]"></span>
+                                    <span class="absolute bottom-1.5 sm:bottom-3 left-1/2 sm:left-3 -translate-x-1/2 sm:translate-x-0 h-[2px] w-3 sm:w-5 rounded-full bg-white/10 transition group-hover:bg-amber-300/80"></span>
                                 @endif
 
                             </div>
@@ -678,7 +667,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                             <div x-show="isModalOpen"
                                  x-transition.opacity
                                  @click="closeModal()"
-                                 class="absolute inset-0 bg-[#1F1F1D]/40 backdrop-blur-sm"></div>
+                                 class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
 
                             <div x-show="isModalOpen"
                                  x-transition:enter="transition ease-out duration-300"
@@ -687,20 +676,23 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                  x-transition:leave="transition ease-in duration-200"
                                  x-transition:leave-start="transform translate-y-0 sm:scale-100 opacity-100"
                                  x-transition:leave-end="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
-                                 class="relative w-full max-w-md bg-white rounded-t-[24px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-2xl p-6 sm:p-8 z-10 dark:bg-slate-800">
+                                 class="relative overflow-hidden w-full max-w-md bg-gradient-to-br from-white/[0.05] via-transparent to-transparent backdrop-blur-[6px] backdrop-saturate-[120%] border border-white/20 rounded-t-[32px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-[0_30px_80px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.3),inset_1px_0_0_rgba(255,255,255,0.1),inset_-1px_0_0_rgba(255,255,255,0.05),inset_0_-1px_0_rgba(255,255,255,0.1)] p-6 sm:p-8 z-10">
 
-                                <h3 class="text-xl sm:text-2xl font-bold text-[#1F1F1D] mb-6 dark:text-white">Agenda</h3>
+                                <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent"></div>
+                                
+                                <div class="relative z-10">
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-6">Agenda</h3>
 
                                 <!-- Existing Agendas -->
                                 <template x-if="dayAgendas.length > 0">
                                     <div class="mb-6 space-y-2">
                                         <template x-for="agenda in dayAgendas" :key="agenda.id">
-                                            <div class="px-4 py-3 bg-[#F7F5F1] dark:bg-slate-900/50 border border-[#D6D0C4] dark:border-slate-700/50 rounded-xl flex justify-between items-center group">
-                                                <span class="text-sm font-medium text-[#1F1F1D] dark:text-white" x-text="agenda.title"></span>
+                                            <div class="px-4 py-3 bg-white/5 border border-white/10 rounded-2xl flex justify-between items-center group">
+                                                <span class="text-sm font-medium text-white dark:text-white" x-text="agenda.title"></span>
                                                 <form :action="'/agendas/' + agenda.id" method="POST" class="inline m-0">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="p-1.5 text-[#A8A296] hover:text-red-500 transition opacity-0 group-hover:opacity-100" title="Hapus Agenda">
+                                                    <button type="submit" class="p-1.5 text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100" title="Hapus Agenda">
                                                         <i class="ph ph-trash text-lg"></i>
                                                     </button>
                                                 </form>
@@ -715,23 +707,24 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
 
                                     <div class="space-y-4">
                                         <div>
-                                            <label class="block text-sm font-medium text-[#7C756C] mb-2 dark:text-slate-400">Tambah Agenda Baru</label>
+                                            <label class="block text-sm font-medium text-slate-300 mb-2">Tambah Agenda Baru</label>
                                             <input type="text" name="title" required placeholder="Ngapain hari ini?"
-                                                class="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-white border-2 border-[#D6D0C4] rounded-xl sm:rounded-2xl text-[#1F1F1D] placeholder-[#A8A296] focus:border-stone-800 focus:ring-0 transition-colors text-sm sm:text-base dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+                                                class="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-black/30 border-none rounded-xl sm:rounded-2xl text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-colors text-sm sm:text-base">
                                         </div>
                                     </div>
 
                                     <div class="mt-8 flex gap-3">
                                         <button type="button" @click="closeModal()"
-                                            class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border-2 border-[#D6D0C4] text-neutral-600 font-medium hover:border-stone-300 hover:bg-[#F7F5F1] transition active:scale-[0.98] text-sm sm:text-base dark:border-slate-700 dark:text-slate-300">
+                                            class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-white/10 text-white font-medium hover:bg-white/20 transition active:scale-[0.98] text-sm sm:text-base">
                                             batal.
                                         </button>
                                         <button type="submit"
-                                            class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#1F1F1D] text-white font-medium hover:bg-[#34302C] transition active:scale-[0.98] text-sm sm:text-base">
+                                            class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-white text-black font-medium hover:bg-neutral-200 shadow-lg transition active:scale-[0.98] text-sm sm:text-base">
                                             tambah.
                                         </button>
                                     </div>
                                 </form>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -742,31 +735,31 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
             <div class="col-span-1 md:col-span-4 row-span-2">
                 {{-- Activity --}}
             <div class="dashboard-card p-6 sm:p-8 h-full">
-                <p class="text-sm text-[#7C756C] dark:text-slate-400">
+                <p class="text-sm text-amber-300/80">
                     aktivitas.
                 </p>
                 <div class="mt-8 space-y-5 sm:space-y-6">
                     @forelse($activities as $activity)
                         <div class="flex justify-between items-center group cursor-pointer">
                             <div class="flex gap-4">
-                                <div class="mt-1 h-10 w-10 shrink-0 rounded-full bg-[#EFECE5] flex items-center justify-center text-neutral-600 transition-transform group-hover:scale-110 group-hover:bg-[#D6D0C4] dark:bg-slate-900/80 dark:text-slate-300">
+                                <div class="mt-1 h-10 w-10 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 transition-all group-hover:scale-110 group-hover:bg-white/20 group-hover:border-white/30 group-hover:text-white">
                                     <i class="{{ $activity['icon'] }} text-lg"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-sm sm:text-base text-[#1F1F1D] group-hover:text-stone-600 transition-colors dark:text-white">
+                                    <h4 class="font-medium text-sm sm:text-base text-white group-hover:text-white transition-colors">
                                         {{ $activity['title'] }}
                                     </h4>
-                                    <p class="text-xs sm:text-sm text-[#7C756C] mt-0.5 sm:mt-1 dark:text-slate-400">
+                                    <p class="text-xs sm:text-sm text-blue-200 mt-0.5 sm:mt-1">
                                         {{ $activity['time'] }}
                                     </p>
                                 </div>
                             </div>
-                            <i class="ph ph-caret-right opacity-0 group-hover:opacity-100 transition-opacity text-[#A8A296]"></i>
+                            <i class="ph ph-caret-right opacity-0 group-hover:opacity-100 transition-opacity text-slate-300"></i>
                         </div>
                     @empty
                         <div class="text-center py-6">
-                            <i class="ph-thin ph-wind text-4xl text-neutral-300 dark:text-slate-600 mb-2"></i>
-                            <h3 class="text-lg font-semibold text-[#1F1F1D] dark:text-white">
+                            <i class="ph-thin ph-wind text-4xl text-neutral-300 dark:text-white mb-2"></i>
+                            <h3 class="text-lg font-semibold text-white dark:text-white">
                                 belom ada apa apa.
                             </h3>
                         </div>
@@ -779,10 +772,10 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                 {{-- Deadline --}}
                 <div class="dashboard-card p-6 sm:p-8" x-data="deadlineManager()">
                     <div class="flex justify-between items-center mb-6">
-                        <p class="text-sm text-[#7C756C] dark:text-slate-400">
+                        <p class="text-sm text-amber-300/80">
                             deadline.
                         </p>
-                        <button @click="openCreateModal()" class="text-[#A8A296] hover:text-stone-600 transition active:scale-90 p-1" title="Tambah Deadline">
+                        <button @click="openCreateModal()" class="text-slate-300 hover:text-white transition active:scale-90 p-1" title="Tambah Deadline">
                             <i class="ph ph-plus text-xl"></i>
                         </button>
                     </div>
@@ -790,17 +783,17 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                     @forelse($deadlines as $task)
                         <div class="mt-2 group relative">
                             <div class="flex justify-between items-center">
-                                <span class="text-[10px] sm:text-xs uppercase tracking-wider text-[#A8A296]">
+                                <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-300">
                                     {{ $task->due_date->diffForHumans() }}
                                 </span>
                                 <div class="flex items-center gap-1 sm:gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                                    <button @click="openEditModal({{ $task->id }}, '{{ addslashes($task->title) }}', '{{ $task->due_date->format('Y-m-d\TH:i') }}')" class="p-1 text-[#A8A296] hover:text-stone-600 transition">
+                                    <button @click="openEditModal({{ $task->id }}, '{{ addslashes($task->title) }}', '{{ $task->due_date->format('Y-m-d\TH:i') }}')" class="p-1 text-slate-300 hover:text-white transition">
                                         <i class="ph ph-pencil-simple text-sm sm:text-base"></i>
                                     </button>
                                     <form action="{{ route('deadlines.destroy', $task->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-1 text-[#A8A296] hover:text-red-500 transition" onclick="return confirm('Hapus deadline ini?')">
+                                        <button type="submit" class="p-1 text-slate-300 hover:text-red-500 transition" onclick="return confirm('Hapus deadline ini?')">
                                             <i class="ph ph-trash text-sm sm:text-base"></i>
                                         </button>
                                     </form>
@@ -809,21 +802,21 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="mt-1 text-lg sm:text-xl font-semibold text-[#1F1F1D] leading-tight dark:text-white">
+                            <h3 class="mt-1 text-lg sm:text-xl font-semibold text-white leading-tight dark:text-white">
                                 {{ $task->title }}
                             </h3>
                         </div>
 
                         @unless($loop->last)
-                            <hr class="my-4 border-[#D6D0C4] dark:border-slate-700/50">
+                            <hr class="my-4 border-[#1e293b] dark:border-slate-700/50">
                         @endunless
                     @empty
                         <div class="mt-6 sm:mt-8 text-center sm:text-left">
-                            <i class="ph-thin ph-coffee text-4xl text-neutral-300 dark:text-slate-600 mb-2"></i>
-                            <h3 class="text-lg sm:text-xl font-semibold text-[#1F1F1D] dark:text-white">
+                            <i class="ph-thin ph-coffee text-4xl text-neutral-300 mb-2"></i>
+                            <h3 class="text-lg sm:text-xl font-semibold text-white">
                                 aman.
                             </h3>
-                            <p class="mt-2 text-sm sm:text-base text-[#7C756C] dark:text-slate-400">
+                            <p class="mt-2 text-sm sm:text-base text-slate-400">
                                 belom ada deadline.
                             </p>
                         </div>
@@ -836,7 +829,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                              class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6"
                              x-transition.opacity>
 
-                            <div class="absolute inset-0 bg-[#1F1F1D]/40 backdrop-blur-sm" @click="isOpen = false"></div>
+                            <div class="absolute inset-0 bg-black/60 backdrop-blur-md" @click="isOpen = false"></div>
 
                             <div x-show="isOpen"
                                  x-transition:enter="transition ease-out duration-300"
@@ -845,8 +838,12 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                  x-transition:leave="transition ease-in duration-200"
                                  x-transition:leave-start="transform translate-y-0 sm:scale-100 opacity-100"
                                  x-transition:leave-end="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
-                                 class="bg-white rounded-t-[24px] sm:rounded-[32px] mt-auto sm:mt-0 w-full max-w-md p-6 sm:p-8 shadow-2xl relative dark:bg-slate-900">
-                                <h3 class="text-xl sm:text-2xl font-bold text-[#1F1F1D] mb-6 dark:text-white" x-text="isEdit ? 'Edit Deadline' : 'Tambah Deadline'"></h3>
+                                 class="relative overflow-hidden w-full max-w-md bg-gradient-to-br from-white/[0.05] via-transparent to-transparent backdrop-blur-[6px] backdrop-saturate-[120%] border border-white/20 rounded-t-[32px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-[0_30px_80px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.3),inset_1px_0_0_rgba(255,255,255,0.1),inset_-1px_0_0_rgba(255,255,255,0.05),inset_0_-1px_0_rgba(255,255,255,0.1)] p-6 sm:p-8 z-10">
+                                
+                                <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent"></div>
+
+                                <div class="relative z-10">
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-6" x-text="isEdit ? 'Edit Deadline' : 'Tambah Deadline'"></h3>
 
                                 <form :action="formAction" method="POST">
                                     @csrf
@@ -855,24 +852,25 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     </template>
 
                                     <div class="mb-5">
-                                        <label class="block text-sm font-medium text-[#7C756C] mb-2 dark:text-slate-400">Judul Tugas</label>
-                                        <input type="text" name="title" x-model="form.title" class="w-full rounded-xl border-[#D6D0C4] bg-[#F7F5F1] px-4 min-h-11 text-sm text-[#1F1F1D] focus:border-neutral-800 focus:ring-stone-800 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
+                                        <label class="block text-sm font-medium text-slate-300 mb-2">Judul Tugas</label>
+                                        <input type="text" name="title" x-model="form.title" class="w-full bg-black/30 border-none rounded-xl px-4 min-h-11 text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Judul tugas..." required>
                                     </div>
 
                                     <div class="mb-8">
-                                        <label class="block text-sm font-medium text-[#7C756C] mb-2 dark:text-slate-400">Tenggat Waktu (Deadline)</label>
-                                        <input type="datetime-local" name="due_date" x-model="form.due_date" class="w-full rounded-xl border-[#D6D0C4] bg-[#F7F5F1] px-4 min-h-11 text-sm text-[#1F1F1D] focus:border-neutral-800 focus:ring-stone-800 dark:border-slate-700/50 dark:bg-slate-900/50 dark:text-white" required>
+                                        <label class="block text-sm font-medium text-slate-300 mb-2">Tenggat Waktu (Deadline)</label>
+                                        <input type="text" name="due_date" x-model="form.due_date" x-init="flatpickr($el, { enableTime: true, dateFormat: 'Y-m-d\\TH:i', time_24hr: true, minDate: 'today' })" class="w-full bg-black/30 border-none rounded-xl px-4 min-h-11 text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Pilih tanggal & waktu..." required>
                                     </div>
 
                                     <div class="flex justify-end gap-3">
-                                        <button type="button" @click="isOpen = false" class="px-5 min-h-11 rounded-xl font-medium text-sm text-[#7C756C] hover:bg-[#EFECE5] transition active:scale-95 dark:text-slate-400">
+                                        <button type="button" @click="isOpen = false" class="px-5 min-h-11 rounded-xl font-medium text-sm bg-white/10 text-white hover:bg-white/20 transition active:scale-95">
                                             Batal
                                         </button>
-                                        <button type="submit" class="px-5 min-h-11 rounded-xl font-medium text-sm bg-[#1F1F1D] text-white hover:bg-[#34302C] transition active:scale-95">
+                                        <button type="submit" class="px-5 min-h-11 rounded-xl font-medium text-sm bg-white text-black hover:bg-neutral-200 shadow-lg transition active:scale-95">
                                             Simpan
                                         </button>
                                     </div>
                                 </form>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -880,23 +878,23 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
 
                 {{-- Target --}}
                 <div class="dashboard-card p-6 sm:p-8">
-                    <p class="text-sm text-[#7C756C] dark:text-slate-400">
+                    <p class="text-sm text-amber-300/80">
                         target.
                     </p>
                     <div class="mt-6">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-[#1F1F1D] dark:text-white">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white dark:text-white">
                             {{ number_format($todayWords) }}
-                            <span class="text-base sm:text-lg font-normal text-[#A8A296]">
+                            <span class="text-base sm:text-lg font-normal text-slate-300">
                                 / 1000
                             </span>
                         </h2>
                         @php
                             $percentage = min(100, ($todayWords / 1000) * 100);
                         @endphp
-                        <div class="mt-5 h-2 rounded-full bg-[#D6D0C4] overflow-hidden dark:bg-slate-800">
-                            <div class="h-full rounded-full bg-[#1F1F1D] transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
+                        <div class="mt-5 h-2 rounded-full bg-[#1e293b] overflow-hidden dark:bg-slate-800">
+                            <div class="h-full rounded-full bg-white/20 transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
                         </div>
-                        <p class="mt-3 text-xs sm:text-sm text-[#7C756C] dark:text-slate-400">
+                        <p class="mt-3 text-xs sm:text-sm text-blue-200 dark:text-slate-400">
                             {{ round($percentage) }}% selesai
                         </p>
                     </div>
@@ -908,7 +906,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
         </div>
 
         <footer class="mt-12 text-center pb-8">
-            <p class="text-[13px] text-[#A8A296]/80">
+            <p class="text-[13px] text-slate-300/80">
                 {{ $footers[array_rand($footers)] }}
             </p>
         </footer>

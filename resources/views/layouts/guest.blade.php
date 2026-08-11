@@ -18,8 +18,8 @@
         html,
         body {
             font-family: "Inter", sans-serif;
-            background: #F7F5F1;
-            color: #1F1F1D;
+            background: #020617;
+            color: #ffffff;
             overflow-x: hidden;
         }
 
@@ -30,35 +30,24 @@
         .vinyl {
             transform: translateY(-50%);
         }
-
-        .glass {
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-        }
     </style>
 </head>
 
-<body class="text-neutral-900 dark:text-white">
+<body class="text-white">
 
 <div class="fixed inset-0 overflow-hidden pointer-events-none">
     <!-- Background -->
-    <div class="absolute inset-0 bg-[#F7F5F1]"></div>
+    <div class="absolute inset-0 bg-[#020617]"></div>
     
-    <!-- Subtle Gradient blobs for light mode -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(168,85,247,0.03),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(99,102,241,0.03),transparent_40%)]"></div>
+    <!-- Subtle Gradient blobs for dark mode -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(185,28,28,0.06),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(217,119,6,0.06),transparent_40%)]"></div>
 
-    <!-- Vinyl (Light Theme Shadow) -->
-    <div class="vinyl absolute -left-[420px] top-1/2 w-[1100px] h-[1100px] opacity-[0.06] blur-sm mix-blend-multiply">
-        <div class="relative w-full h-full rounded-full bg-black shadow-[0_0_120px_rgba(0,0,0,0.9)]">
-            <div class="absolute inset-[40px] rounded-full border border-neutral-800"></div>
-            <div class="absolute inset-[80px] rounded-full border border-neutral-800"></div>
-            <div class="absolute inset-[120px] rounded-full border border-neutral-800"></div>
-            <div class="absolute inset-[160px] rounded-full border border-neutral-800"></div>
-            <div class="absolute inset-[200px] rounded-full border border-neutral-800"></div>
-            <div class="absolute inset-[240px] rounded-full border border-neutral-800"></div>
-            <div class="absolute inset-[280px] rounded-full border border-neutral-800"></div>
-            <div class="absolute left-1/2 top-1/2 w-36 h-36 rounded-full -translate-x-1/2 -translate-y-1/2 bg-neutral-700 border-[14px] border-neutral-900"></div>
-        </div>
+    <!-- Film Grain Overlay for 90s Oasis Vibe -->
+    <div class="absolute inset-0 opacity-[0.25] mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+
+    <!-- Noel Gallagher's Guitar Background -->
+    <div class="absolute -left-32 sm:-left-64 top-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] opacity-[0.15] mix-blend-lighten pointer-events-none">
+        <img src="{{ asset('images/guitar.png') }}" alt="Guitar Background" class="w-full h-auto object-contain -rotate-[10deg]">
     </div>
 </div>
 
@@ -68,56 +57,53 @@
             
             <!-- LEFT -->
             <section class="hidden lg:flex flex-col justify-center">
-                <span class="text-xs uppercase tracking-[.35em] text-[#7C756C] font-semibold">
+                <span class="text-xs uppercase tracking-[.35em] text-amber-300/80 font-semibold">
                     Tempat Nongkrong Ide
                 </span>
-                <h1 class="mt-6 text-[90px] xl:text-[110px] font-cormorant font-bold tracking-[-2px] leading-none text-[#1F1F1D]">
+                <h1 class="mt-6 text-[90px] xl:text-[110px] font-cormorant font-bold tracking-[-2px] leading-none text-white">
                     ruang.
                 </h1>
-                <p class="mt-10 max-w-xl text-[28px] xl:text-[32px] leading-tight font-light text-[#4F4A44]">
+                <p class="mt-10 max-w-xl text-[28px] xl:text-[32px] leading-tight font-light text-slate-300">
                     Gak usah overthinking, tulis aja dulu. 
-                    <span class="font-medium text-[#1F1F1D]">Jelek urusan belakangan,</span> yang penting kelar.
+                    <span class="font-medium text-white">Jelek urusan belakangan,</span> yang penting kelar.
                 </p>
                 <div class="mt-20 space-y-8">
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-[#D6D0C4]"></div>
-                        <span class="text-[#7C756C] tracking-wide font-medium">Ngetik Makalah (sks time)</span>
+                        <div class="w-12 h-px bg-white/20"></div>
+                        <span class="text-slate-400 tracking-wide font-medium">Ngetik Makalah (sks time)</span>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-[#D6D0C4]"></div>
-                        <span class="text-[#7C756C] tracking-wide font-medium">Coret-coret Gaje</span>
+                        <div class="w-12 h-px bg-white/20"></div>
+                        <span class="text-slate-400 tracking-wide font-medium">Coret-coret Gaje</span>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-[#D6D0C4]"></div>
-                        <span class="text-[#7C756C] tracking-wide font-medium">Nanya AI Pas Mentok</span>
+                        <div class="w-12 h-px bg-white/20"></div>
+                        <span class="text-slate-400 tracking-wide font-medium">Nanya AI Pas Mentok</span>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-[#D6D0C4]"></div>
-                        <span class="text-[#7C756C] tracking-wide font-medium">Muter Playlist Andalan</span>
+                        <div class="w-12 h-px bg-white/20"></div>
+                        <span class="text-slate-400 tracking-wide font-medium">Muter Playlist Andalan</span>
                     </div>
                 </div>
             </section>
 
             <!-- RIGHT -->
             <section class="relative w-full">
-                <div class="glass rounded-[32px] sm:rounded-[40px] border border-white/40 bg-white/40 p-8 sm:p-12 shadow-[0_20px_80px_rgba(0,0,0,0.03)]">
-                    
-                    <!-- MOBILE HERO -->
-                    <div class="mb-10 lg:hidden text-center sm:text-left">
-                        <span class="text-[10px] sm:text-xs uppercase tracking-[.35em] text-[#7C756C] font-semibold">
-                            Tempat Nongkrong Ide
-                        </span>
-                        <h1 class="mt-3 text-4xl sm:text-5xl font-cormorant font-bold tracking-[-1px] text-[#1F1F1D]">
-                            ruang.
-                        </h1>
-                        <p class="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-[#4F4A44]">
-                            Tulis aja dulu, jelek urusan belakangan.
-                        </p>
-                    </div>
-
-                    {{ $slot }}
-
+                <!-- MOBILE HERO -->
+                <div class="mb-10 lg:hidden text-center sm:text-left">
+                    <span class="text-[10px] sm:text-xs uppercase tracking-[.35em] text-amber-300/80 font-semibold">
+                        Tempat Nongkrong Ide
+                    </span>
+                    <h1 class="mt-3 text-4xl sm:text-5xl font-cormorant font-bold tracking-[-1px] text-white">
+                        ruang.
+                    </h1>
+                    <p class="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-slate-300">
+                        Tulis aja dulu, jelek urusan belakangan.
+                    </p>
                 </div>
+
+                {{ $slot }}
+
             </section>
         </div>
     </div>
@@ -125,13 +111,12 @@
 
 <!-- Desktop Footer -->
 <div class="pointer-events-none fixed bottom-8 left-14 hidden items-center gap-3 lg:flex z-10">
-    <div class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,.4)]"></div>
-    <span class="text-xs uppercase tracking-[0.25em] text-[#7C756C] font-medium">Udah Siap Dipake</span>
+    <div class="h-2 w-2 rounded-full bg-red-600 shadow-[0_0_12px_rgba(220,38,38,.4)]"></div>
+    <span class="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium">Udah Siap Dipake</span>
 </div>
 <div class="pointer-events-none fixed bottom-8 right-14 hidden lg:block z-10">
-    <span class="text-xs uppercase tracking-[0.25em] text-[#7C756C] font-medium">RUANG VER 1.0 (BETA)</span>
+    <span class="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium">RUANG VER 1.0 (BETA)</span>
 </div>
 
 </body>
 </html>
-

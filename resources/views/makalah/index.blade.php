@@ -4,18 +4,18 @@
     <div class="space-y-8 animate-fadeIn mt-4">
         
         {{-- Top Header --}}
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-slate-700/50">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
             <div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight dark:text-white">
+                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
                     Beban Akademik <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-notepad text-[1.1em] align-middle"></i></span>
                 </h1>
-                <p class="text-sm text-neutral-500 mt-2 dark:text-slate-400">
+                <p class="text-sm text-slate-300 mt-2">
                     Kalo pusing mending ditinggal tidur aja dulu. Tugasnya nggak bakal lari kemana-mana kok.
                 </p>
             </div>
 
             {{-- Tombol Bikin Makalah --}}
-            <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto self-start sm:self-auto min-h-11 px-5 justify-center bg-neutral-900 text-white hover:bg-stone-700 font-medium text-sm rounded-xl flex items-center gap-2 transition-all active:scale-95">
+            <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto self-start sm:self-auto min-h-11 px-5 justify-center bg-white text-black hover:bg-neutral-200 font-medium text-sm rounded-xl flex items-center gap-2 transition-all active:scale-95 shadow-lg">
                 <i class="ph ph-plus text-lg"></i>
                 Bikin Makalah
             </a>
@@ -35,21 +35,21 @@
 
                     <div class="flex flex-col h-full">
                         <div class="flex flex-col items-start mb-4">
-                            <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
+                            <span class="text-[10px] font-bold tracking-widest uppercase text-amber-300/80">
                                 {{ $m->mata_kuliah ?: 'Tugas Umum' }}
                             </span>
                         </div>
                         
-                        <h3 class="font-bold text-lg sm:text-xl text-neutral-900 leading-snug mb-2 group-hover:text-stone-600 transition-colors line-clamp-3 dark:text-white">
+                        <h3 class="font-bold text-lg sm:text-xl text-white leading-snug mb-2 group-hover:text-amber-200 transition-colors line-clamp-3">
                             {{ $m->judul ?: 'Tugas Nggak Jelas Tanpa Judul' }}
                         </h3>
 
-                        <p class="text-xs text-neutral-400 mb-6 font-medium">terakhir dibuka {{ $m->updated_at->diffForHumans() }}</p>
+                        <p class="text-xs text-slate-400 mb-6 font-medium">terakhir dibuka {{ $m->updated_at->diffForHumans() }}</p>
 
-                        <div class="mt-auto pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 border-t border-stone-100">
-                            <div class="flex items-center gap-4 text-xs font-semibold text-neutral-500 dark:text-slate-400">
+                        <div class="mt-auto pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 border-t border-white/10">
+                            <div class="flex items-center gap-4 text-xs font-semibold text-slate-300">
                                 <span class="flex items-center gap-1.5" title="Jumlah Bab">
-                                    <i class="ph ph-file-text text-lg text-neutral-400"></i>
+                                    <i class="ph ph-file-text text-lg text-slate-400"></i>
                                     {{ $m->chapters->count() }} Bab
                                 </span>
                             </div>
@@ -57,17 +57,17 @@
                             {{-- Quick Export & Delete Icons (Selalu Muncul di Mobile, Muncul saat hover di Desktop) --}}
                             <div class="flex gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 relative z-10 w-full sm:w-auto justify-between sm:justify-end">
                                 <div class="flex gap-2">
-                                    <a href="{{ route('makalah.export.pdf', $m) }}" target="_blank" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-neutral-400 hover:text-stone-600 bg-stone-50 hover:bg-stone-100 rounded-lg transition-colors active:scale-90 dark:bg-slate-900/50" title="Export PDF">
+                                    <a href="{{ route('makalah.export.pdf', $m) }}" target="_blank" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-slate-300 hover:text-white bg-white/5 hover:bg-white/20 rounded-lg transition-colors active:scale-90" title="Export PDF">
                                         <i class="ph ph-file-pdf text-lg sm:text-xl"></i>
                                     </a>
-                                    <a href="{{ route('makalah.export.word', $m) }}" data-turbo="false" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-neutral-400 hover:text-emerald-600 bg-stone-50 hover:bg-emerald-50 rounded-lg transition-colors active:scale-90 dark:bg-slate-900/50" title="Export Word">
+                                    <a href="{{ route('makalah.export.word', $m) }}" data-turbo="false" onclick="event.stopPropagation()" class="p-2 sm:p-2.5 text-slate-300 hover:text-white bg-white/5 hover:bg-white/20 rounded-lg transition-colors active:scale-90" title="Export Word">
                                         <i class="ph ph-file-doc text-lg sm:text-xl"></i>
                                     </a>
                                 </div>
                                 <form action="{{ route('makalah.destroy', $m) }}" method="POST" class="inline" onclick="event.stopPropagation()" onsubmit="return confirm('Yakin mau buang makalah ini? Ntar nangis nyarinya.')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="p-2 sm:p-2.5 text-neutral-400 hover:text-red-600 bg-stone-50 hover:bg-red-50 rounded-lg transition-colors active:scale-90 dark:bg-slate-900/50" title="Hapus Makalah">
+                                    <button type="submit" class="p-2 sm:p-2.5 text-slate-300 hover:text-red-500 bg-white/5 hover:bg-red-500/20 hover:border-red-500/30 rounded-lg transition-colors active:scale-90" title="Hapus Makalah">
                                         <i class="ph ph-trash text-lg sm:text-xl"></i>
                                     </button>
                                 </form>
@@ -79,13 +79,13 @@
 
         </div>
         @else
-            <div class="py-20 flex flex-col items-center justify-center text-center dashboard-card border-dashed border-stone-300 dark:border-slate-700">
-                <div class="w-16 h-16 bg-stone-50 rounded-full flex items-center justify-center mb-6 dark:bg-slate-900/50">
-                    <i class="ph ph-empty text-3xl text-neutral-400"></i>
+            <div class="py-20 flex flex-col items-center justify-center text-center dashboard-card border-dashed border-white/20">
+                <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10">
+                    <i class="ph ph-empty text-3xl text-slate-300"></i>
                 </div>
-                <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Belum ada beban kehidupan di sini <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-coffee text-[1.1em] align-middle"></i></span></h3>
-                <p class="text-neutral-500 mt-2 mb-8 max-w-sm dark:text-slate-400">Bikin aja dulu selembar, nggak usah mikir terlalu jauh, yang penting mulai ngetik aja.</p>
-                <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto px-6 min-h-11 inline-flex items-center justify-center bg-neutral-900 text-white hover:bg-stone-700 font-medium rounded-xl transition-all active:scale-95">
+                <h3 class="text-xl font-bold text-white">Belum ada beban kehidupan di sini <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-coffee text-[1.1em] align-middle"></i></span></h3>
+                <p class="text-slate-300 mt-2 mb-8 max-w-sm">Bikin aja dulu selembar, nggak usah mikir terlalu jauh, yang penting mulai ngetik aja.</p>
+                <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto px-6 min-h-11 inline-flex items-center justify-center bg-white text-black hover:bg-neutral-200 shadow-lg font-medium rounded-xl transition-all active:scale-95">
                     Mulai Nulis Makalah
                 </a>
             </div>

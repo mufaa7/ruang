@@ -30,18 +30,18 @@
     <div x-data="{ showAddModal: false, showEditModal: false, editData: {} }" class="space-y-8 animate-fadeIn mt-4">
         
         {{-- Top Header & Search/Add Bar --}}
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-slate-700/50">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
             <div>
-                <h1 class="text-3xl font-bold text-neutral-900 tracking-tight dark:text-white">
+                <h1 class="text-3xl font-bold text-white tracking-tight">
                     {{ explode(' ', auth()->user()->name)[0] }}, waktunya ngerjain tugas (atau setidaknya pura-pura) <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-coffee text-[1.1em] align-middle"></i></span>
                 </h1>
-                <p class="text-sm text-neutral-500 mt-2 dark:text-slate-400">
+                <p class="text-sm text-slate-300 mt-2">
                     Kelola catatan, materi bacaan, dan latihan kuis per mata kuliah di sini.
                 </p>
             </div>
 
             {{-- Tombol Buka Modal --}}
-            <button @click="showAddModal = true" class="px-5 py-2.5 min-h-11 bg-neutral-900 text-white hover:bg-stone-700 font-medium text-sm rounded-xl flex items-center justify-center gap-2 transition-colors active:scale-95 w-full sm:w-auto">
+            <button @click="showAddModal = true" class="px-5 py-2.5 min-h-11 bg-white text-black shadow-lg hover:bg-neutral-200 font-medium text-sm rounded-xl flex items-center justify-center gap-2 transition-colors active:scale-95 w-full sm:w-auto">
                 <i class="ph ph-plus text-lg"></i>
                 Tambah Mata Kuliah
             </button>
@@ -56,24 +56,24 @@
                     
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-stone-100 text-neutral-400 group-hover:bg-stone-700 group-hover:text-white flex items-center justify-center transition-colors dark:bg-slate-900/80">
+                            <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 text-slate-300 group-hover:bg-white/10 group-hover:text-white flex items-center justify-center transition-colors">
                                 <i class="ph {{ $c->icon }} text-2xl"></i>
                             </div>
                             
                             <div class="flex items-center gap-2">
-                                <span class="text-[11px] font-bold text-neutral-400 px-2.5 py-1 uppercase tracking-widest">
+                                <span class="text-[11px] font-bold text-amber-300/80 px-2.5 py-1 uppercase tracking-widest">
                                     {{ $c->code ?? 'MK-101' }}
                                 </span>
                                 
                                 {{-- Aksi Edit & Hapus --}}
                                 <div class="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                                    <button @click.prevent.stop="editData = { id: '{{ $c->id }}', name: '{{ addslashes($c->title) }}', code: '{{ addslashes($c->code ?? '') }}', lecturer: '{{ addslashes($c->lecturer ?? '') }}', description: '{{ addslashes($c->description ?? '') }}' }; showEditModal = true" class="p-1.5 text-neutral-400 hover:text-stone-600 hover:bg-stone-100 rounded-lg transition-colors" title="Edit Mata Kuliah">
+                                    <button @click.prevent.stop="editData = { id: '{{ $c->id }}', name: '{{ addslashes($c->title) }}', code: '{{ addslashes($c->code ?? '') }}', lecturer: '{{ addslashes($c->lecturer ?? '') }}', description: '{{ addslashes($c->description ?? '') }}' }; showEditModal = true" class="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Edit Mata Kuliah">
                                         <i class="ph ph-pencil-simple text-lg"></i>
                                     </button>
                                     <form action="{{ route('subjects.destroy', $c->id) }}" method="POST" class="inline" @click.stop onsubmit="return confirm('Beneran mau dihapus? Nanti catatan lu hilang semua.')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-1.5 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Mata Kuliah">
+                                        <button type="submit" class="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-500/20 rounded-lg transition-colors" title="Hapus Mata Kuliah">
                                             <i class="ph ph-trash text-lg"></i>
                                         </button>
                                     </form>
@@ -81,39 +81,39 @@
                             </div>
                         </div>
 
-                        <h3 class="text-xl font-bold text-neutral-900 group-hover:text-stone-600 transition-colors leading-snug dark:text-white">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-200 transition-colors leading-snug">
                             {{ $c->title }}
                         </h3>
-                        <p class="text-[13px] font-medium text-neutral-500 mt-1.5 dark:text-slate-400">{{ $c->lecturer }}</p>
+                        <p class="text-[13px] font-medium text-slate-300 mt-1.5">{{ $c->lecturer }}</p>
                         
                         @if($c->description)
-                            <p class="text-xs text-neutral-400 mt-3 line-clamp-2 leading-relaxed font-medium">
+                            <p class="text-xs text-slate-400 mt-3 line-clamp-2 leading-relaxed font-medium">
                                 {{ $c->description }}
                             </p>
                         @endif
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-xs font-semibold text-neutral-500 relative z-10 dark:text-slate-400">
+                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-slate-300 relative z-10">
                         <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1.5">
-                                <i class="ph ph-file-text text-lg text-neutral-400"></i>
+                                <i class="ph ph-file-text text-lg text-slate-400"></i>
                                 {{ $c->notesCount }} Catatan
                             </span>
                             <span class="flex items-center gap-1.5">
-                                <i class="ph ph-file-pdf text-lg text-neutral-400"></i>
+                                <i class="ph ph-file-pdf text-lg text-slate-400"></i>
                                 {{ $c->materialsCount }} Materi
                             </span>
                         </div>
-                        <i class="ph ph-caret-right text-lg text-neutral-300 group-hover:text-stone-600 group-hover:translate-x-1 transition-all"></i>
+                        <i class="ph ph-caret-right text-lg text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
                     </div>
                 </a>
             @empty
-                <div class="col-span-full py-20 flex flex-col items-center justify-center text-center dashboard-card border-dashed border-stone-300 dark:border-slate-700">
-                    <div class="w-16 h-16 bg-stone-50 rounded-full flex items-center justify-center mb-6 dark:bg-slate-900/50">
-                        <i class="ph ph-ghost text-3xl text-neutral-400"></i>
+                <div class="col-span-full py-20 flex flex-col items-center justify-center text-center dashboard-card border-dashed border-white/20">
+                    <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="ph ph-ghost text-3xl text-slate-300"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Belum ada mata kuliah</h3>
-                    <p class="text-neutral-500 mt-2 dark:text-slate-400">Input mata kuliah dulu biar keliatan sibuk.</p>
+                    <h3 class="text-xl font-bold text-white">Belum ada mata kuliah</h3>
+                    <p class="text-slate-300 mt-2">Input mata kuliah dulu biar keliatan sibuk.</p>
                 </div>
             @endforelse
         </div>
@@ -121,15 +121,15 @@
         {{-- Aktivitas Terakhir Section --}}
         @if($recentActivities->isNotEmpty())
         <div class="pt-4">
-            <h3 class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 mb-4 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-stone-300"></span> Aktivitas Terakhir
+            <h3 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/20"></span> Aktivitas Terakhir
             </h3>
             
-            <div class="dashboard-card divide-y divide-stone-100 overflow-hidden !p-0">
+            <div class="dashboard-card divide-y divide-white/10 overflow-hidden !p-0">
                 @foreach($recentActivities as $act)
-                    <div class="p-4 hover:bg-stone-50 flex items-center justify-between transition-colors cursor-pointer group">
+                    <div class="p-4 hover:bg-white/5 flex items-center justify-between transition-colors cursor-pointer group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-stone-100 text-neutral-400 flex items-center justify-center shrink-0 border border-stone-200 group-hover:bg-white group-hover:border-stone-200 group-hover:text-stone-600 transition-colors dark:bg-slate-900/80 dark:border-slate-700/50">
+                            <div class="w-10 h-10 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center shrink-0 border border-white/10 group-hover:bg-white/10 group-hover:text-white transition-colors">
                                 @if($act->type === 'note')
                                     <i class="ph ph-file-text text-xl"></i>
                                 @elseif($act->type === 'pdf')
@@ -139,11 +139,11 @@
                                 @endif
                             </div>
                             <div>
-                                <h4 class="text-sm font-semibold text-neutral-900 dark:text-white">{{ $act->title }}</h4>
-                                <p class="text-xs text-neutral-500 mt-0.5 font-medium dark:text-slate-400">{{ $act->courseTitle }}</p>
+                                <h4 class="text-sm font-semibold text-white">{{ $act->title }}</h4>
+                                <p class="text-xs text-slate-400 mt-0.5 font-medium">{{ $act->courseTitle }}</p>
                             </div>
                         </div>
-                        <span class="text-[11px] font-semibold text-neutral-400">{{ $act->timeAgo }}</span>
+                        <span class="text-[11px] font-semibold text-slate-400">{{ $act->timeAgo }}</span>
                     </div>
                 @endforeach
             </div>
@@ -175,11 +175,11 @@
                  x-transition:leave="ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                  x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                 class="relative bg-white rounded-[24px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-stone-200 dark:bg-slate-900 dark:border-slate-700/50">
+                 class="relative bg-neutral-900/80 backdrop-blur-xl rounded-[24px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-white/10">
                 
-                <div class="flex items-center justify-between pb-4 border-b border-stone-100">
-                    <h3 class="text-lg font-bold text-neutral-900 dark:text-white">Tambah Mata Kuliah</h3>
-                    <button @click="showAddModal = false" class="p-1.5 hover:bg-stone-100 rounded-full text-neutral-400 hover:text-stone-600 transition-colors">
+                <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                    <h3 class="text-lg font-bold text-white">Tambah Mata Kuliah</h3>
+                    <button @click="showAddModal = false" class="p-1.5 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
                         <i class="ph ph-x text-lg"></i>
                     </button>
                 </div>
@@ -189,34 +189,34 @@
                     @csrf
                     
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Nama Mata Kuliah <span class="text-red-500">*</span></label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Nama Mata Kuliah <span class="text-red-500">*</span></label>
                         <input type="text" name="name" required placeholder="Contoh: Psikologi Perkembangan"
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50" />
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium" />
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Dosen Pengampu</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Dosen Pengampu</label>
                         <input type="text" name="lecturer" placeholder="Contoh: Dr. Herman, M.Si."
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50" />
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium" />
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Deskripsi Mata Kuliah</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Deskripsi Mata Kuliah</label>
                         <textarea name="description" placeholder="Contoh: Mata kuliah ini membahas tentang..." rows="2"
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50"></textarea>
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium"></textarea>
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Kode MK</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Kode MK</label>
                         <input type="text" name="code" placeholder="Contoh: PSI-201"
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50" />
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium" />
                     </div>
 
                     <div class="pt-4 flex items-center justify-end gap-3">
-                        <button type="button" @click="showAddModal = false" class="px-5 py-2.5 bg-white text-neutral-700 font-semibold text-sm rounded-xl hover:bg-stone-50 border border-stone-200 transition-colors dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700/50">
+                        <button type="button" @click="showAddModal = false" class="px-5 py-2.5 bg-white/10 text-white font-semibold text-sm rounded-xl hover:bg-white/20 transition-colors">
                             Batal
                         </button>
-                        <button type="submit" class="px-5 py-2.5 bg-neutral-900 text-white font-medium text-sm rounded-xl hover:bg-stone-700 transition-colors">
+                        <button type="submit" class="px-5 py-2.5 bg-white text-black font-medium text-sm rounded-xl hover:bg-neutral-200 shadow-lg transition-colors">
                             Simpan
                         </button>
                     </div>
@@ -248,11 +248,11 @@
                  x-transition:leave="ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                  x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                 class="relative bg-white rounded-[24px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-stone-200 dark:bg-slate-900 dark:border-slate-700/50">
+                 class="relative bg-neutral-900/80 backdrop-blur-xl rounded-[24px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-white/10">
                 
-                <div class="flex items-center justify-between pb-4 border-b border-stone-100">
-                    <h3 class="text-lg font-bold text-neutral-900 dark:text-white">Edit Mata Kuliah</h3>
-                    <button @click="showEditModal = false" class="p-1.5 hover:bg-stone-100 rounded-full text-neutral-400 hover:text-stone-600 transition-colors">
+                <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                    <h3 class="text-lg font-bold text-white">Edit Mata Kuliah</h3>
+                    <button @click="showEditModal = false" class="p-1.5 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
                         <i class="ph ph-x text-lg"></i>
                     </button>
                 </div>
@@ -262,34 +262,34 @@
                     @method('PUT')
                     
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Nama Mata Kuliah <span class="text-red-500">*</span></label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Nama Mata Kuliah <span class="text-red-500">*</span></label>
                         <input type="text" name="name" x-model="editData.name" required placeholder="Contoh: Psikologi Perkembangan"
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50" />
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium" />
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Dosen Pengampu</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Dosen Pengampu</label>
                         <input type="text" name="lecturer" x-model="editData.lecturer" placeholder="Contoh: Dr. Herman, M.Si."
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50" />
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium" />
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Deskripsi Mata Kuliah</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Deskripsi Mata Kuliah</label>
                         <textarea name="description" x-model="editData.description" placeholder="Contoh: Mata kuliah ini membahas tentang..." rows="2"
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50"></textarea>
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium"></textarea>
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 dark:text-slate-400">Kode MK</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Kode MK</label>
                         <input type="text" name="code" x-model="editData.code" placeholder="Contoh: PSI-201"
-                               class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm focus:bg-white focus:border-neutral-800 focus:ring-4 focus:ring-stone-800/10 transition-all placeholder:text-neutral-400 font-medium dark:bg-slate-900/50 dark:border-slate-700/50" />
+                               class="w-full px-4 py-3 bg-black/30 border border-transparent rounded-xl outline-none text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-blue-500 transition-all font-medium" />
                     </div>
 
                     <div class="pt-4 flex items-center justify-end gap-3">
-                        <button type="button" @click="showEditModal = false" class="px-5 py-2.5 bg-white text-neutral-700 font-semibold text-sm rounded-xl hover:bg-stone-50 border border-stone-200 transition-colors dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700/50">
+                        <button type="button" @click="showEditModal = false" class="px-5 py-2.5 bg-white/10 text-white font-semibold text-sm rounded-xl hover:bg-white/20 transition-colors">
                             Batal
                         </button>
-                        <button type="submit" class="px-5 py-2.5 bg-neutral-900 text-white font-medium text-sm rounded-xl hover:bg-stone-700 transition-colors">
+                        <button type="submit" class="px-5 py-2.5 bg-white text-black font-medium text-sm rounded-xl hover:bg-neutral-200 shadow-lg transition-colors">
                             Simpan Perubahan
                         </button>
                     </div>

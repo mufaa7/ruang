@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="text-lg font-bold font-geist text-slate-900 dark:text-white">
+        <h2 class="text-lg font-bold font-geist text-white">
             Ubah Password
         </h2>
 
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        <p class="mt-1 text-sm text-slate-400">
             Pastiin akun lu pake password yang kuat biar aman dari orang iseng.
         </p>
     </header>
@@ -40,7 +40,7 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm font-medium text-emerald-600 dark:text-emerald-400"
+                    class="text-sm font-medium text-emerald-400"
                 >Password berhasil diubah.</p>
             @endif
         </div>

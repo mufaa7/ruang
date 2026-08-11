@@ -9,24 +9,24 @@
     </x-slot>
 
     <x-slot name="headerActions">
-        <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full sm:w-auto justify-end">
+        <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full sm:w-auto justify-end md:mr-28 lg:mr-32">
             <span id="save-status"
-                class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
-                <i class="ph ph-check text-[1.1em] align-middle"></i> Tersimpan
+                class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 backdrop-blur-sm shadow-sm hidden sm:inline-flex">
+                <i class="ph ph-check text-[1.1em] align-middle mr-1"></i> Tersimpan
             </span>
 
             <div class="flex items-center gap-2 w-full sm:w-auto">
                 <a href="{{ route('makalah.export.word',$makalah) }}"
                    data-turbo="false"
                    id="btn-export-word"
-                   class="flex-1 sm:flex-none min-h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-stone-900 text-white font-medium hover:bg-stone-800 transition-all active:scale-95 text-sm dark:bg-white dark:text-slate-900">
+                   class="flex-1 sm:flex-none min-h-10 sm:min-h-11 flex items-center justify-center gap-2 px-4 rounded-xl border border-white/10 bg-white/10 text-white font-medium hover:bg-white/20 transition-all active:scale-95 text-sm backdrop-blur-sm">
                     <i class="ph ph-file-doc"></i>
                     Export Word
                 </a>
 
                 <a href="{{ route('makalah.export.pdf',$makalah) }}"
                    target="_blank"
-                   class="flex-1 sm:flex-none min-h-11 flex items-center justify-center gap-2 px-4 rounded-xl border border-stone-300 font-medium hover:bg-stone-50 transition-all active:scale-95 text-sm bg-white dark:bg-slate-800 dark:border-slate-600 dark:text-white dark:hover:bg-slate-700">
+                   class="flex-1 sm:flex-none min-h-10 sm:min-h-11 flex items-center justify-center gap-2 px-4 rounded-xl border border-white/10 bg-white/5 text-slate-300 font-medium hover:bg-white/10 hover:text-white transition-all active:scale-95 text-sm backdrop-blur-sm">
                     <i class="ph ph-file-pdf"></i>
                     Export PDF
                 </a>
@@ -63,14 +63,14 @@
         </div>
     </x-slot>
 
-    <div class="bg-stone-100 min-h-screen">
+    <div class="min-h-screen">
 
         {{-- No Toolbar inside content anymore, handled by x-app-layout header --}}
 
         <div class="max-w-4xl mx-auto py-8">
 
             <div
-                class="bg-white text-slate-900 shadow-sm rounded-xl overflow-hidden border border-stone-200 relative">
+                class="bg-white text-black shadow-2xl rounded-xl overflow-hidden border border-white/10 relative">
 
                 {{-- Cover --}}
                 @include('makalah.components.cover')
@@ -148,7 +148,7 @@
             <div class="flex items-start gap-3 mb-4">
                 <span id="ai-confirm-icon" class="text-2xl shrink-0"><i class="ph ph-warning text-[1.1em] align-middle"></i>️</span>
                 <div>
-                    <h3 id="ai-confirm-title" class="font-bold text-slate-900 text-base">Konfirmasi</h3>
+                    <h3 id="ai-confirm-title" class="font-bold text-white text-base">Konfirmasi</h3>
                     <p id="ai-confirm-body" class="text-sm text-stone-500 mt-1 leading-relaxed"></p>
                 </div>
             </div>
@@ -323,8 +323,8 @@
                     let resume = false;
 
                     const bodyText = hasChapters 
-                        ? `AI akan meracik kerangka dan isi makalah untuk:<br><br><strong class="text-slate-900 text-base">"${title}"</strong><br><br><span class="text-red-600 font-medium"><i class="ph ph-warning text-[1.1em] align-middle"></i>️ Perhatian: Struktur bab yang ada di layar saat ini akan dihapus dan diganti sepenuhnya dengan buatan AI.</span><br><br>Estimasi waktu: <strong>5–10 menit</strong>`
-                        : `AI akan membuat kerangka dan isi makalah untuk:<br><br><strong class="text-slate-900 text-base">"${title}"</strong><br><br>Estimasi waktu: <strong>5–10 menit</strong>`;
+                        ? `AI akan meracik kerangka dan isi makalah untuk:<br><br><strong class="text-white text-base">"${title}"</strong><br><br><span class="text-red-600 font-medium"><i class="ph ph-warning text-[1.1em] align-middle"></i>️ Perhatian: Struktur bab yang ada di layar saat ini akan dihapus dan diganti sepenuhnya dengan buatan AI.</span><br><br>Estimasi waktu: <strong>5–10 menit</strong>`
+                        : `AI akan membuat kerangka dan isi makalah untuk:<br><br><strong class="text-white text-base">"${title}"</strong><br><br>Estimasi waktu: <strong>5–10 menit</strong>`;
 
                     const action = await showConfirmModal({
                         icon: '<i class="ph ph-sparkle text-[1.1em] align-middle"></i>',

@@ -78,6 +78,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Materials (Sub-resource)
         Route::post('/{subject}/materials', [\App\Http\Controllers\MaterialController::class, 'store'])->name('materials.store');
+        Route::patch('/{subject}/materials/{material}', [\App\Http\Controllers\MaterialController::class, 'update'])->name('materials.update');
         Route::delete('/{subject}/materials/{material}', [\App\Http\Controllers\MaterialController::class, 'destroy'])->name('materials.destroy');
     });
 

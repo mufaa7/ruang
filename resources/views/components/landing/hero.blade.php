@@ -31,9 +31,18 @@
                 justru mengendap?
             </blockquote>
             <div class="hero-song">
-                <small><i class="ph ph-music-notes-simple text-[1.1em] align-middle"></i> always playing</small>
-                <h3>Wonderwall</h3>
-                <p>Oasis</p>
+                <div class="song-widget">
+                    <div class="song-info">
+                        <small>
+                            <span class="equalizer">
+                                <span></span><span></span><span></span>
+                            </span>
+                            always playing
+                        </small>
+                        <h3>Wonderwall</h3>
+                        <p>Oasis</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

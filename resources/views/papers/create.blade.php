@@ -2,48 +2,58 @@
     <x-slot name="pageTitle">Jurnal Baru</x-slot>
     <x-slot name="pageSubtitle">Mulai tulis, jangan kebanyakan mikir.</x-slot>
 
-    <div class="max-w-2xl">
-        <form method="POST" action="{{ route('papers.store') }}" class="space-y-5">
+    <div class="max-w-2xl animate-fadeIn relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none rounded-[24px]"></div>
+
+        <form method="POST" action="{{ route('papers.store') }}" class="space-y-6 relative z-10 bg-black/40 backdrop-blur-xl border border-white/10 rounded-[24px] p-8 shadow-2xl">
             @csrf
 
             {{-- Title --}}
             <div>
-                <label class="block text-xs font-semibold text-[#8c8479] uppercase tracking-widest mb-2">Judul Jurnal</label>
+                <label class="block text-[11px] font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2"><i class="ph-bold ph-text-T"></i> Judul Jurnal</label>
                 <input type="text" name="title" value="{{ old('title') }}" required
-                       class="w-full bg-white dark:bg-slate-900/70 border border-stone-300 rounded-lg px-4 py-3 text-[#1a1814] font-display text-lg placeholder-stone-400 focus:outline-none focus:border-[#c45c2a] focus:ring-2 focus:ring-[#c45c2a]/20 transition dark:border-slate-700"
+                       class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white font-geist font-bold text-lg placeholder-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-4 focus:ring-amber-500/10 transition-all shadow-inner"
                        placeholder="Judul yang bikin orang penasaran...">
-                @error('title') <p class="text-xs text-[#c45c2a] mt-1.5">{{ $message }}</p> @enderror
+                @error('title') <p class="text-xs text-rose-500 mt-2 font-medium flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> {{ $message }}</p> @enderror
             </div>
 
             {{-- Abstract --}}
             <div>
-                <label class="block text-xs font-semibold text-[#8c8479] uppercase tracking-widest mb-2">Abstrak <span class="text-stone-400 normal-case font-normal">(opsional)</span></label>
+                <label class="block text-[11px] font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <i class="ph-bold ph-text-align-left"></i> Abstrak <span class="text-slate-500 normal-case font-medium ml-1">(opsional)</span>
+                </label>
                 <textarea name="abstract" rows="4"
-                          class="w-full bg-white dark:bg-slate-900/70 border border-stone-300 rounded-lg px-4 py-3 text-sm text-[#1a1814] placeholder-stone-400 focus:outline-none focus:border-[#c45c2a] focus:ring-2 focus:ring-[#c45c2a]/20 transition resize-none dark:border-slate-700"
+                          class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-4 focus:ring-amber-500/10 transition-all resize-none shadow-inner leading-relaxed"
                           placeholder="Gambaran singkat tentang jurnal ini...">{{ old('abstract') }}</textarea>
             </div>
 
             {{-- Subject + Visibility row --}}
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                    <label class="block text-xs font-semibold text-[#8c8479] uppercase tracking-widest mb-2">Subject</label>
-                    <select name="subject_id" class="w-full bg-white dark:bg-slate-900/70 border border-stone-300 rounded-lg px-4 py-3 text-sm text-[#1a1814] focus:outline-none focus:border-[#c45c2a] transition dark:border-slate-700">
-                        <option value="">— Pilih subject —</option>
-                        @foreach($subjects as $s)
-                            <option value="{{ $s->id }}" {{ old('subject_id') == $s->id ? 'selected' : '' }}>
-                                {{ $s->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label class="block text-[11px] font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2"><i class="ph-bold ph-books"></i> Subject</label>
+                    <div class="relative">
+                        <select name="subject_id" class="w-full bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-sm text-white focus:outline-none focus:border-amber-500/50 focus:ring-4 focus:ring-amber-500/10 transition-all shadow-inner appearance-none cursor-pointer">
+                            <option value="" class="bg-slate-900">— Pilih subject —</option>
+                            @foreach($subjects as $s)
+                                <option value="{{ $s->id }}" class="bg-slate-900" {{ old('subject_id') == $s->id ? 'selected' : '' }}>
+                                    {{ $s->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <i class="ph-bold ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-400 pointer-events-none"></i>
+                    </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-[#8c8479] uppercase tracking-widest mb-2">Visibilitas</label>
-                    <select name="visibility" class="w-full bg-white dark:bg-slate-900/70 border border-stone-300 rounded-lg px-4 py-3 text-sm text-[#1a1814] focus:outline-none focus:border-[#c45c2a] transition dark:border-slate-700">
-                        <option value="private"      {{ old('visibility', 'private') === 'private'      ? 'selected' : '' }}><i class="ph ph-lock text-[1.1em] align-middle"></i> Private</option>
-                        <option value="subject_only" {{ old('visibility') === 'subject_only' ? 'selected' : '' }}><i class="ph ph-buildings text-[1.1em] align-middle"></i> Subject only</option>
-                        <option value="public"       {{ old('visibility') === 'public'       ? 'selected' : '' }}><i class="ph ph-globe-hemisphere-west text-[1.1em] align-middle"></i> Public</option>
-                    </select>
+                    <label class="block text-[11px] font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2"><i class="ph-bold ph-eye"></i> Visibilitas</label>
+                    <div class="relative">
+                        <select name="visibility" class="w-full bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-sm text-white focus:outline-none focus:border-amber-500/50 focus:ring-4 focus:ring-amber-500/10 transition-all shadow-inner appearance-none cursor-pointer">
+                            <option class="bg-slate-900" value="private"      {{ old('visibility', 'private') === 'private'      ? 'selected' : '' }}>🔒 Private</option>
+                            <option class="bg-slate-900" value="subject_only" {{ old('visibility') === 'subject_only' ? 'selected' : '' }}>🏫 Subject only</option>
+                            <option class="bg-slate-900" value="public"       {{ old('visibility') === 'public'       ? 'selected' : '' }}>🌍 Public</option>
+                        </select>
+                        <i class="ph-bold ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-400 pointer-events-none"></i>
+                    </div>
                 </div>
             </div>
 
@@ -62,39 +72,39 @@
                     this.tags.splice(index, 1);
                 }
             }">
-                <label class="block text-xs font-semibold text-[#8c8479] uppercase tracking-widest mb-2">Tags</label>
-                <div class="bg-white dark:bg-slate-900/70 border border-stone-300 rounded-lg px-4 py-2 min-h-[50px] flex flex-wrap gap-2 items-center focus-within:border-[#c45c2a] focus-within:ring-2 focus-within:ring-[#c45c2a]/20 transition dark:border-slate-700">
+                <label class="block text-[11px] font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2"><i class="ph-bold ph-tag"></i> Tags</label>
+                <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 min-h-[54px] flex flex-wrap gap-2 items-center focus-within:border-amber-500/50 focus-within:ring-4 focus-within:ring-amber-500/10 transition-all shadow-inner">
                     <template x-for="(tag, index) in tags" :key="index">
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-stone-100 border border-stone-200 text-xs font-medium text-stone-700 dark:bg-slate-900/80 dark:border-slate-700/50">
+                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs font-bold text-amber-500 shadow-inner">
                             <span x-text="tag"></span>
-                            <button type="button" @click="removeTag(index)" class="text-stone-400 hover:text-red-500 focus:outline-none">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <button type="button" @click="removeTag(index)" class="text-amber-500/50 hover:text-amber-500 focus:outline-none transition-colors">
+                                <i class="ph-bold ph-x"></i>
                             </button>
                             <input type="hidden" name="tags[]" :value="tag">
                         </span>
                     </template>
                     <input type="text" x-model="newTag" @keydown.enter.prevent="addTag" @keydown.comma.prevent="addTag" 
-                           class="flex-1 min-w-[120px] bg-transparent border-none p-0 text-sm focus:ring-0 focus:outline-none placeholder-stone-400" 
+                           class="flex-1 min-w-[120px] bg-transparent border-none p-0 text-sm text-white focus:ring-0 focus:outline-none placeholder-slate-500" 
                            placeholder="Ketik tag, tekan Enter...">
                 </div>
-                <p class="text-[11px] text-stone-400 mt-1.5">*Tekan Enter atau Koma (,) untuk memisahkan tag.</p>
+                <p class="text-[11px] text-slate-500 mt-2 font-medium flex items-center gap-1.5"><i class="ph-fill ph-info"></i> Tekan Enter atau Koma (,) untuk memisahkan tag.</p>
             </div>
 
             {{-- Actions --}}
-            <div class="flex items-center gap-3 pt-2">
+            <div class="flex items-center gap-4 pt-4 mt-2 border-t border-white/10">
                 <button type="submit"
-                        class="px-6 py-2.5 bg-[#1a1814] text-white text-sm font-medium rounded-lg hover:bg-[#c45c2a] transition-colors">
-                    Buat Jurnal
+                        class="px-6 py-3 min-h-[48px] bg-white/10 border border-white/10 text-white font-bold text-sm rounded-xl hover:bg-white/20 active:scale-95 transition-all shadow-sm flex items-center gap-2">
+                    <i class="ph-bold ph-check"></i> Buat Jurnal
                 </button>
-                <a href="{{ route('papers.my') }}" class="text-sm text-[#8c8479] hover:text-[#1a1814] transition-colors">
+                <a href="{{ route('papers.my') }}" class="px-6 py-3 min-h-[48px] text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center justify-center">
                     Batal
                 </a>
             </div>
         </form>
 
         {{-- Quote --}}
-        <div class="mt-10 pt-8 border-t border-stone-200 dark:border-slate-700/50">
-            <p class="font-display italic text-[#8c8479] text-sm">"Every masterpiece starts with a blank page and the courage to begin."</p>
+        <div class="mt-8 text-center">
+            <p class="font-geist italic text-slate-500 text-sm">"Every masterpiece starts with a blank page and the courage to begin."</p>
         </div>
     </div>
 </x-app-layout>

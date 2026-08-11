@@ -62,11 +62,16 @@
         </style>
         <!-- defer: tidak blocking parse HTML -->
         <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+        
+        <!-- Flatpickr for iOS style date time picker -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     </head>
     
-    <body class="antialiased min-h-screen font-sans opacity-0 text-[#1F1F1D] dark:text-white relative overflow-x-hidden">
+    <body class="antialiased min-h-screen font-sans opacity-0 text-white dark:text-white relative overflow-x-hidden">
         @if(session()->has('impersonated_by'))
-        <div class="bg-amber-400 text-black px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-black">
+        <div class="bg-amber-400 text-white px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-black">
             <span>⚠️ You are impersonating <strong>{{ auth()->user()->name }}</strong></span>
             <form action="{{ route('impersonate.leave') }}" method="POST" class="inline">
                 @csrf
@@ -75,24 +80,13 @@
         </div>
         @endif
 
-        {{-- Global Background Vinyl --}}
-        <div class="fixed inset-0 overflow-hidden pointer-events-none -z-50 bg-[#F7F5F1] dark:bg-slate-950">
-            <!-- Subtle Gradient blobs for light mode (optional but nice) -->
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(168,85,247,0.03),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(99,102,241,0.03),transparent_40%)] dark:hidden"></div>
+        <div class="fixed inset-0 overflow-hidden pointer-events-none -z-50 bg-[#0b101e]">
+            <!-- Subtle cool-toned orbs for texture (doesn't clash with text) -->
+            <div class="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-900/30 blur-[120px]"></div>
+            <div class="absolute bottom-[0%] right-[0%] w-[60%] h-[60%] rounded-full bg-cyan-900/20 blur-[150px]"></div>
 
-            <!-- Vinyl (Light Theme Shadow) -->
-            <div class="vinyl absolute -right-[350px] top-1/2 w-[1100px] h-[1100px] opacity-[0.06] dark:opacity-[0.03] blur-sm mix-blend-multiply dark:mix-blend-screen">
-                <div class="relative w-full h-full rounded-full bg-black dark:bg-white shadow-[0_0_120px_rgba(0,0,0,0.9)] dark:shadow-[0_0_120px_rgba(255,255,255,0.9)]">
-                    <div class="absolute inset-[40px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute inset-[80px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute inset-[120px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute inset-[160px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute inset-[200px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute inset-[240px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute inset-[280px] rounded-full border border-neutral-800 dark:border-neutral-200"></div>
-                    <div class="absolute left-1/2 top-1/2 w-36 h-36 rounded-full -translate-x-1/2 -translate-y-1/2 bg-neutral-700 dark:bg-neutral-300 border-[14px] border-neutral-900 dark:border-neutral-100"></div>
-                </div>
-            </div>
+            <!-- Custom Background Image (faint texture, responsive) -->
+            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-30 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
         </div>
 
         {{-- Dummy Data Simulasi (Nanti diganti dengan variabel dari Controller/ViewComposer) --}}
@@ -174,7 +168,7 @@
                      class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-30 lg:hidden"></div>
 
                 <!-- Vinyl Button Toggle Wrapper -->
-                <div class="fixed left-6 top-6 z-50 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]"
+                <div class="fixed left-5 lg:left-[42px] top-6 lg:top-[34px] z-50 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]"
                      :style="sidebarOpen ? 'transform: translateX(192px)' : 'transform: translateX(0)'">
                     <button
                         x-ref="vinylBtn"
@@ -187,34 +181,34 @@
                 </div>
 
             {{-- SIDEBAR (Fixed 280px) --}}
-            <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="w-[280px] shrink-0 flex-col border-r border-[#D6D0C4] dark:border-slate-800 bg-[#EFECE5] dark:bg-slate-950 flex fixed inset-y-0 left-0 z-40 shadow-[4px_0_24px_rgba(15,23,42,0.02)] transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]">
+            <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-[120%]'" class="w-[280px] shrink-0 flex-col rounded-r-[32px] border-r border-white/10 bg-white/5 backdrop-blur-xl flex fixed inset-y-0 left-0 z-40 shadow-[4px_0_24px_rgba(0,0,0,0.2)] transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]">
                 
                 {{-- Brand --}}
-                <div class="px-6 pt-8 pb-6 border-b border-[#D6D0C4] dark:border-slate-800" x-data>
-                    <h1 class="text-[34px] font-bold tracking-tight text-[#1F1F1D] dark:text-white group cursor-default relative inline-flex items-center" style="font-family: 'Cormorant Garamond', serif;">
+                <div class="px-6 pt-8 pb-6 border-b border-white/10" x-data>
+                    <h1 class="text-[34px] font-bold tracking-tight text-white dark:text-white group cursor-default relative inline-flex items-center" style="font-family: 'Cormorant Garamond', serif;">
                         ruang.
                         <span x-show="$store.pomodoro && $store.pomodoro.isRunning" x-cloak class="absolute -right-3 top-1.5 w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
                     </h1>
 
                     <div class="mt-5">
-                        <p class="text-[13px] md:text-[14px] text-[#7C756C] dark:text-slate-400 leading-[1.8] tracking-wide">
+                        <p class="text-[13px] md:text-[14px] text-blue-200 dark:text-slate-400 leading-[1.8] tracking-wide">
                             masuk. denger lagu. pulang.
                         </p>
                     </div>
                 </div>
 
                 {{-- Search --}}
-                <div class="px-6 py-5 border-b border-[#D6D0C4] dark:border-slate-800">
+                <div class="px-6 py-5 border-b border-white/10">
                     <button
                         type="button"
-                        class="group w-full h-11 rounded-xl border border-[#D6D0C4] dark:border-slate-800 bg-white/40 dark:bg-slate-900 px-4 flex items-center justify-between transition-all duration-200 hover:bg-white/80 dark:hover:bg-slate-800 hover:border-[#C4BDB1] dark:hover:border-slate-700">
+                        class="group w-full h-11 rounded-xl border border-white/10 bg-black/20 px-4 flex items-center justify-between transition-all duration-200 hover:bg-white/10 hover:border-white/30">
 
-                        <div class="flex items-center gap-3 text-sm text-[#7C756C] group-hover:text-[#4F4A44] dark:group-hover:text-slate-300 transition-colors">
+                        <div class="flex items-center gap-3 text-sm text-blue-200 group-hover:text-slate-200 dark:group-hover:text-slate-300 transition-colors">
                             <i class="ph ph-magnifying-glass text-lg"></i>
                             <span>cari apa aja...</span>
                         </div>
 
-                        <kbd class="hidden lg:flex items-center rounded-md border border-[#D6D0C4] dark:border-slate-700 px-2 py-1 text-[11px] text-[#7C756C] font-sans font-medium shadow-sm">
+                        <kbd class="hidden lg:flex items-center rounded-md border border-white/10 bg-white/5 px-2 py-1 text-[11px] text-slate-300 font-sans font-medium shadow-sm">
                             Ctrl K
                         </kbd>
 
@@ -242,7 +236,7 @@
                             $route = Route::has($item['route']) ? route($item['route']) : '#';
                             $active = request()->routeIs($item['route']); 
                         @endphp
-                        <a href="{{ $route }}" title="{{ ucwords($item['label']) }}" class="group w-full flex items-center justify-between px-3 h-11 text-[14px] font-medium transition-colors duration-150 rounded-r-lg {{ $active ? 'bg-white/60 dark:bg-slate-800 text-[#1F1F1D] dark:text-white border-l-[3px] border-[#1F1F1D]' : 'text-[#7C756C] dark:text-slate-400 border-l-[2px] border-transparent hover:border-[#D6D0C4] dark:hover:border-slate-700 hover:bg-white/40 dark:hover:bg-slate-800/50 hover:text-[#1F1F1D] dark:hover:text-slate-300' }}">
+                        <a href="{{ $route }}" title="{{ ucwords($item['label']) }}" class="group w-full flex items-center justify-between px-3 h-11 text-[14px] font-medium transition-colors duration-150 rounded-r-lg {{ $active ? 'bg-white/10 text-amber-300 border-l-[3px] border-amber-300 shadow-[inset_2px_0_10px_rgba(252,211,77,0.05)]' : 'text-slate-300 border-l-[3px] border-transparent hover:border-white/30 hover:bg-white/5 hover:text-white' }}">
                             <div class="flex items-center gap-3 transition-transform duration-150 group-hover:translate-x-[2px]">
                                 <i class="ph {{ $item['icon'] }} text-[18px]"></i>
                                 <span class="capitalize">{{ $item['label'] }}</span>
@@ -250,7 +244,7 @@
                             
                             {{-- Badge --}}
                             @if($item['badge'])
-                                <span class="text-[11px] px-2 py-0.5 rounded-full font-semibold {{ $active ? 'bg-[#1F1F1D] dark:bg-slate-900/20 text-[#F7F5F1] dark:text-white' : 'bg-[#D6D0C4] dark:bg-slate-800 text-[#7C756C] dark:text-slate-400' }}">
+                                <span class="text-[11px] px-2 py-0.5 rounded-full font-semibold {{ $active ? 'bg-amber-300/20 text-amber-300' : 'bg-white/10 text-slate-300 group-hover:bg-white/20' }}">
                                     {{ $item['badge'] }}
                                 </span>
                             @endif
@@ -259,50 +253,50 @@
                 </nav>
 
                 {{-- Bagian Bawah: Widget & Footer --}}
-                <div class="p-4 border-t border-[#D6D0C4] dark:border-slate-800 space-y-3 bg-transparent">
+                <div class="p-4 border-t border-white/10 space-y-3 bg-transparent">
                     
                     {{-- Pomodoro Widget (Alpine.js) --}}
                     <div id="pomodoro-widget" data-turbo-permanent x-data x-cloak>
                         {{-- State: Idle --}}
-                        <div x-show="$store.pomodoro.mode === 'idle'" class="bg-white/50 dark:bg-slate-900 border border-[#D6D0C4] dark:border-slate-800 p-3 rounded-xl flex items-center justify-between shadow-sm cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800 transition-colors" @click="$store.pomodoro.startFocus()">
+                        <div x-show="$store.pomodoro.mode === 'idle'" class="bg-white/5 border border-white/10 p-3 rounded-xl flex items-center justify-between shadow-sm cursor-pointer hover:bg-white/10 hover:border-amber-300/50 transition-colors" @click="$store.pomodoro.startFocus()">
                             <div class="flex items-center gap-2">
-                                <span class="text-slate-400">⏱️</span>
-                                <span class="text-xs font-semibold text-slate-600 dark:text-slate-400">Mulai Pomodoro</span>
+                                <span class="text-white/50">⏱️</span>
+                                <span class="text-xs font-semibold text-white">Mulai Pomodoro</span>
                             </div>
-                            <span class="font-mono text-sm font-bold text-slate-400">25:00</span>
+                            <span class="font-mono text-sm font-bold text-white/50">25:00</span>
                         </div>
 
                         {{-- State: Fokus / Istirahat --}}
-                        <div x-show="$store.pomodoro.mode !== 'idle'" :class="$store.pomodoro.mode === 'focus' ? 'bg-indigo-50 dark:bg-indigo-500/10 border-indigo-100/50 dark:border-indigo-500/20' : 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100/50 dark:border-emerald-500/20'" class="border p-3 rounded-xl flex items-center justify-between shadow-sm">
+                        <div x-show="$store.pomodoro.mode !== 'idle'" :class="$store.pomodoro.mode === 'focus' ? 'bg-indigo-500/10 border-indigo-500/20' : 'bg-emerald-500/10 border-emerald-500/20'" class="border p-3 rounded-xl flex items-center justify-between shadow-inner">
                             <div class="flex items-center gap-2.5">
                                 <span class="relative flex h-2.5 w-2.5">
                                     <span x-show="$store.pomodoro.isRunning" :class="$store.pomodoro.mode === 'focus' ? 'bg-indigo-500' : 'bg-emerald-500'" class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"></span>
-                                    <span :class="$store.pomodoro.mode === 'focus' ? 'bg-indigo-600 dark:bg-indigo-500' : 'bg-emerald-600 dark:bg-emerald-500'" class="relative inline-flex rounded-full h-2.5 w-2.5"></span>
+                                    <span :class="$store.pomodoro.mode === 'focus' ? 'bg-indigo-500' : 'bg-emerald-500'" class="relative inline-flex rounded-full h-2.5 w-2.5 shadow-[0_0_8px_currentColor]"></span>
                                 </span>
                                 <div class="flex flex-col">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider" :class="$store.pomodoro.mode === 'focus' ? 'text-indigo-900 dark:text-indigo-300' : 'text-emerald-900 dark:text-emerald-300'" x-text="$store.pomodoro.mode === 'focus' ? 'Fokus Aktif' : 'Waktu Rehat'"></span>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider" :class="$store.pomodoro.mode === 'focus' ? 'text-indigo-400' : 'text-emerald-400'" x-text="$store.pomodoro.mode === 'focus' ? 'Fokus Aktif' : 'Waktu Rehat'"></span>
                                     <div class="flex gap-1.5 mt-0.5">
-                                        <button @click="$store.pomodoro.toggle()" class="text-[9px] underline opacity-70 hover:opacity-100" x-text="$store.pomodoro.isRunning ? 'Pause' : 'Resume'"></button>
-                                        <button @click="$store.pomodoro.reset()" class="text-[9px] underline opacity-70 hover:opacity-100 text-rose-500">Stop</button>
+                                        <button @click="$store.pomodoro.toggle()" class="text-[9px] font-medium opacity-70 hover:opacity-100 transition-opacity" :class="$store.pomodoro.mode === 'focus' ? 'text-indigo-300' : 'text-emerald-300'" x-text="$store.pomodoro.isRunning ? 'Pause' : 'Resume'"></button>
+                                        <button @click="$store.pomodoro.reset()" class="text-[9px] font-medium opacity-70 hover:opacity-100 text-rose-400 transition-opacity">Stop</button>
                                     </div>
                                 </div>
                             </div>
-                            <span class="font-mono text-lg font-bold tracking-tight" :class="$store.pomodoro.mode === 'focus' ? 'text-indigo-700 dark:text-indigo-400' : 'text-emerald-700 dark:text-emerald-400'" x-text="$store.pomodoro.formattedTime"></span>
+                            <span class="font-mono text-lg font-bold tracking-tight" :class="$store.pomodoro.mode === 'focus' ? 'text-indigo-400' : 'text-emerald-400'" x-text="$store.pomodoro.formattedTime"></span>
                         </div>
                     </div>
 
 
 
                     {{-- Settings Link --}}
-                    <a href="{{ Route::has('profile.edit') ? route('profile.edit') : '#' }}" class="w-full flex items-center gap-3 px-3 h-10 mt-1 rounded-xl text-[13px] font-medium text-[#7C756C] dark:text-slate-400 hover:bg-white/50 dark:bg-slate-800 dark:hover:bg-slate-800/50 hover:text-[#1F1F1D] dark:text-white dark:hover:text-white transition-colors">
-                        <svg class="w-[18px] h-[18px] shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <a href="{{ Route::has('profile.edit') ? route('profile.edit') : '#' }}" class="w-full flex items-center gap-3 px-3 h-10 mt-1 rounded-xl text-[13px] font-medium text-slate-300 hover:bg-white/10 hover:text-white transition-colors">
+                        <svg class="w-[18px] h-[18px] shrink-0 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                         Ruangku & Pengaturan
                     </a>
 
                     {{-- Logout Form & Button --}}
                     <form method="POST" action="{{ route('logout') }}" data-turbo="false" class="w-full mt-1" onsubmit="return confirm('Udah selesai hari ini?\n\nSampai ketemu lagi 👋');">
                         @csrf
-                        <button type="submit" class="w-full flex items-center gap-3 px-3 h-10 rounded-xl text-[13px] font-medium text-rose-600 dark:text-rose-400 hover:bg-white/50 dark:hover:bg-rose-500/10 transition-colors">
+                        <button type="submit" class="w-full flex items-center gap-3 px-3 h-10 rounded-xl text-[13px] font-medium text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors">
                             <i class="ph ph-sign-out text-[18px]"></i>
                             pulang
                         </button>
@@ -315,14 +309,15 @@
                 
                 {{-- HEADER PAGE --}}
                 @if(isset($pageTitle) || isset($headerActions))
-                <header class="backdrop-nav bg-[#F7F5F1]/80 dark:bg-slate-950/70 backdrop-blur-md border-b border-[#D6D0C4] dark:border-slate-800 py-4 flex flex-wrap gap-4 items-center justify-between sticky top-0 z-10 transition-all duration-300"
-                        :class="!sidebarOpen ? 'pl-20 sm:pl-24 pr-4 sm:pr-6 lg:pr-8' : 'px-4 sm:px-6 lg:px-8'">
+                <div class="sticky top-0 z-10 pt-4 px-4 sm:px-6 lg:px-8">
+                    <header class="backdrop-nav bg-white/5 backdrop-blur-xl border border-white/10 rounded-[24px] py-4 px-6 flex flex-wrap gap-4 items-center justify-between transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.2)]"
+                            :class="!sidebarOpen ? 'pl-20 sm:pl-24' : ''">
                     <div>
                         @if(isset($pageTitle))
-                        <h1 class="text-xl font-bold font-geist text-slate-900 dark:text-white">{{ $pageTitle }}</h1>
+                        <h1 class="text-xl font-bold font-geist text-white dark:text-white">{{ $pageTitle }}</h1>
                         @endif
                         @if(isset($pageSubtitle))
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ $pageSubtitle }}</p>
+                        <p class="text-sm text-blue-200 dark:text-slate-400 mt-1">{{ $pageSubtitle }}</p>
                         @endif
                     </div>
                     @if(isset($headerActions))
@@ -330,7 +325,8 @@
                         {{ $headerActions }}
                     </div>
                     @endif
-                </header>
+                    </header>
+                </div>
                 @endif
 
                 {{-- PAGE CONTENT SLOT --}}
@@ -402,7 +398,7 @@
              {{-- Mini Player Header (Only visible when not maximized) --}}
              <div x-show="!$store.musicPlayer.isMaximized" 
                   @click="$store.musicPlayer.toggleMinimize()"
-                  class="bg-[#121212] border border-stone-800 rounded-t-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-[#1a1a1a] transition-colors"
+                  class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-t-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-white/5 transition-colors"
                   :class="$store.musicPlayer.isMinimized ? 'rounded-b-2xl' : 'border-b-0'">
                  <h2 class="font-bold text-sm text-white flex items-center gap-2">
                      <i class="ph-fill ph-spotify-logo text-[#1DB954] text-xl"></i>
@@ -425,21 +421,21 @@
 
              {{-- Playlists Container --}}
              <div class="transition-all duration-300"
-                  :class="(!$store.musicPlayer.isMaximized) ? 'bg-[#121212] border border-stone-800 border-t-0 rounded-b-2xl p-4 shadow-xl overflow-y-auto max-h-[400px] space-y-4 pointer-events-auto' : 'grid grid-cols-1 lg:grid-cols-3 gap-8 pointer-events-none'"
+                  :class="(!$store.musicPlayer.isMaximized) ? 'bg-black/80 backdrop-blur-xl border border-white/10 border-t-0 rounded-b-2xl p-4 shadow-xl overflow-y-auto max-h-[400px] space-y-4 pointer-events-auto' : 'grid grid-cols-1 lg:grid-cols-3 gap-8 pointer-events-none'"
                   x-show="$store.musicPlayer.isMaximized || !$store.musicPlayer.isMinimized">
                  
                  {{-- Main Playlist Area --}}
                  <div id="music-player-main" class="pointer-events-auto transition-all duration-300" :class="$store.musicPlayer.isMaximized ? 'lg:col-span-2 space-y-6' : ''">
                      
                      {{-- Warning (Only show when maximized) --}}
-                     <div x-show="$store.musicPlayer.isMaximized" class="bg-emerald-50 text-emerald-800 p-4 rounded-xl text-sm font-medium flex gap-3 items-start border border-emerald-100">
+                     <div x-show="$store.musicPlayer.isMaximized" class="bg-emerald-500/10 text-emerald-400 p-4 rounded-xl text-sm font-medium flex gap-3 items-start border border-emerald-500/20 shadow-inner">
                          <i class="ph-fill ph-info text-xl shrink-0 mt-0.5"></i>
                          <p>Kalo lagunya kepotong cuma 30 detik, jangan nyalahin admin ya. Klik logo Spotify-nya buat dengerin full di HP lu, sekalian di-save biar ga ilang pas butuh.</p>
                      </div>
 
                      {{-- Main Playlist --}}
-                     <div class="bg-[#121212] rounded-[24px] border border-stone-800 p-6 shadow-lg relative group overflow-hidden transition-all duration-300 hover:shadow-[#1DB954]/20 hover:border-[#1DB954]/50"
-                          :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl' : ''">
+                     <div class="bg-black/40 backdrop-blur-xl rounded-[24px] border border-white/10 p-6 shadow-2xl relative group overflow-hidden transition-all duration-300 hover:shadow-[#1DB954]/20 hover:border-[#1DB954]/50"
+                          :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl bg-transparent' : ''">
                          <div x-show="$store.musicPlayer.isMaximized" class="absolute top-0 right-0 w-64 h-64 bg-[#1DB954]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#1DB954]/20 transition-all duration-500"></div>
                          
                          <div x-show="$store.musicPlayer.isMaximized" class="flex items-center justify-between mb-5 relative z-10">
@@ -447,7 +443,7 @@
                                  <i class="ph-fill ph-spotify-logo text-[#1DB954] text-3xl drop-shadow-[0_0_10px_rgba(29,185,84,0.5)]"></i>
                                  Biar Keliatan Sibuk
                              </h2>
-                             <span class="px-3 py-1 bg-stone-800 text-stone-300 text-[10px] font-bold uppercase tracking-wider rounded-full border border-stone-700">Curated</span>
+                             <span class="px-3 py-1 bg-white/5 text-slate-300 text-[10px] font-bold uppercase tracking-wider rounded-full border border-white/10">Curated</span>
                          </div>
                          
                          <div class="relative z-10 w-full transition-all duration-300" :class="$store.musicPlayer.isMaximized ? 'h-[352px]' : 'h-[152px]'">
@@ -459,14 +455,14 @@
                               <template x-if="!$store.musicPlayer.iframesLoaded && $store.musicPlayer.isMaximized">
                                   <div class="w-full h-full rounded-[16px] bg-[#181818] border border-stone-800 flex flex-col items-center justify-center gap-3">
                                       <i class="ph-fill ph-spotify-logo text-[#1DB954] text-4xl opacity-50 animate-pulse"></i>
-                                      <span class="text-stone-500 text-xs">Memuat playlist...</span>
+                                      <span class="text-blue-200 text-xs">Memuat playlist...</span>
                                   </div>
                               </template>
                               {{-- Placeholder di mini player (halaman lain) --}}
                               <template x-if="!$store.musicPlayer.iframesLoaded && !$store.musicPlayer.isMaximized">
-                                  <div class="w-full h-full rounded-[16px] bg-[#181818] flex flex-col items-center justify-center gap-2 border border-stone-800">
+                                  <div class="w-full h-full rounded-[16px] bg-white/5 flex flex-col items-center justify-center gap-2 border border-white/10 shadow-inner">
                                       <i class="ph-fill ph-spotify-logo text-[#1DB954] text-3xl opacity-50"></i>
-                                      <span class="text-stone-500 text-xs">Klik ▲ untuk mulai dengerin</span>
+                                      <span class="text-slate-400 text-xs font-medium">Klik ▲ untuk mulai dengerin</span>
                                   </div>
                               </template>
                           </div>
@@ -478,8 +474,8 @@
 
                  {{-- Alt Playlists Grid --}}
                  <div id="music-player-alt" class="pointer-events-auto transition-all duration-300" :class="$store.musicPlayer.isMaximized ? 'lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-8' : 'space-y-4'">
-                     <div class="bg-[#121212] rounded-[24px] border border-stone-800 p-4 shadow-md hover:border-[#1DB954]/40 hover:shadow-[#1DB954]/10 transition-all duration-300 relative overflow-hidden group"
-                          :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl' : ''">
+                     <div class="bg-black/40 backdrop-blur-xl rounded-[24px] border border-white/10 p-4 shadow-2xl hover:border-[#1DB954]/40 hover:shadow-[#1DB954]/10 transition-all duration-300 relative overflow-hidden group"
+                          :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl bg-transparent' : ''">
                          <div x-show="$store.musicPlayer.isMaximized" class="absolute -top-10 -right-10 w-32 h-32 bg-[#1DB954]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#1DB954]/20 transition-all"></div>
                          <div class="relative z-10 w-full h-[152px]">
                               <template x-if="$store.musicPlayer.iframesLoaded">
@@ -492,8 +488,8 @@
                               </template>
                           </div>
                      </div>
-                     <div class="bg-[#121212] rounded-[24px] border border-stone-800 p-4 shadow-md hover:border-[#1DB954]/40 hover:shadow-[#1DB954]/10 transition-all duration-300 relative overflow-hidden group"
-                          :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl' : ''">
+                     <div class="bg-black/40 backdrop-blur-xl rounded-[24px] border border-white/10 p-4 shadow-2xl hover:border-[#1DB954]/40 hover:shadow-[#1DB954]/10 transition-all duration-300 relative overflow-hidden group"
+                          :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl bg-transparent' : ''">
                          <div x-show="$store.musicPlayer.isMaximized" class="absolute -top-10 -right-10 w-32 h-32 bg-[#1DB954]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#1DB954]/20 transition-all"></div>
                          <div class="relative z-10 w-full h-[152px]">
                               <template x-if="$store.musicPlayer.iframesLoaded">

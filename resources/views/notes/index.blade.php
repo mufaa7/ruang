@@ -1,62 +1,63 @@
 <x-app-layout>
     <x-slot name="pageTitle">Coretan</x-slot>
 
-    <div class="mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <div class="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fadeIn">
         <div>
-            <h1 class="text-2xl font-bold text-neutral-900 font-geist dark:text-white">
-                Tulis aja apa yang lewat di kepala. <i class="ph ph-signature text-[1.1em] align-middle"></i>️
+            <h1 class="text-3xl font-bold text-white font-geist tracking-tight">
+                Tulis aja apa yang lewat di kepala. <i class="ph ph-signature text-emerald-400 align-middle"></i>
             </h1>
-            <p class="text-sm text-neutral-500 mt-0.5 dark:text-slate-400">gapapa random, ga semua harus jadi makalah.</p>
+            <p class="text-sm text-slate-400 mt-1">gapapa random, ga semua harus jadi makalah.</p>
         </div>
         <button onclick="document.getElementById('modal-new-note').classList.remove('hidden')"
-                class="w-full sm:w-auto justify-center px-4 py-2.5 min-h-[44px] bg-neutral-900 text-white font-semibold text-sm rounded-xl hover:bg-stone-700 shadow-sm transition-all flex items-center gap-2 active:scale-95">
+                class="w-full sm:w-auto justify-center px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold text-sm rounded-xl transition-all flex items-center gap-2 backdrop-blur-md hover:scale-105 active:scale-95 duration-300">
             <i class="ph-bold ph-plus text-lg"></i>
             Coretan Baru
         </button>
     </div>
 
     @if(session('success'))
-    <div class="mb-2 p-3 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 text-sm font-semibold flex items-center gap-2">
-        <i class="ph-bold ph-check text-lg shrink-0"></i>
+    <div class="mb-4 p-4 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20 text-sm font-semibold flex items-center gap-3 backdrop-blur-md animate-fadeIn">
+        <i class="ph-bold ph-check-circle text-xl shrink-0"></i>
         {{ session('success') }}
     </div>
     @endif
 
-    <div class="md:h-[calc(100vh-172px)] min-h-[480px] bg-white border border-stone-200 rounded-[24px] overflow-hidden flex flex-col md:flex-row shadow-sm animate-fadeIn dark:bg-slate-900 dark:border-slate-700/50">
+    <div class="md:h-[calc(100vh-200px)] min-h-[480px] bg-black/40 border border-white/10 rounded-[24px] overflow-hidden flex flex-col md:flex-row backdrop-blur-xl shadow-2xl animate-fadeIn relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
 
         {{-- ========== KIRI: DAFTAR ========== --}}
-        <aside id="sidebar-container" class="w-full md:w-[320px] lg:w-[360px] h-[200px] md:h-auto bg-stone-50 border-b md:border-b-0 md:border-r border-stone-200 flex flex-col shrink-0 overflow-hidden dark:bg-slate-900/50 dark:border-slate-700/50">
+        <aside id="sidebar-container" class="w-full md:w-[320px] lg:w-[360px] h-[200px] md:h-auto border-b md:border-b-0 md:border-r border-white/10 flex flex-col shrink-0 overflow-hidden relative z-10 bg-black/20">
 
-            <div class="px-4 pt-3 pb-2.5 border-b border-stone-200 bg-stone-50 shrink-0 dark:border-slate-700/50 dark:bg-slate-900/50">
-                <div class="flex items-center justify-between mb-2">
+            <div class="px-5 pt-4 pb-3 border-b border-white/10 shrink-0">
+                <div class="flex items-center justify-between mb-3">
                     @if(request('hashtag'))
                     <div class="flex items-center gap-2">
-                        <span class="text-[11px] font-bold uppercase tracking-widest text-neutral-700 flex items-center gap-1 dark:text-slate-200">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-400 flex items-center gap-1">
                             #{{ request('hashtag') }}
                         </span>
-                        <a href="{{ route('coretan.index') }}" class="w-4 h-4 flex items-center justify-center rounded-full bg-stone-200 text-neutral-500 hover:text-rose-500 hover:bg-rose-100 transition-colors dark:bg-slate-800 dark:text-slate-400" title="Hapus filter hashtag">
+                        <a href="{{ route('coretan.index') }}" class="w-5 h-5 flex items-center justify-center rounded-full bg-white/10 text-slate-300 hover:text-rose-400 hover:bg-rose-500/20 transition-colors" title="Hapus filter hashtag">
                             <i class="ph-bold ph-x text-[10px]"></i>
                         </a>
                     </div>
                     @else
-                    <h3 class="text-[11px] font-bold uppercase tracking-widest text-neutral-500 dark:text-slate-400">Coretan</h3>
+                    <h3 class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Coretan</h3>
                     @endif
-                    <span class="text-[10px] font-bold bg-stone-200 text-neutral-700 px-2 py-0.5 rounded-full dark:bg-slate-800 dark:text-slate-200">{{ $notes->count() }}</span>
+                    <span class="text-[10px] font-bold bg-white/10 text-white px-2.5 py-0.5 rounded-full">{{ $notes->count() }}</span>
                 </div>
-                <div class="flex items-center gap-1.5 hide-scrollbar overflow-x-auto">
-                    <a href="{{ route('coretan.index') }}" class="ajax-link px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ !request('filter') && !request('hashtag') ? 'bg-neutral-900 text-white shadow-sm' : 'bg-white border border-stone-200 text-neutral-600 hover:bg-stone-100' }} dark:border-slate-700/50 dark:text-slate-300">Semua</a>
-                    <a href="{{ route('coretan.index', ['filter' => 'pinned']) }}" class="ajax-link px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ request('filter') == 'pinned' ? 'bg-neutral-900 text-white shadow-sm' : 'bg-white border border-stone-200 text-neutral-600 hover:bg-stone-100' }} dark:border-slate-700/50 dark:text-slate-300">
-                        <i class="ph-fill ph-push-pin text-[10px]"></i> Pin
+                <div class="flex items-center gap-2 hide-scrollbar overflow-x-auto pb-1">
+                    <a href="{{ route('coretan.index') }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ !request('filter') && !request('hashtag') ? 'bg-white/20 text-white border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">Semua</a>
+                    <a href="{{ route('coretan.index', ['filter' => 'pinned']) }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 flex items-center gap-1 {{ request('filter') == 'pinned' ? 'bg-white/20 text-white border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">
+                        <i class="ph-fill ph-push-pin text-[12px]"></i> Pin
                     </a>
                     @if(isset($allHashtags) && !empty($allHashtags))
                         @foreach($allHashtags as $tag)
-                        <a href="{{ route('coretan.index', ['hashtag' => ltrim($tag, '#')]) }}" class="ajax-link px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ request('hashtag') === ltrim($tag, '#') ? 'bg-neutral-900 text-white shadow-sm' : 'bg-white border border-stone-200 text-neutral-600 hover:bg-stone-100' }} dark:border-slate-700/50 dark:text-slate-300">{{ $tag }}</a>
+                        <a href="{{ route('coretan.index', ['hashtag' => ltrim($tag, '#')]) }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ request('hashtag') === ltrim($tag, '#') ? 'bg-white/20 text-white border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">{{ $tag }}</a>
                         @endforeach
                     @endif
                 </div>
             </div>
 
-            <div class="flex-1 overflow-y-auto p-2 space-y-1 hide-scrollbar">
+            <div class="flex-1 overflow-y-auto p-3 space-y-2 hide-scrollbar">
                 @forelse($notes as $note)
                     @php
                         $isActive = request('note') == $note->id;
@@ -66,68 +67,69 @@
                         $totalCount = count($checklist);
                     @endphp
 
-                    <div class="p-3 rounded-[14px] border transition-all text-left block group/card relative {{ $isActive ? 'bg-white border-stone-200 ring-1 ring-neutral-900/10 shadow-sm' : 'border-transparent hover:bg-white hover:border-stone-200 hover:shadow-sm' }} dark:border-slate-700/50">
-                        {{-- Link overlay buat seluruh area kartu (kecuali tombol di atasnya) --}}
-                        <a href="{{ route('coretan.index', array_merge(request()->query(), ['note' => $note->id])) }}" class="ajax-link absolute inset-0 z-10 rounded-[14px]"></a>
+                    <div class="p-4 rounded-[16px] border transition-all duration-300 text-left block group/card relative {{ $isActive ? 'bg-white/10 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)]' : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10' }}">
+                        <a href="{{ route('coretan.index', array_merge(request()->query(), ['note' => $note->id])) }}" class="ajax-link absolute inset-0 z-10 rounded-[16px]"></a>
                         
-                        <div class="flex items-start justify-between gap-2 mb-0.5 relative z-0 pointer-events-none">
-                            <h4 class="text-sm font-bold text-neutral-900 line-clamp-1 leading-snug dark:text-white">{{ $note->title }}</h4>
+                        <div class="flex items-start justify-between gap-3 mb-1.5 relative z-0 pointer-events-none">
+                            <h4 class="text-sm font-bold text-white line-clamp-1 leading-snug">{{ $note->title }}</h4>
                             
-                            <div class="flex items-center gap-1.5 shrink-0 pointer-events-auto">
-                                {{-- Hashtags --}}
+                            <div class="flex items-center gap-2 shrink-0 pointer-events-auto">
                                 @if(!empty($hashtags))
-                                    <div class="flex items-center gap-0.5 flex-wrap justify-end">
-                                        @foreach(array_slice($hashtags, 0, 3) as $tag)
-                                        <a href="{{ route('coretan.index', ['hashtag' => ltrim($tag, '#')]) }}" class="ajax-link text-[10px] font-bold text-neutral-600 border border-stone-200 bg-stone-100 px-1.5 py-0.5 rounded-md hover:bg-stone-200 transition-colors relative z-20 dark:text-slate-300 dark:border-slate-700/50 dark:bg-slate-900/80">{{ $tag }}</a>
+                                    <div class="flex items-center gap-1 flex-wrap justify-end">
+                                        @foreach(array_slice($hashtags, 0, 2) as $tag)
+                                        <a href="{{ route('coretan.index', ['hashtag' => ltrim($tag, '#')]) }}" class="ajax-link text-[9px] font-bold text-emerald-300 border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 rounded-md hover:bg-emerald-500/20 transition-colors relative z-20">{{ $tag }}</a>
                                         @endforeach
-                                        @if(count($hashtags) > 3)<span class="text-[9px] text-neutral-400" title="{{ implode(', ', $hashtags) }}">+{{ count($hashtags) - 3 }}</span>@endif
+                                        @if(count($hashtags) > 2)<span class="text-[9px] text-slate-500 font-medium" title="{{ implode(', ', $hashtags) }}">+{{ count($hashtags) - 2 }}</span>@endif
                                     </div>
                                 @endif
 
-                                {{-- <i class="ph ph-push-pin text-[1.1em] align-middle"></i> Pin toggle --}}
                                 <form method="POST" action="{{ route('coretan.pin', $note->id) }}" class="relative z-20">
                                     @csrf
                                     <button type="submit" title="{{ $note->is_pinned ? 'Lepas pin' : 'Pin catatan ini' }}"
-                                            class="text-[12px] transition-all {{ $note->is_pinned ? 'opacity-100' : 'opacity-0 group-hover/card:opacity-100 grayscale hover:grayscale-0' }}">
-                                        <i class="ph ph-push-pin text-[1.1em] align-middle"></i>
+                                            class="text-[14px] transition-all duration-300 {{ $note->is_pinned ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(251,191,36,0.5)]' : 'text-slate-500 opacity-0 group-hover/card:opacity-100 hover:text-white' }}">
+                                        <i class="{{ $note->is_pinned ? 'ph-fill' : 'ph' }} ph-push-pin align-middle"></i>
                                     </button>
                                 </form>
                             </div>
                         </div>
 
-                        <p class="text-xs text-neutral-500 line-clamp-1 leading-snug mb-1.5 pr-2 relative z-0 pointer-events-none dark:text-slate-400">{{ strip_tags($note->content) ?: '— belum ada isi —' }}</p>
+                        <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-3 relative z-0 pointer-events-none">{{ strip_tags($note->content) ?: '— belum ada isi —' }}</p>
 
                         <div class="flex items-center justify-between gap-2 flex-wrap relative z-0 pointer-events-none">
-                            <span class="text-[10px] text-neutral-400 flex items-center gap-1">
-                                <i class="ph-fill ph-clock text-xs"></i>
+                            <span class="text-[10px] text-slate-500 font-medium flex items-center gap-1">
+                                <i class="ph-fill ph-clock text-xs text-slate-600"></i>
                                 {{ $note->updated_at->diffForHumans() }}
                             </span>
 
                             @if($totalCount > 0)
-                            <span class="text-[9px] font-bold text-emerald-700 bg-emerald-100 border border-emerald-200 px-1.5 py-0.5 rounded-md"><i class="ph ph-check text-[1.1em] align-middle"></i> {{ $doneCount }}/{{ $totalCount }}</span>
+                            <span class="text-[9px] font-bold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                <i class="ph-bold ph-list-checks"></i> {{ $doneCount }}/{{ $totalCount }}
+                            </span>
                             @endif
                         </div>
                     </div>
                 @empty
-                    <div class="text-center py-10 px-4">
-                        <i class="ph-fill ph-empty text-4xl text-neutral-300 mb-2 block"></i>
-                        <p class="text-xs text-neutral-400 font-semibold">Belum ada coretan.</p>
-                        <p class="text-xs text-neutral-400 mt-0.5">Ada ide apa? Tulis aja.</p>
+                    <div class="text-center py-12 px-4 flex flex-col items-center justify-center h-full">
+                        <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-3 border border-white/10">
+                            <i class="ph-fill ph-ghost text-2xl text-slate-500"></i>
+                        </div>
+                        <p class="text-sm text-slate-300 font-semibold mb-1">Sepi banget...</p>
+                        <p class="text-xs text-slate-500">Belum ada coretan sama sekali.</p>
                     </div>
                 @endforelse
             </div>
 
             @if(isset($trashed) && $trashed->count())
-            <div class="p-3 border-t border-stone-200 bg-white shrink-0 dark:border-slate-700/50 dark:bg-slate-900">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-1.5 flex items-center gap-1.5">
-                    <i class="ph-fill ph-trash text-xs"></i> Sampah ({{ $trashed->count() }})
+            <div class="p-4 border-t border-white/10 bg-black/40 shrink-0 backdrop-blur-md">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2.5 flex items-center gap-1.5">
+                    <i class="ph-fill ph-trash text-xs"></i> Tong Sampah ({{ $trashed->count() }})
                 </p>
                 @foreach($trashed->take(2) as $trash)
-                <div class="flex items-center justify-between py-0.5">
-                    <span class="text-xs text-neutral-400 line-through truncate pr-2">{{ $trash->title }}</span>
+                <div class="flex items-center justify-between py-1 group/trash">
+                    <span class="text-xs text-slate-500 line-through truncate pr-3 group-hover/trash:text-slate-400 transition-colors">{{ $trash->title }}</span>
                     <form method="POST" action="{{ route('coretan.restore', $trash->id) }}">
                         @csrf
-                        <button class="text-[10px] font-bold text-neutral-500 hover:text-stone-600 uppercase shrink-0 dark:text-slate-400">Kembaliin</button>
+                        <button class="text-[10px] font-bold text-emerald-500/70 hover:text-emerald-400 uppercase shrink-0 transition-colors bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Pulihkan</button>
                     </form>
                 </div>
                 @endforeach
@@ -136,7 +138,7 @@
         </aside>
 
         {{-- ========== KANAN: EDITOR ========== --}}
-        <div id="editor-container" class="flex-1 flex flex-col bg-white overflow-hidden dark:bg-slate-900">
+        <div id="editor-container" class="flex-1 flex flex-col overflow-hidden relative z-10">
             @php
                 $activeNote = $notes->firstWhere('id', request('note')) ?? $notes->first();
                 $activeHashtags = is_array($activeNote?->settings) ? ($activeNote->settings['hashtags'] ?? []) : [];
@@ -151,85 +153,79 @@
                 <input type="hidden" name="checklist_json" id="checklist-json" value="{{ json_encode($activeChecklist) }}">
                 <input type="hidden" name="hashtags_json" id="hashtags-json" value="{{ json_encode($activeHashtags) }}">
 
+                {{-- ─── Toolbar atas ─────────────────── --}}
+                <div class="px-5 sm:px-8 py-4 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/5 backdrop-blur-md shrink-0">
+                    <div class="flex items-center gap-2 flex-1 flex-wrap min-w-0 w-full sm:w-auto">
+                        <span class="text-[11px] font-medium text-slate-400 shrink-0"><i class="ph-bold ph-pencil-simple line-middle mr-1"></i> {{ $activeNote->updated_at->diffForHumans() }}</span>
+                        
+                        <div class="w-px h-3 bg-white/20 mx-1"></div>
 
-
-                {{-- ─── Toolbar atas (super compact) ─────────────────── --}}
-                <div class="px-4 sm:px-6 py-3 border-b border-stone-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white shrink-0 z-10 dark:bg-slate-900">
-                    {{-- Hashtag chips + input --}}
-                    <div class="flex items-center gap-1.5 flex-1 flex-wrap min-w-0 w-full sm:w-auto">
-                        <span class="text-[11px] font-medium text-neutral-500 shrink-0 dark:text-slate-400">Diutak-atik {{ $activeNote->updated_at->diffForHumans() }}</span>
-                        @if($activeNote->subject)
-                        <span class="text-[10px] font-bold text-neutral-600 bg-stone-100 border border-stone-200 px-2 py-0.5 rounded-md shrink-0 dark:text-slate-300 dark:bg-slate-900/80 dark:border-slate-700/50">{{ $activeNote->subject->name }}</span>
-                        @endif
-                        <div id="hashtag-display" class="flex items-center gap-1 flex-wrap">
+                        <div id="hashtag-display" class="flex items-center gap-1.5 flex-wrap">
                             @foreach($activeHashtags as $tag)
-                            <span class="hashtag-chip text-[11px] font-bold text-neutral-600 bg-stone-100 border border-stone-200 px-2 py-0.5 rounded-md cursor-pointer hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors dark:text-slate-300 dark:bg-slate-900/80 dark:border-slate-700/50" onclick="removeHashtag(this)" data-tag="{{ $tag }}">{{ $tag }}</span>
+                            <span class="hashtag-chip text-[11px] font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md cursor-pointer hover:bg-rose-500/20 hover:text-rose-400 hover:border-rose-500/30 transition-colors" onclick="removeHashtag(this)" data-tag="{{ $tag }}">{{ $tag }}</span>
                             @endforeach
                         </div>
-                        <input type="text" id="hashtag-input" placeholder="#tag..." onkeydown="handleHashtagKey(event)"
-                               class="text-xs font-medium text-neutral-700 bg-transparent border-none outline-none focus:ring-0 placeholder:text-neutral-400 w-20 p-0 shrink-0 dark:text-slate-200" />
+                        <input type="text" id="hashtag-input" placeholder="+ tambah tag" onkeydown="handleHashtagKey(event)"
+                               class="text-[11px] font-medium text-slate-300 bg-white/5 border border-transparent focus:border-white/20 rounded-md outline-none px-2 py-0.5 focus:bg-white/10 placeholder:text-slate-500 w-24 shrink-0 transition-all" />
                     </div>
 
-                    {{-- Aksi --}}
-                    <div class="flex items-center gap-1 shrink-0 w-full sm:w-auto justify-end">
-                        {{-- Font size control --}}
-                        <button type="button" onclick="changeFontSize(-2)" class="w-9 h-9 sm:w-7 sm:h-7 flex items-center justify-center text-neutral-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-colors text-xs font-bold active:scale-95">A−</button>
-                        <button type="button" onclick="changeFontSize(2)"  class="w-9 h-9 sm:w-7 sm:h-7 flex items-center justify-center text-neutral-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-colors text-sm font-bold active:scale-95">A+</button>
-                        <div class="w-px h-5 bg-stone-200 mx-1 dark:bg-slate-800"></div>
-                        {{-- Simpan --}}
-                        <button type="submit" id="btn-simpan" class="px-3 py-1.5 min-h-[36px] bg-neutral-900 text-white hover:bg-stone-700 font-semibold text-xs rounded-xl transition-colors shadow-sm active:scale-95">
-                            Simpan
+                    <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+                        <button type="button" onclick="changeFontSize(-2)" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 rounded-lg transition-all text-xs font-bold active:scale-95" title="Perkecil Teks">A−</button>
+                        <button type="button" onclick="changeFontSize(2)"  class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 rounded-lg transition-all text-sm font-bold active:scale-95" title="Perbesar Teks">A+</button>
+                        
+                        <div class="w-px h-5 bg-white/10 mx-1"></div>
+                        
+                        <button type="submit" id="btn-simpan" class="px-4 py-1.5 min-h-[32px] bg-white text-black hover:bg-slate-200 font-bold text-xs rounded-lg transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)] active:scale-95 flex items-center gap-1.5">
+                            <i class="ph-bold ph-floppy-disk"></i> Simpan
                         </button>
-                        {{-- Hapus --}}
-                        <button type="button" onclick="if(confirm('Hapus coretan ini?')) document.getElementById('delete-note-form').submit();" class="p-2 sm:p-1.5 min-h-[36px] text-neutral-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors active:scale-95">
-                            <i class="ph-bold ph-trash text-base sm:text-sm"></i>
+                        
+                        <button type="button" onclick="if(confirm('Hapus coretan ini ke tong sampah?')) document.getElementById('delete-note-form').submit();" class="p-1.5 ml-1 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors active:scale-95">
+                            <i class="ph-bold ph-trash text-lg"></i>
                         </button>
                     </div>
                 </div>
 
                 {{-- ─── Content area ─────────────────────────────────── --}}
-                <div class="flex-1 overflow-y-auto px-6 py-5 hide-scrollbar bg-white dark:bg-slate-900">
+                <div class="flex-1 overflow-y-auto px-6 sm:px-10 py-8 hide-scrollbar">
                     
-                    {{-- Judul --}}
                     <input type="text" name="title" value="{{ $activeNote->title }}"
-                           class="block text-2xl font-bold text-neutral-900 font-geist bg-transparent border-none outline-none w-full focus:ring-0 p-0 mb-3 placeholder:text-neutral-300 dark:text-white"
+                           class="block text-3xl sm:text-4xl font-bold text-white font-geist bg-transparent border-none outline-none w-full focus:ring-0 p-0 mb-6 placeholder:text-slate-600 transition-colors"
                            placeholder="Judul Coretan..." />
 
-                    {{-- Textarea auto-font --}}
                     <textarea name="content" id="note-content"
                               oninput="handleContentInput(this)"
-                              class="block w-full font-serif-editor leading-relaxed text-neutral-900 outline-none resize-none bg-transparent border-none focus:ring-0 p-0 mb-10 placeholder:text-neutral-300 transition-all dark:text-slate-100"
-                              style="font-size: {{ strlen(strip_tags($activeNote->content)) < 80 ? '22' : (strlen(strip_tags($activeNote->content)) < 300 ? '17' : '14') }}px; min-height: 240px;"
-                              placeholder="Ada ide apa hari ini? Tulis aja...">{{ strip_tags($activeNote->content) }}</textarea>
+                              class="block w-full font-serif-editor leading-relaxed text-slate-200 outline-none resize-none bg-transparent border-none focus:ring-0 p-0 mb-12 placeholder:text-slate-600 transition-colors selection:bg-emerald-500/30"
+                              style="font-size: {{ strlen(strip_tags($activeNote->content)) < 80 ? '22' : (strlen(strip_tags($activeNote->content)) < 300 ? '17' : '15') }}px; min-height: 280px;"
+                              placeholder="Ada ide apa hari ini? Tulis aja semuanya di sini...">{{ strip_tags($activeNote->content) }}</textarea>
 
                     {{-- ─── To-Do List ──────────────────────────────── --}}
-                    <div class="border-t border-stone-100 pt-4 mt-2">
-                        <p class="text-xs font-bold uppercase tracking-wider text-neutral-500 flex items-center gap-1.5 mb-3 dark:text-slate-400">
-                            <i class="ph-bold ph-check-square"></i>
-                            To-Do
+                    <div class="border-t border-white/10 pt-6 mt-4 pb-8">
+                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2 mb-4">
+                            <i class="ph-bold ph-check-square-offset text-lg text-emerald-400"></i>
+                            Checklist / To-Do
                         </p>
 
-                        <div class="space-y-2" id="checklist-container">
+                        <div class="space-y-3" id="checklist-container">
                             @foreach($activeChecklist as $i => $item)
-                            <div class="checklist-item flex items-center gap-2.5 group" data-idx="{{ $i }}">
+                            <div class="checklist-item flex items-start gap-3 group" data-idx="{{ $i }}">
                                 <button type="button" onclick="toggleCheck({{ $i }})"
-                                        class="w-5 h-5 rounded-md border-2 shrink-0 flex items-center justify-center transition-all {{ ($item['done'] ?? false) ? 'bg-neutral-900 border-neutral-900 text-white' : 'border-stone-300 hover:border-neutral-400' }}">
+                                        class="w-5 h-5 mt-0.5 rounded-[6px] border-2 shrink-0 flex items-center justify-center transition-all duration-300 {{ ($item['done'] ?? false) ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.4)]' : 'border-slate-600 hover:border-slate-400 bg-white/5' }}">
                                     @if($item['done'] ?? false)
                                     <i class="ph-bold ph-check text-[10px]"></i>
                                     @endif
                                 </button>
-                                <span class="text-sm text-neutral-900 flex-1 {{ ($item['done'] ?? false) ? 'line-through text-neutral-400' : '' }} dark:text-slate-100"
+                                <span class="text-[15px] flex-1 leading-relaxed outline-none transition-all duration-300 {{ ($item['done'] ?? false) ? 'line-through text-slate-500' : 'text-slate-200' }}"
                                       contenteditable="true" onblur="updateCheckText({{ $i }}, this)">{{ $item['text'] ?? '' }}</span>
-                                <button type="button" onclick="removeCheck({{ $i }})" class="opacity-0 group-hover:opacity-100 text-neutral-300 hover:text-rose-500 transition-all shrink-0">
+                                <button type="button" onclick="removeCheck({{ $i }})" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
                                     <i class="ph-bold ph-x text-sm"></i>
                                 </button>
                             </div>
                             @endforeach
 
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-5 h-5 rounded-md border-2 border-dashed border-stone-300 shrink-0 dark:border-slate-700"></div>
-                                <input type="text" id="new-check-input" placeholder="Tambah to-do, tekan Enter..." onkeydown="addCheckOnEnter(event)"
-                                       class="text-sm font-medium text-neutral-900 bg-transparent border-none outline-none focus:ring-0 p-0 placeholder:text-neutral-400 flex-1 dark:text-slate-100" />
+                            <div class="flex items-center gap-3 pt-2">
+                                <div class="w-5 h-5 rounded-[6px] border-2 border-dashed border-slate-600 shrink-0 bg-white/5"></div>
+                                <input type="text" id="new-check-input" placeholder="Ketik to-do baru, lalu tekan Enter..." onkeydown="addCheckOnEnter(event)"
+                                       class="text-[15px] text-slate-300 bg-transparent border-none outline-none focus:ring-0 p-0 placeholder:text-slate-600 flex-1" />
                             </div>
                         </div>
                     </div>
@@ -240,14 +236,16 @@
             </form>
 
             @else
-            <div class="flex-1 flex flex-col items-center justify-center text-center p-8 bg-white dark:bg-slate-900">
-                <i class="ph-fill ph-note-pencil text-5xl text-neutral-300 mb-3"></i>
-                <h3 class="text-lg font-bold text-neutral-900 font-geist dark:text-white">Belum ada coretan sama sekali</h3>
-                <p class="text-sm text-neutral-500 mt-2 max-w-sm dark:text-slate-400">Ga harus bagus, ga harus panjang. Yang penting mulai.</p>
+            <div class="flex-1 flex flex-col items-center justify-center text-center p-8 bg-transparent">
+                <div class="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 backdrop-blur-md shadow-2xl">
+                    <i class="ph-fill ph-note-pencil text-5xl text-slate-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white font-geist tracking-tight">Ruang Kosong</h3>
+                <p class="text-slate-400 mt-2 max-w-sm leading-relaxed">Ga harus bagus, ga harus panjang. Yang penting mulai aja nulis idemu.</p>
                 <button onclick="document.getElementById('modal-new-note').classList.remove('hidden')"
-                        class="mt-5 px-6 py-2.5 bg-neutral-900 text-white font-semibold text-sm rounded-xl shadow-sm hover:bg-stone-700 transition-colors flex items-center gap-2 mx-auto">
+                        class="mt-8 px-6 py-3 bg-white text-black font-bold text-sm rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-slate-200 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 mx-auto">
                     <i class="ph-bold ph-plus text-lg"></i>
-                    Mulai Coret-coret
+                    Bikin Coretan Pertama
                 </button>
             </div>
             @endif
@@ -255,30 +253,30 @@
     </div>
 
     {{-- Modal Buat Coretan Baru --}}
-    <div id="modal-new-note" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm" onclick="document.getElementById('modal-new-note').classList.add('hidden')"></div>
-        <div class="relative bg-white rounded-[24px] max-w-md w-full p-6 shadow-2xl border border-stone-200 z-10 dark:bg-slate-900 dark:border-slate-700/50">
-            <div class="flex items-center justify-between pb-4 border-b border-stone-100 mb-5">
-                <h3 class="text-lg font-bold text-neutral-900 font-geist dark:text-white"><i class="ph ph-signature text-[1.1em] align-middle"></i>️ Bikin coretan baru</h3>
-                <button onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="p-1.5 hover:bg-stone-100 rounded-full text-neutral-400 transition-colors">
-                    <i class="ph ph-x text-xl"></i>
+    <div id="modal-new-note" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="document.getElementById('modal-new-note').classList.add('hidden')"></div>
+        <div class="relative bg-slate-900/90 rounded-[24px] max-w-md w-full p-6 shadow-2xl border border-white/10 z-10 backdrop-blur-2xl animate-fadeIn">
+            <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                <h3 class="text-lg font-bold text-white font-geist flex items-center gap-2"><i class="ph-fill ph-sparkle text-emerald-400"></i> Bikin coretan baru</h3>
+                <button onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="p-1.5 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
+                    <i class="ph-bold ph-x text-lg"></i>
                 </button>
             </div>
-            <form action="{{ route('coretan.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('coretan.store') }}" method="POST" class="space-y-5">
                 @csrf
                 <div>
-                    <label class="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2 dark:text-slate-400">Namain dulu coretannya</label>
-                    <input type="text" name="title" required placeholder="Judulnya apa?"
-                           class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm text-neutral-900 focus:border-neutral-500 focus:ring-4 focus:ring-neutral-500/10 transition-all placeholder:text-neutral-400 dark:bg-slate-900/50 dark:border-slate-700/50 dark:text-white" />
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2">Kasih Judul Dulu</label>
+                    <input type="text" name="title" required placeholder="Judul ide liar hari ini..."
+                           class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl outline-none text-sm text-white focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-slate-600 shadow-inner" />
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2 dark:text-slate-400">Isi awal <span class="normal-case font-normal text-neutral-400">(boleh kosong dulu)</span></label>
-                    <textarea name="content" rows="3" placeholder="Mau nulis apa hari ini?"
-                              class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none text-sm text-neutral-900 focus:border-neutral-500 focus:ring-4 focus:ring-neutral-500/10 transition-all placeholder:text-neutral-400 resize-none dark:bg-slate-900/50 dark:border-slate-700/50 dark:text-white"></textarea>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2">Isi Awal <span class="normal-case font-normal text-slate-500">(Boleh Kosong)</span></label>
+                    <textarea name="content" rows="3" placeholder="Mau numpahin apa?"
+                              class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl outline-none text-sm text-white focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-slate-600 resize-none shadow-inner"></textarea>
                 </div>
-                <div class="pt-2 flex flex-col-reverse sm:flex-row items-center sm:justify-end gap-3">
-                    <button type="button" onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="w-full sm:w-auto justify-center px-5 py-2.5 min-h-[44px] bg-stone-100 text-neutral-700 font-semibold text-sm rounded-xl transition-colors hover:bg-stone-200 active:scale-95 dark:bg-slate-900/80 dark:text-slate-200">Ntar dulu</button>
-                    <button type="submit" class="w-full sm:w-auto justify-center px-5 py-2.5 min-h-[44px] bg-neutral-900 text-white font-semibold text-sm rounded-xl hover:bg-stone-700 shadow-sm transition-colors active:scale-95">Yuk, buat!</button>
+                <div class="pt-3 flex flex-col-reverse sm:flex-row items-center sm:justify-end gap-3">
+                    <button type="button" onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="w-full sm:w-auto justify-center px-5 py-2.5 bg-transparent border border-white/10 text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm rounded-xl transition-colors active:scale-95">Batal</button>
+                    <button type="submit" class="w-full sm:w-auto justify-center px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all active:scale-95">Yuk, Tulis!</button>
                 </div>
             </form>
         </div>
@@ -301,30 +299,27 @@
     function autoFont(len) {
         if (manualOverride) return;
         let size;
-        if      (len <  60)  size = 26;
+        if      (len <  60)  size = 28;
         else if (len < 150)  size = 22;
         else if (len < 400)  size = 18;
         else if (len < 800)  size = 16;
-        else                 size = 14;
+        else                 size = 15;
         currentFontSize = size;
         ta.style.fontSize = size + 'px';
     }
 
     function changeFontSize(delta) {
         manualOverride = true;
-        currentFontSize = Math.min(40, Math.max(11, currentFontSize + delta));
+        currentFontSize = Math.min(40, Math.max(12, currentFontSize + delta));
         if (ta) ta.style.fontSize = currentFontSize + 'px';
     }
 
     function handleContentInput(el) {
-        // Auto-grow height
         el.style.height = 'auto';
         el.style.height = el.scrollHeight + 'px';
-        // Auto font
         autoFont(el.value.length);
     }
 
-    // Init on load
     if (ta) {
         ta.style.height = 'auto';
         ta.style.height = ta.scrollHeight + 'px';
@@ -335,8 +330,8 @@
     function autoSave() {
         const form = document.getElementById('note-form');
         const btn = document.getElementById('btn-simpan');
-        const originalText = btn.innerText;
-        btn.innerText = 'Menyimpan...';
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin"></i> Menyimpan...';
         
         fetch(form.action, {
             method: 'POST',
@@ -351,12 +346,12 @@
             if (newSidebar) {
                 document.getElementById('sidebar-container').innerHTML = newSidebar.innerHTML;
             }
-            btn.innerText = 'Tersimpan <i class="ph ph-check text-[1.1em] align-middle"></i>';
-            setTimeout(() => btn.innerText = originalText, 2000);
+            btn.innerHTML = '<i class="ph-bold ph-check text-emerald-400"></i> Tersimpan';
+            setTimeout(() => btn.innerHTML = originalText, 2000);
         })
         .catch(err => {
-            btn.innerText = 'Gagal Simpan';
-            setTimeout(() => btn.innerText = originalText, 2000);
+            btn.innerHTML = '<i class="ph-bold ph-x text-rose-500"></i> Gagal';
+            setTimeout(() => btn.innerHTML = originalText, 2000);
         });
     }
 
@@ -386,7 +381,7 @@
     function renderHashtag(tag) {
         const display = document.getElementById('hashtag-display');
         const chip = document.createElement('span');
-        chip.className = 'hashtag-chip text-[11px] font-bold text-neutral-600 bg-stone-100 border border-stone-200 px-2 py-0.5 rounded-md cursor-pointer hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors';
+        chip.className = 'hashtag-chip text-[11px] font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md cursor-pointer hover:bg-rose-500/20 hover:text-rose-400 hover:border-rose-500/30 transition-colors';
         chip.textContent = tag;
         chip.dataset.tag = tag;
         chip.onclick = function() { removeHashtag(this); };
@@ -448,28 +443,27 @@
 
         checklist.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.className = 'checklist-item flex items-center gap-2.5 group';
+            div.className = 'checklist-item flex items-start gap-3 group';
             div.dataset.idx = idx;
             const doneBtn = item.done
                 ? `<i class="ph-bold ph-check text-[10px]"></i>`
                 : '';
             const doneClass = item.done
-                ? 'bg-neutral-900 border-neutral-900 text-white'
-                : 'border-stone-300 hover:border-neutral-400';
-            const textClass = item.done ? 'line-through text-neutral-400' : 'text-neutral-900';
+                ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.4)]'
+                : 'border-slate-600 hover:border-slate-400 bg-white/5';
+            const textClass = item.done ? 'line-through text-slate-500' : 'text-slate-200';
             div.innerHTML = `
                 <button type="button" onclick="toggleCheck(${idx})"
-                        class="w-5 h-5 rounded-md border-2 shrink-0 flex items-center justify-center transition-all ${doneClass}">
+                        class="w-5 h-5 mt-0.5 rounded-[6px] border-2 shrink-0 flex items-center justify-center transition-all duration-300 ${doneClass}">
                     ${doneBtn}
                 </button>
-                <span class="text-sm flex-1 ${textClass}" contenteditable="true" onblur="updateCheckText(${idx}, this)">${item.text}</span>
-                <button type="button" onclick="removeCheck(${idx})" class="opacity-0 group-hover:opacity-100 text-neutral-300 hover:text-rose-500 transition-all shrink-0">
+                <span class="text-[15px] flex-1 leading-relaxed outline-none transition-all duration-300 ${textClass}" contenteditable="true" onblur="updateCheckText(${idx}, this)">${item.text}</span>
+                <button type="button" onclick="removeCheck(${idx})" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
                     <i class="ph-bold ph-x text-sm"></i>
                 </button>`;
             container.insertBefore(div, inputRow);
         });
     }
-
     </script>
     @endpush
 </x-app-layout>

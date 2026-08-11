@@ -57,4 +57,19 @@ class MaterialController extends Controller
         
         return redirect()->back()->with('success', 'Materi berhasil dihapus.');
     }
+
+    public function update(Request $request, Subject $subject, Material $material)
+    {
+        $this->authorize('update', $material);
+
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $material->update([
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect()->back()->with('success', 'Teks materi berhasil diperbarui!');
+    }
 }
