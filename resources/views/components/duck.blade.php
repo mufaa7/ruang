@@ -1,11 +1,12 @@
 <div id="duck-mascot"
+     data-turbo-permanent
      x-data="duckSystem()"
      @click.outside="closeChat()"   
      class="fixed top-1 md:-top-4 right-1 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
     <div class="relative w-36 h-36 md:w-40 md:h-40 cursor-pointer group z-10" 
-     @click="toggleChat()" 
+     @click="handleDuckClick()" 
      :class="{ 'animate-bounce': isWalking }">
     
     <!-- === CSS ANIMATION (Tanpa JS) === -->
@@ -113,7 +114,7 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
-         class="absolute top-[50px] right-[120px] mt-2 bg-slate-900/95 text-white px-4 py-2.5 rounded-2xl rounded-tr-none shadow-xl border border-white/15 min-w-[140px] max-w-[260px] text-sm font-medium cursor-pointer z-20 backdrop-blur-md"
+         class="absolute top-[50px] right-[120px] mt-2 bg-black/95 text-white px-4 py-2.5 rounded-2xl rounded-tr-none shadow-xl border border-white/15 min-w-[140px] max-w-[260px] text-sm font-medium cursor-pointer z-20 backdrop-blur-md"
          @click="openChat()">
         <p x-text="currentMessage" class="leading-relaxed"></p>
     </div>
@@ -128,14 +129,14 @@
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
          id="duck-chat-popover"
-         class="fixed top-28 right-3 w-[335px] md:absolute md:top-28 md:right-0 bg-black rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-white/[0.12] overflow-hidden flex flex-col z-[200] backdrop-blur-3xl">
+         class="fixed top-14 right-2 w-[calc(100vw-16px)] max-w-[335px] md:w-[335px] md:absolute md:top-28 md:right-0 bg-black rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-white/[0.12] overflow-hidden flex flex-col z-[200] backdrop-blur-3xl">
         
         <!-- iOS 17 Authentic Top Navigation Header -->
         <div class="px-3 pt-3 pb-2.5 bg-[#161618]/95 border-b border-white/[0.08] flex items-center justify-between relative shrink-0">
             <!-- iOS Back Button -->
-            <button @click="closeChat()" class="flex items-center text-[#007aff] hover:opacity-80 transition-opacity -ml-1 text-[14px] font-normal" title="Kembali">
+            <button @click="closeChat()" class="flex items-center text-[#007aff] hover:opacity-80 transition-opacity -ml-1 text-[14px] font-normal" title="Messages">
                 <i class="ph-bold ph-caret-left text-lg"></i>
-                <span class="text-xs font-medium -ml-0.5">Pesan</span>
+                <span class="text-xs font-medium -ml-0.5">Messages</span>
             </button>
 
             <!-- Centered Contact Info -->
@@ -149,17 +150,17 @@
                 </div>
             </div>
 
-            <!-- FaceTime / Close Button -->
-            <button @click="closeChat()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors" title="Tutup">
+            <!-- Close / FaceTime Button -->
+            <button @click="closeChat()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors" title="Close">
                 <i class="ph ph-x text-xs"></i>
             </button>
         </div>
 
         <!-- iOS iMessage Chat History (OLED Black) -->
-        <div class="p-3.5 max-h-60 min-h-[150px] overflow-y-auto space-y-2.5 bg-black" id="duck-chat-history">
+        <div class="p-3.5 max-h-52 md:max-h-60 min-h-[140px] overflow-y-auto space-y-2.5 bg-black" id="duck-chat-history">
             {{-- Centered Timestamp Pill --}}
             <div class="text-center my-1">
-                <span class="text-[10px] text-[#86868b] font-medium font-sans">Hari ini {{ date('H:i') }}</span>
+                <span class="text-[10px] text-[#86868b] font-medium font-sans">Today {{ date('g:i A') }}</span>
             </div>
 
             <template x-for="msg in chatHistory">
@@ -174,7 +175,7 @@
                     <!-- Read Receipt -->
                     <template x-if="msg.role === 'user' && msg.status && isLastUserMessage(msg)">
                         <div class="flex justify-end w-full mt-1 pr-1.5">
-                            <span class="text-[10px] text-[#86868b] font-sans font-medium" x-text="msg.status === 'seen' ? 'Dibaca' : 'Terkirim'"></span>
+                            <span class="text-[10px] text-[#86868b] font-sans font-medium" x-text="msg.status === 'seen' ? 'Read' : 'Delivered'"></span>
                         </div>
                     </template>
                 </div>
@@ -191,23 +192,23 @@
         <!-- iOS 17 Authentic Redesigned Input Bar -->
         <div class="border-t border-white/10 px-2.5 py-2 flex items-center gap-2 bg-black font-sans shrink-0">
             <!-- iOS 17 Plus Button -->
-            <button type="button" class="w-8 h-8 rounded-full bg-[#26252a] hover:bg-[#343338] text-[#8e8e93] hover:text-white flex items-center justify-center transition-all active:scale-95 shrink-0" title="Menu">
+            <button type="button" class="w-8 h-8 rounded-full bg-[#26252a] hover:bg-[#343338] text-[#8e8e93] hover:text-white flex items-center justify-center transition-all active:scale-95 shrink-0" title="Apps">
                 <i class="ph-bold ph-plus text-sm"></i>
             </button>
 
             <!-- Pill Input Box -->
             <div class="flex-1 relative flex items-center">
-                <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" @focus="const _y = window.scrollY; setTimeout(() => window.scrollTo(0, _y), 50)" placeholder="iMessage" class="w-full bg-[#1c1c1e] text-[14.5px] rounded-full pl-3.5 pr-2 py-1.5 border border-[#38383a] focus:border-[#007aff] focus:ring-1 focus:ring-[#007aff] outline-none text-white placeholder-[#636366] transition-colors" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;">
+                <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" @focus="if (window.innerWidth < 768) { const chat = document.getElementById('duck-chat-popover'); if (chat) chat.style.top = '48px'; } const _y = window.scrollY; setTimeout(() => window.scrollTo(0, _y), 50)" placeholder="iMessage" class="w-full bg-[#1c1c1e] text-[14.5px] rounded-full pl-3.5 pr-2 py-1.5 border border-[#38383a] focus:border-[#007aff] focus:ring-1 focus:ring-[#007aff] outline-none text-white placeholder-[#636366] transition-colors" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;">
             </div>
 
             <!-- Dynamic Send / Mic Button -->
             <template x-if="chatInput.trim()">
-                <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007aff] hover:bg-[#0062cc] flex items-center justify-center text-white transition-all active:scale-90 shrink-0 shadow-sm">
+                <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007aff] hover:bg-[#0062cc] flex items-center justify-center text-white transition-all active:scale-90 shrink-0 shadow-sm" title="Send">
                     <i class="ph-bold ph-arrow-up text-[15px]"></i>
                 </button>
             </template>
             <template x-if="!chatInput.trim()">
-                <button type="button" class="w-8 h-8 rounded-full text-[#8e8e93] hover:text-white flex items-center justify-center shrink-0">
+                <button type="button" class="w-8 h-8 rounded-full text-[#8e8e93] hover:text-white flex items-center justify-center shrink-0" title="Dictation">
                     <i class="ph ph-microphone text-lg"></i>
                 </button>
             </template>
@@ -270,24 +271,89 @@
             randomTimer: null,
             chatHistory: [],
             msgCounter: 0,
+            clickCount: 0,
+            clickResetTimer: null,
 
             init() {
-                // Initial welcome after 5s
-                setTimeout(() => this.triggerEvent('dashboard'), 5000);
+                // Restore chat history from sessionStorage
+                const saved = sessionStorage.getItem('duck_chat_history');
+                if (saved) {
+                    try {
+                        this.chatHistory = JSON.parse(saved);
+                    } catch (e) {}
+                }
+
+                // Auto-save history when modified
+                this.$watch('chatHistory', (val) => {
+                    try {
+                        sessionStorage.setItem('duck_chat_history', JSON.stringify(val.slice(-50)));
+                    } catch (e) {}
+                });
+
+                // Initial welcome after 5s if not welcomed yet in this session
+                if (!sessionStorage.getItem('duck_welcomed')) {
+                    setTimeout(() => {
+                        this.triggerEvent('dashboard');
+                        sessionStorage.setItem('duck_welcomed', 'true');
+                    }, 5000);
+                }
                 
                 // Track Idle (3 minutes)
                 this.resetIdle();
                 window.addEventListener('mousemove', () => this.resetIdle());
                 window.addEventListener('keydown', () => this.resetIdle());
 
-                // Listen to Pomodoro finishes globally via window events or Alpine store
-                // We'll dispatch a custom event from the pomodoro widget later
+                // Page Context / Turbo load reactivity
+                const checkPageContext = () => {
+                    if (window.location.pathname.includes('/dengerin')) {
+                        if (this.mood !== 'ngantuk') this.mood = 'dengerin';
+                    }
+                };
+                checkPageContext();
+                document.addEventListener('turbo:load', checkPageContext);
+
+                // Listen to Pomodoro finishes globally
                 window.addEventListener('pomodoro-finished', () => {
-                    this.triggerEvent('pomodoro_finish');
+                    this.mood = 'pede';
+                    const congrats = [
+                        'tumben lu produktif',
+                        'udah kelar noh 1 sesi, ngopi dulu',
+                        'mantap juga lu, istirahat dulu napa',
+                        'kelar juga, jangan dipaksa ntar tipes'
+                    ];
+                    this.say(congrats[Math.floor(Math.random() * congrats.length)]);
                 });
 
                 // Start random event scheduler
                 this.scheduleRandomEvent();
+            },
+
+            getMoodForContext() {
+                // 1. Cek halaman saat ini
+                const path = window.location.pathname;
+                if (path.includes('/dengerin')) {
+                    return Math.random() < 0.6 ? 'dengerin' : 'konser';
+                }
+                if (path.includes('/papers') || path.includes('/notes')) {
+                    const studyMoods = ['males', 'overthinking', 'bengong', 'nyinyir', 'santai'];
+                    return studyMoods[Math.floor(Math.random() * studyMoods.length)];
+                }
+
+                // 2. Cek jam saat ini
+                const hour = new Date().getHours();
+                if (hour >= 0 && hour < 5) {
+                    // Dini hari: overthinking, ngantuk, bengong
+                    const midnightMoods = ['overthinking', 'ngantuk', 'bengong', 'males'];
+                    return midnightMoods[Math.floor(Math.random() * midnightMoods.length)];
+                } else if (hour >= 11 && hour <= 13) {
+                    // Jam makan siang: laper, santai, asbun
+                    const lunchMoods = ['laper', 'santai', 'asbun'];
+                    return lunchMoods[Math.floor(Math.random() * lunchMoods.length)];
+                }
+
+                // 3. Fallback variasi mood acak
+                const defaultMoods = ['santai', 'bengong', 'nyinyir', 'males', 'pede', 'asbun', 'laper', 'konser', 'overthinking'];
+                return defaultMoods[Math.floor(Math.random() * defaultMoods.length)];
             },
 
             scheduleRandomEvent() {
@@ -311,6 +377,29 @@
                     this.mood = 'ngantuk';
                     this.triggerEvent('idle');
                 }, 180000); // 3 minutes
+            },
+
+            handleDuckClick() {
+                this.clickCount++;
+                clearTimeout(this.clickResetTimer);
+                this.clickResetTimer = setTimeout(() => { this.clickCount = 0; }, 1000);
+
+                // Easter egg: spam click 3x
+                if (this.clickCount >= 3) {
+                    this.clickCount = 0;
+                    this.mood = 'nyinyir';
+                    const pokeResponses = [
+                        'ngapain klik-klik mulu jir, geli',
+                        'santai napa tangannya, iseng amat',
+                        'jangan dipencet mulu buset',
+                        'rusak ntar layar lu',
+                        'apasi colek-colek mulu'
+                    ];
+                    this.say(pokeResponses[Math.floor(Math.random() * pokeResponses.length)]);
+                    return;
+                }
+
+                this.toggleChat();
             },
 
             async triggerEvent(eventName) {
@@ -341,10 +430,9 @@
                 this.bubbleVisible = true;
                 this.chatVisible = false;
                 
-                // Random mood everytime Duck speaks (except if it is specifically set to ngantuk or dengerin)
+                // Context-aware mood everytime Duck speaks (except if specifically ngantuk or dengerin)
                 if (this.mood !== 'ngantuk' && this.mood !== 'dengerin') {
-                    const moodList = ['santai', 'bengong', 'nyinyir', 'males', 'pede', 'asbun', 'laper', 'konser', 'overthinking'];
-                    this.mood = moodList[Math.floor(Math.random() * moodList.length)];
+                    this.mood = this.getMoodForContext();
                 }
                 
                 // Add to chat history automatically just in case user opens it
@@ -353,6 +441,7 @@
                         this.chatHistory.push({ role: 'duck', content: msg });
                     }
                 });
+                this.saveHistory();
 
                 clearTimeout(this.bubbleTimer);
                 
@@ -366,12 +455,18 @@
                                 processNextMessage(index + 1);
                             }, 500); // jeda antar bubble pop up
                         } else {
-                            if (this.mood !== 'ngantuk') this.mood = 'santai';
+                            if (this.mood !== 'ngantuk' && this.mood !== 'dengerin') this.mood = 'santai';
                         }
                     }, Math.max(4000, this.currentMessage.length * 100));
                 };
                 
                 processNextMessage(1);
+            },
+
+            saveHistory() {
+                try {
+                    sessionStorage.setItem('duck_chat_history', JSON.stringify(this.chatHistory.slice(-50)));
+                } catch (e) {}
             },
 
             toggleChat() {
@@ -385,15 +480,16 @@
             openChat() {
                 this.chatVisible = true;
                 this.bubbleVisible = false;
-                // Reposition chat below duck on mobile
+                // Reposition chat below duck on mobile (dinaikkan agar tidak nabrak keyboard)
                 if (window.innerWidth < 768) {
                     this.$nextTick(() => {
                         const duck = document.getElementById('duck-mascot');
                         const chat = document.getElementById('duck-chat-popover');
                         if (duck && chat) {
                             const rect = duck.getBoundingClientRect();
-                            chat.style.top = Math.min(rect.bottom - 36, window.innerHeight - 280) + 'px';
-                            chat.style.right = '4px';
+                            const targetTop = Math.max(50, Math.min(rect.bottom - 85, window.innerHeight - 340));
+                            chat.style.top = targetTop + 'px';
+                            chat.style.right = '8px';
                         }
                     });
                 }
@@ -416,6 +512,7 @@
                 const msgId = ++this.msgCounter;
                 const userMsgObj = { role: 'user', content: userMsg, status: 'delivered', id: msgId };
                 this.chatHistory.push(userMsgObj);
+                this.saveHistory();
                 this.chatInput = '';
                 this.isTyping = false; // Jangan tampilkan typing dulu
                 this.scrollToBottom();
@@ -427,6 +524,12 @@
                 this.isTyping = true;
                 this.scrollToBottom();
 
+                // Siapkan seluruh riwayat obrolan yang ada di layar (maksimal 50 pesan)
+                const onScreenHistory = this.chatHistory.slice(-50).map(m => ({
+                    role: m.role,
+                    content: m.content
+                }));
+
                 try {
                     const res = await fetch('/duck/chat', {
                         method: 'POST',
@@ -435,13 +538,17 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                             'Accept': 'application/json'
                         },
-                        body: JSON.stringify({ message: userMsg })
+                        body: JSON.stringify({ 
+                            message: userMsg,
+                            history: onScreenHistory
+                        })
                     });
                     const data = await res.json();
                     
                     if (data.success) {
                         let messages = data.content.split('||').map(m => m.trim()).filter(m => m);
                         this.chatHistory.push({ role: 'duck', content: messages[0] });
+                        this.saveHistory();
                         
                         if (messages.length > 1) {
                             let delay = 800;
@@ -451,6 +558,7 @@
                                     this.scrollToBottom();
                                     setTimeout(() => {
                                         this.chatHistory.push({ role: 'duck', content: messages[i] });
+                                        this.saveHistory();
                                         this.isTyping = false;
                                         this.scrollToBottom();
                                     }, 1000);
@@ -460,9 +568,11 @@
                         }
                     } else {
                         this.chatHistory.push({ role: 'duck', content: 'males jawab.' });
+                        this.saveHistory();
                     }
                 } catch (e) {
                     this.chatHistory.push({ role: 'duck', content: 'ngantuk gue.' });
+                    this.saveHistory();
                 } finally {
                     this.isTyping = false;
                     this.scrollToBottom();

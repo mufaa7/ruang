@@ -111,6 +111,16 @@ document.addEventListener('alpine:init', () => {
             osc.stop(ctx.currentTime + 0.5);
         }
     });
+    Alpine.store('sidebar', {
+        isOpen: window.innerWidth >= 1024,
+        toggle() {
+            this.isOpen = !this.isOpen;
+            if (window.innerWidth < 1024) {
+                document.body.style.overflow = this.isOpen ? 'hidden' : '';
+            }
+        }
+    });
+
     Alpine.store('musicPlayer', {
         isMaximized: false,
         isMinimized: true,
@@ -150,14 +160,54 @@ const initMusicPlayer = () => {
     }
 };
 
-document.addEventListener('turbo:load', () => {
-    initMusicPlayer();
-    // Fade in page
-    document.body.classList.remove('opacity-0');
-    document.body.classList.add('duration-300', 'transition-opacity');
+const syncActiveSidebarLinks = () => {
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('#app-sidebar nav a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+            try {
+                const url = new URL(href, window.location.origin);
+                const isMatch = (url.pathname === currentPath) || (url.pathname !== '/' && url.pathname !== '/dashboard' && currentPath.startsWith(url.pathname));
+                if (isMatch) {
+                    link.classList.add('bg-white/10', 'text-amber-300', 'border-amber-300', 'shadow-[inset_2px_0_10px_rgba(252,211,77,0.05)]');
+                    link.classList.remove('text-slate-300', 'border-transparent');
+                } else {
+                    link.classList.remove('bg-white/10', 'text-amber-300', 'border-amber-300', 'shadow-[inset_2px_0_10px_rgba(252,211,77,0.05)]');
+                    link.classList.add('text-slate-300', 'border-transparent');
+                }
+            } catch (e) {}
+        }
+    });
+};
+
+// Mobile UX: Tutup sidebar tepat saat halaman tujuan siap dirender (tidak prematur di before-visit)
+document.addEventListener('turbo:before-cache', () => {
+    if (window.innerWidth < 1024 && window.Alpine && Alpine.store('sidebar')) {
+        Alpine.store('sidebar').isOpen = false;
+        document.body.style.overflow = '';
+    }
 });
 
-document.addEventListener('turbo:frame-load', initMusicPlayer);
+document.addEventListener('turbo:before-render', () => {
+    if (window.innerWidth < 1024 && window.Alpine && Alpine.store('sidebar')) {
+        Alpine.store('sidebar').isOpen = false;
+        document.body.style.overflow = '';
+    }
+});
+
+document.addEventListener('turbo:load', () => {
+    initMusicPlayer();
+    syncActiveSidebarLinks();
+    if (window.innerWidth < 1024 && window.Alpine && Alpine.store('sidebar')) {
+        Alpine.store('sidebar').isOpen = false;
+        document.body.style.overflow = '';
+    }
+});
+
+document.addEventListener('turbo:frame-load', () => {
+    initMusicPlayer();
+    syncActiveSidebarLinks();
+});
 
 
 // Deteksi play event dari Spotify iframe via postMessage (cross-origin)

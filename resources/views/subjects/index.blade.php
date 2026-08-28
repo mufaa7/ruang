@@ -66,14 +66,14 @@
                                 </span>
                                 
                                 {{-- Aksi Edit & Hapus --}}
-                                <div class="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                                    <button @click.prevent.stop="editData = { id: '{{ $c->id }}', name: '{{ addslashes($c->title) }}', code: '{{ addslashes($c->code ?? '') }}', lecturer: '{{ addslashes($c->lecturer ?? '') }}', description: '{{ addslashes($c->description ?? '') }}' }; showEditModal = true" class="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Edit Mata Kuliah">
+                                <div class="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                    <button @click.prevent.stop="editData = { id: '{{ $c->id }}', name: '{{ addslashes($c->title) }}', code: '{{ addslashes($c->code ?? '') }}', lecturer: '{{ addslashes($c->lecturer ?? '') }}', description: '{{ addslashes($c->description ?? '') }}' }; showEditModal = true" class="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 active:bg-white/20 rounded-lg transition-colors" title="Edit Mata Kuliah">
                                         <i class="ph ph-pencil-simple text-lg"></i>
                                     </button>
                                     <form action="{{ route('subjects.destroy', $c->id) }}" method="POST" class="inline" @click.stop onsubmit="return confirm('Hapus mata kuliah ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 rounded-lg transition-colors" title="Hapus Mata Kuliah">
+                                        <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 active:bg-rose-500/30 rounded-lg transition-colors" title="Hapus Mata Kuliah">
                                             <i class="ph ph-trash text-lg"></i>
                                         </button>
                                     </form>

@@ -86,7 +86,7 @@
                                 <form method="POST" action="{{ route('coretan.pin', $note->id) }}" class="relative z-20">
                                     @csrf
                                     <button type="submit" title="{{ $note->is_pinned ? 'Lepas pin' : 'Pin catatan ini' }}"
-                                            class="text-[14px] transition-all duration-200 {{ $note->is_pinned ? 'text-amber-300' : 'text-slate-500 opacity-0 group-hover/card:opacity-100 hover:text-white' }}">
+                                            class="text-[14px] transition-all duration-200 {{ $note->is_pinned ? 'text-amber-300' : 'text-slate-500 opacity-100 sm:opacity-0 sm:group-hover/card:opacity-100 hover:text-white' }}">
                                         <i class="{{ $note->is_pinned ? 'ph-fill' : 'ph' }} ph-push-pin align-middle"></i>
                                     </button>
                                 </form>
@@ -216,7 +216,7 @@
                                 </button>
                                 <span class="text-[15px] flex-1 leading-relaxed outline-none transition-all duration-200 {{ ($item['done'] ?? false) ? 'line-through text-slate-500' : 'text-slate-200' }}"
                                       contenteditable="true" onblur="updateCheckText({{ $i }}, this)">{{ $item['text'] ?? '' }}</span>
-                                <button type="button" onclick="removeCheck({{ $i }})" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
+                                <button type="button" onclick="removeCheck({{ $i }})" class="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
                                     <i class="ph-bold ph-x text-sm"></i>
                                 </button>
                             </div>
@@ -458,7 +458,7 @@
                     ${doneBtn}
                 </button>
                 <span class="text-[15px] flex-1 leading-relaxed outline-none transition-all duration-300 ${textClass}" contenteditable="true" onblur="updateCheckText(${idx}, this)">${item.text}</span>
-                <button type="button" onclick="removeCheck(${idx})" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
+                <button type="button" onclick="removeCheck(${idx})" class="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
                     <i class="ph-bold ph-x text-sm"></i>
                 </button>`;
             container.insertBefore(div, inputRow);

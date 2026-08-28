@@ -39,10 +39,14 @@ class DuckController extends Controller
     public function chat(Request $request)
     {
         $request->validate([
-            'message' => 'required|string|max:500',
+            'message' => 'required|string|max:1000',
+            'history' => 'nullable|array|max:60',
         ]);
 
-        $response = $this->duckService->chat($request->message);
+        $response = $this->duckService->chat(
+            $request->message,
+            $request->input('history', [])
+        );
 
         return response()->json([
             'success' => true,

@@ -68,7 +68,7 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     </head>
     
-    <body class="antialiased min-h-screen font-sans opacity-0 text-white dark:text-white relative overflow-x-hidden">
+    <body class="antialiased min-h-screen font-sans text-white dark:text-white relative overflow-x-hidden">
         @if(session()->has('impersonated_by'))
         <div class="bg-amber-400 text-slate-950 px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-amber-500/30">
             <span>⚠️ You are impersonating <strong>{{ auth()->user()->name }}</strong></span>
@@ -99,87 +99,34 @@
             ];
         @endphp
 
-        <turbo-frame id="app-body" data-turbo-action="advance" class="contents">
-            <div x-data="{ 
-                    sidebarOpen: window.innerWidth >= 1024,
-                    isMobile: window.innerWidth < 1024,
+        <div x-data class="flex min-h-screen relative">
 
-                    updateScreen() {
-                        this.isMobile = window.innerWidth < 1024;
-                        if (!this.isMobile) {
-                            this.sidebarOpen = true;
-                            document.body.style.overflow = '';
-                        } else {
-                            document.body.style.overflow = this.sidebarOpen ? 'hidden' : '';
-                        }
-                    },
-
-                    toggleSidebar() {
-                        const btn = this.$refs.vinylBtn;
-                        
-                        btn.classList.remove(
-                            'playing',
-                            'spinning',
-                            'stopping'
-                        );
-
-                        // Trigger reflow to restart CSS animations
-                        void btn.offsetWidth;
-
-                        if(this.sidebarOpen){
-                            btn.classList.add('stopping');
-                            setTimeout(()=>{
-                                btn.classList.remove('stopping');
-                            }, 600);
-                        } else {
-                            btn.classList.add('spinning');
-                            setTimeout(()=>{
-                                btn.classList.remove('spinning');
-                                btn.classList.add('playing');
-                            }, 450);
-                        }
-
-                        this.sidebarOpen = !this.sidebarOpen;
-                        
-                        // Lock scroll on mobile
-                        if (this.isMobile) {
-                            document.body.style.overflow = this.sidebarOpen ? 'hidden' : '';
-                        }
-                    },
-                    
-                    init() {
-                        if (this.isMobile && this.sidebarOpen) {
-                            document.body.style.overflow = 'hidden';
-                        } else {
-                            document.body.style.overflow = '';
-                        }
-                    }
-                 }" 
-                 @resize.window="updateScreen()"
-                 class="flex min-h-screen relative z-10">
-
-                <!-- Backdrop Mobile -->
-                <div x-show="sidebarOpen && isMobile" 
-                     x-transition.opacity 
-                     @click="toggleSidebar()"
+                <!-- Backdrop Mobile (Pure Neutral Dark Blur with Smooth Fade) -->
+                <div x-show="$store.sidebar.isOpen && window.innerWidth < 1024" 
+                     x-transition:enter="transition-opacity duration-300 ease-out"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition-opacity duration-250 ease-in"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     @click="$store.sidebar.toggle()"
                      style="display:none;"
-                     class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-30 lg:hidden"></div>
+                     class="fixed inset-0 bg-black/60 backdrop-blur-md z-[240] lg:hidden"></div>
 
                 <!-- Vinyl Button Toggle Wrapper -->
-                <div class="fixed left-5 lg:left-[42px] top-6 lg:top-[34px] z-50 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]"
-                     :style="sidebarOpen ? 'transform: translateX(192px)' : 'transform: translateX(0)'">
+                <div class="fixed left-5 lg:left-[42px] top-6 lg:top-[34px] z-[260] transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]"
+                     :class="$store.sidebar.isOpen ? 'translate-x-[192px]' : 'translate-x-0'">
                     <button
-                        x-ref="vinylBtn"
-                        @click="toggleSidebar()"
+                        @click="$store.sidebar.toggle()"
                         aria-label="Toggle Sidebar"
-                        class="vinyl-menu flex items-center justify-center rounded-full overflow-hidden active:scale-95"
+                        class="vinyl-menu flex items-center justify-center rounded-full overflow-hidden active:scale-95 shadow-lg"
                     >
                         <span class="scratch"></span>
                     </button>
                 </div>
 
-            {{-- SIDEBAR (Fixed 280px) --}}
-            <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-[120%]'" class="w-[280px] shrink-0 flex-col rounded-r-[32px] border-r border-white/10 bg-white/5 backdrop-blur-xl flex fixed inset-y-0 left-0 z-40 shadow-[4px_0_24px_rgba(0,0,0,0.2)] transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]">
+            {{-- SIDEBAR (Liquid Frosted Glass) --}}
+            <aside id="app-sidebar" :class="$store.sidebar.isOpen ? 'translate-x-0' : '-translate-x-full'" class="sidebar-glass w-[280px] shrink-0 flex-col rounded-r-[32px] flex fixed inset-y-0 left-0 z-[250] transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]">
                 
                 {{-- Brand --}}
                 <div class="px-6 pt-8 pb-6 border-b border-white/10" x-data>
@@ -315,13 +262,13 @@
             </aside>
 
             {{-- MAIN CONTENT --}}
-            <div class="flex-1 flex flex-col min-w-0 transition-all duration-300" :class="sidebarOpen ? 'lg:ml-[280px]' : 'ml-0'">
+            <div class="flex-1 flex flex-col min-w-0 transition-all duration-300 ease-[cubic-bezier(.22,1,.36,1)]" :class="$store.sidebar.isOpen ? 'lg:ml-[280px]' : 'ml-0'">
                 
                 {{-- HEADER PAGE --}}
                 @if(isset($pageTitle) || isset($headerActions))
-                <div class="sticky top-0 z-10 pt-4 px-4 sm:px-6 lg:px-8">
-                    <header class="backdrop-nav bg-white/5 backdrop-blur-xl border border-white/10 rounded-[24px] py-4 px-6 flex flex-wrap gap-4 items-center justify-between transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.2)]"
-                            :class="!sidebarOpen ? 'pl-20 sm:pl-24' : ''">
+                <div class="sticky top-0 z-[90] pt-4 px-4 sm:px-6 lg:px-8">
+                    <header class="backdrop-nav py-4 px-6 flex flex-wrap gap-4 items-center justify-between transition-all duration-300"
+                            :class="!$store.sidebar.isOpen ? 'pl-20 sm:pl-24' : ''">
                     <div>
                         @if(isset($pageTitle))
                         <h1 class="text-xl font-bold font-geist text-white dark:text-white">{{ $pageTitle }}</h1>
@@ -348,7 +295,6 @@
                 </main>
             </div>
             </div>
-        </turbo-frame>
 
         {{-- GLOBAL MUSIC PLAYER (OUTSIDE TURBO FRAME) --}}
         <div id="global-music-player" data-turbo-permanent 
@@ -403,7 +349,7 @@
              }"
              x-show="$store.musicPlayer.isMaximized || $store.musicPlayer.miniPlayerVisible"
              class="shadow-2xl transition-all duration-300"
-             :class="$store.musicPlayer.isMaximized ? 'z-[20] space-y-6 block' : 'z-[60] w-[calc(100vw-3rem)] sm:w-[380px] max-w-[380px]'">
+             :class="$store.musicPlayer.isMaximized ? 'z-0 space-y-6 block' : 'z-[150] w-[calc(100vw-3rem)] sm:w-[380px] max-w-[380px]'">
              
              {{-- Mini Player Header (Only visible when not maximized) --}}
              <div x-show="!$store.musicPlayer.isMaximized" 
@@ -520,14 +466,5 @@
         <x-duck />
 
         @stack('scripts')
-        <script>
-            function showPage() {
-                document.body.classList.remove('opacity-0');
-                document.body.classList.add('duration-300', 'transition-opacity');
-            }
-            // DOMContentLoaded: jauh lebih cepat dari window.load
-            document.addEventListener('DOMContentLoaded', showPage);
-            // turbo:load dihandle di app.js (tidak duplikat di sini)
-        </script>
     </body>
 </html>

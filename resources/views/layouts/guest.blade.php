@@ -31,6 +31,10 @@
             transform: translateY(-50%);
         }
     </style>
+    <!-- Phosphor Icons CSS for immediate icon rendering -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 </head>
 
 <body class="text-white bg-black">

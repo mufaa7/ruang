@@ -186,7 +186,7 @@
                                             <p class="text-lg font-bold font-geist text-white">{{ $section->title }}</p>
                                             <p class="text-[10px] font-bold text-slate-500 mt-1 uppercase tracking-widest">{{ $section->type }}</p>
                                         </div>
-                                        <div class="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+                                        <div class="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center gap-2">
                                             <button type="button" @click='openEditModal(@json($section))' class="text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-1.5 rounded-lg transition-all active:scale-95 flex items-center gap-1.5">
                                                 <i class="ph-bold ph-pencil-simple"></i> Tulis Konten
                                             </button>

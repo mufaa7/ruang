@@ -9,15 +9,15 @@
             <div class="mb-8">
                 <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 backdrop-blur-xl mb-5 shadow-sm">
                     <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
-                    <span class="text-[11px] font-medium tracking-wider text-slate-300">Pemulihan Akun</span>
+                    <span class="text-[11px] font-medium tracking-wider text-slate-300">Tenang, Nggak Apa-apa</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-4xl font-normal font-serif text-white tracking-tight leading-tight">
-                    Lupa Kata Sandi?
+                    Lupa kunci masuk?
                 </h1>
 
                 <p class="mt-2 text-[13px] sm:text-sm text-slate-400 leading-relaxed">
-                    Masukkan email Anda dan kami akan mengirimkan tautan untuk mengatur ulang kata sandi.
+                    Tulis email kamu di bawah, nanti kami kirimkan tautan buat buka pintu Ruang lagi.
                 </p>
             </div>
 
@@ -52,17 +52,17 @@
                         type="submit"
                         class="ios-liquid-btn w-full h-12 text-white font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer"
                     >
-                        <span>Kirim Tautan Reset</span>
-                        <i class="ph-bold ph-arrow-right text-sm"></i>
+                        <span>Kirim Tautan Masuk</span>
+                        <i class="ph-bold ph-paper-plane-tilt text-sm"></i>
                     </button>
                 </div>
 
                 {{-- BACK TO LOGIN --}}
                 <div class="pt-4 border-t border-white/[0.08] text-center">
                     <p class="text-xs text-slate-400">
-                        Ingat kata sandi Anda?
+                        Udah inget kuncinya?
                         <a href="{{ route('login') }}" class="font-semibold text-amber-300 hover:text-amber-200 transition-colors ml-1">
-                            Kembali ke Login
+                            Kembali Pulang
                         </a>
                     </p>
                 </div>

@@ -56,16 +56,7 @@ a {
     outline-offset: 3px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-    }
-}
+
 
 @layer components {
     .ruang-card {
@@ -212,28 +203,85 @@ a {
 
 .dashboard-card {
     @apply backdrop-blur-xl;
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.32);
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+        0 8px 32px 0 rgba(0, 0, 0, 0.35);
     border-radius: var(--ruang-radius-lg);
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .dark .dashboard-card {
     @apply backdrop-blur-xl;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        0 8px 32px 0 rgba(0, 0, 0, 0.40);
 }
 
 .dashboard-card:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.055);
     border-color: rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+        0 12px 36px 0 rgba(0, 0, 0, 0.45);
+    transform: translateY(-2px);
 }
 
 .dark .dashboard-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    border-top-color: rgba(255, 255, 255, 0.30);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
+        0 12px 36px 0 rgba(0, 0, 0, 0.45);
+    transform: translateY(-2px);
+}
+
+.backdrop-nav {
+    @apply backdrop-blur-2xl;
     background: rgba(255, 255, 255, 0.035);
-    border-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+        0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    border-radius: 24px;
+}
+
+.dark .backdrop-nav {
+    @apply backdrop-blur-2xl;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        0 8px 32px 0 rgba(0, 0, 0, 0.40);
+}
+
+.sidebar-glass {
+    @apply backdrop-blur-2xl;
+    background: rgba(255, 255, 255, 0.035);
+    border-right: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+        4px 0 32px 0 rgba(0, 0, 0, 0.40);
+}
+
+.dark .sidebar-glass {
+    @apply backdrop-blur-2xl;
+    background: rgba(255, 255, 255, 0.03);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        4px 0 32px 0 rgba(0, 0, 0, 0.40);
 }
 
 /* Custom scrollbar */
@@ -272,7 +320,7 @@ a {
 }
 .flatpickr-calendar .numInputWrapper span.arrowUp,
 .flatpickr-calendar .numInputWrapper span.arrowDown {
-    border-color: rgba(255,255,255,0.5) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* ==========================================================================
@@ -283,42 +331,106 @@ a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 0.75rem;
     color: #ffffff;
     font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        0 8px 24px -4px rgba(0, 0, 0, 0.5);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
 }
 
 .ios-liquid-btn:hover {
-    background: rgba(255, 255, 255, 0.20);
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: scale(1.03);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-top-color: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.20),
+        0 12px 30px -4px rgba(0, 0, 0, 0.65);
+    transform: translateY(-1px);
 }
 
 .ios-liquid-btn:active {
-    transform: scale(0.96);
-    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ios-liquid-btn-primary {
+    background: rgba(251, 191, 36, 0.25) !important;
+    border: 1px solid rgba(251, 191, 36, 0.35) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+    color: #ffffff !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.40), 0 6px 20px rgba(245, 158, 11, 0.25) !important;
+}
+
+.ios-liquid-btn-primary:hover {
+    background: rgba(251, 191, 36, 0.38) !important;
+    border-top-color: #ffffff !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.60), 0 8px 26px rgba(245, 158, 11, 0.40) !important;
+}
+
+.ios-liquid-btn-secondary {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+    color: #e2e8f0 !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+.ios-liquid-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-top-color: rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+.ios-liquid-btn-danger {
+    background: rgba(244, 63, 94, 0.25) !important;
+    border: 1px solid rgba(244, 63, 94, 0.35) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+    color: #ffffff !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.40), 0 6px 20px rgba(225, 29, 72, 0.25) !important;
+}
+
+.ios-liquid-btn-danger:hover {
+    background: rgba(244, 63, 94, 0.38) !important;
+    border-top-color: #ffffff !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.60), 0 8px 26px rgba(225, 29, 72, 0.40) !important;
 }
 
 .ios-liquid-card {
     @apply backdrop-blur-2xl;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+        0 24px 60px -12px rgba(0, 0, 0, 0.85);
+}
+
+.dark .ios-liquid-card {
+    @apply backdrop-blur-2xl;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
         0 24px 60px -12px rgba(0, 0, 0, 0.85);
 }
 
 .ios-liquid-input {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.3);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     color: #ffffff !important;
@@ -332,7 +444,7 @@ a {
 }
 
 .ios-liquid-input:focus {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.07);
     border-color: rgba(251, 191, 36, 0.6);
     box-shadow: 
         inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.3),

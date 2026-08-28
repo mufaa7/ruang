@@ -61,7 +61,7 @@
                         @endif
                     </div>
 
-                    <div class="relative">
+                    <div class="relative flex items-center">
                         <input
                             id="password"
                             :type="show ? 'text' : 'password'"
@@ -69,15 +69,17 @@
                             required
                             autocomplete="current-password"
                             placeholder="Masukkan password"
-                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-11 text-sm text-white placeholder:text-slate-500 outline-none"
+                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-sm text-white placeholder:text-slate-500 outline-none"
                         />
 
                         <button
                             type="button"
                             @click="show = !show"
-                            class="absolute inset-y-0 right-3.5 flex items-center text-slate-400 hover:text-white transition-colors"
+                            class="absolute right-2 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                            :class="show ? 'text-amber-300 border-amber-400/30 bg-amber-400/10 shadow-[0_0_10px_rgba(251,191,36,0.15)]' : 'text-slate-400 hover:text-white'"
+                            :title="show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
                         >
-                            <i :class="show ? 'ph ph-eye-slash' : 'ph ph-eye'" class="text-base"></i>
+                            <i :class="show ? 'ph ph-eye' : 'ph ph-eye-slash'" class="text-[17px]"></i>
                         </button>
                     </div>
 
@@ -96,10 +98,6 @@
                             Tetap masuk
                         </span>
                     </label>
-
-                    <span class="text-[11px] font-mono text-slate-500">
-                        Aman & Terenkripsi
-                    </span>
                 </div>
 
                 {{-- SUBMIT BUTTON (Authentic Apple iOS Liquid Glass) --}}

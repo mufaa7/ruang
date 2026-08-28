@@ -91,27 +91,31 @@
             <div class="col-span-1 md:col-span-8 row-span-2">
                 {{-- Continue Writing --}}
         @if(isset($activeDoc) && $activeDoc)
-            <a href="{{ route('makalah.edit', $activeDoc->id) }}" class="dashboard-card group block p-6 sm:p-8 h-full flex flex-col justify-between transition-all active:scale-[0.98]">
-                <span class="text-sm text-amber-300/80">
-                    lanjutin yg tadi.
-                </span>
-                <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
-                    {{ $activeDoc->judul }}
-                </h2>
+            <div class="dashboard-card p-6 sm:p-8 h-full flex flex-col justify-between">
+                <div>
+                    <span class="text-sm text-amber-300/80 font-medium">
+                        lanjutin yg tadi.
+                    </span>
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight select-text">
+                        {{ $activeDoc->judul }}
+                    </h2>
 
-                <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-400">
-                    <span>{{ number_format($wordCount) }} kata</span>
-                    <span class="hidden sm:inline">&middot;</span>
-                    <span>terakhir dibuka {{ $activeDoc->updated_at ? $activeDoc->updated_at->diffForHumans() : 'Baru Saja' }}</span>
+                    <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-400">
+                        <span>{{ number_format($wordCount) }} kata</span>
+                        <span class="hidden sm:inline">&middot;</span>
+                        <span>terakhir dibuka {{ $activeDoc->updated_at ? $activeDoc->updated_at->diffForHumans() : 'Baru Saja' }}</span>
+                    </div>
                 </div>
 
-                <hr class="my-6 border-white/10">
+                <div>
+                    <hr class="my-6 border-white/10">
 
-                <div class="flex items-center gap-2 font-medium text-white text-sm sm:text-base">
-                    lanjutin lagi
-                    <i class="ph ph-arrow-right text-xl transition-transform duration-300 group-hover:translate-x-1"></i>
+                    <a href="{{ route('makalah.edit', $activeDoc->id) }}" class="group inline-flex items-center gap-2 font-medium text-amber-300 hover:text-white text-sm sm:text-base transition-colors w-fit">
+                        <span>lanjutin lagi</span>
+                        <i class="ph ph-arrow-right text-xl transition-transform duration-300 group-hover:translate-x-1.5 text-amber-300 group-hover:text-white"></i>
+                    </a>
                 </div>
-            </a>
+            </div>
         @else
             <div class="dashboard-card border-dashed border-white/15 p-6 sm:p-8 h-full flex flex-col justify-center text-center">
                 <h2 class="text-xl sm:text-2xl font-bold text-white">
@@ -708,7 +712,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                                 <form :action="'/agendas/' + agenda.id" method="POST" class="inline m-0">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="p-1.5 text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100" title="Hapus Agenda">
+                                                    <button type="submit" class="p-1.5 text-slate-300 hover:text-red-500 transition opacity-100 sm:opacity-0 sm:group-hover:opacity-100" title="Hapus Agenda">
                                                         <i class="ph ph-trash text-lg"></i>
                                                     </button>
                                                 </form>

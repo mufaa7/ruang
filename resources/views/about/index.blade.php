@@ -6,35 +6,16 @@
     <style>
         .font-instrument { font-family: 'Instrument Serif', serif; }
         .font-lora { font-family: 'Lora', serif; }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade {
-            opacity: 0;
-            animation: fadeInUp 1.2s ease-out forwards;
-        }
-        
-        /* Subtle glass paper texture */
-        .bg-glass-paper {
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-        }
     </style>
     @endpush
 
     {{-- Paper Document Wrapper --}}
     <div class="max-w-3xl mx-auto min-h-screen pb-12 sm:pb-24 pt-6">
         
-        <div class="bg-glass-paper rounded-[32px] sm:rounded-[48px] shadow-2xl border border-white/10 relative overflow-hidden transition-colors duration-500">
-            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+        <div class="dashboard-card rounded-[32px] sm:rounded-[48px] shadow-2xl relative overflow-hidden">
             
             {{-- Easter Egg (Top Right) --}}
-            <div class="absolute top-8 right-8 sm:top-12 sm:right-12 text-[10px] sm:text-[11px] font-mono text-slate-600 group cursor-default transition-all duration-300 select-none z-20">
+            <div class="absolute top-8 right-8 sm:top-12 sm:right-12 text-[10px] sm:text-[11px] font-mono text-slate-500 group cursor-default transition-all duration-300 select-none z-20">
                 <span class="group-hover:hidden">version 0.1</span>
                 <span class="hidden group-hover:inline text-amber-500/50 drop-shadow-[0_0_10px_rgba(245,158,11,0.3)]">for someone.</span>
             </div>
