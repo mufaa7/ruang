@@ -212,8 +212,8 @@ a {
 
 .dashboard-card {
     background: rgba(255, 255, 255, 0.025);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.32);
     border-radius: var(--ruang-radius-lg);
@@ -222,6 +222,8 @@ a {
 
 .dark .dashboard-card {
     background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
