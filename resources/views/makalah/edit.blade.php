@@ -36,19 +36,19 @@
             <div id="word-export-toast"
                  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden"
                  role="alert" aria-live="polite">
-                <div class="flex items-start gap-3 bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl shadow-xl px-5 py-4 max-w-sm">
-                    <span class="text-xl mt-0.5">⌨️</span>
+                <div class="flex items-start gap-3 bg-slate-900/95 border border-white/20 text-white rounded-2xl shadow-2xl px-5 py-4 max-w-sm backdrop-blur-xl">
+                    <span class="text-xl mt-0.5 text-amber-300"><i class="ph ph-keyboard"></i></span>
                     <div>
-                        <p class="font-semibold text-sm">File Word berhasil diunduh!</p>
-                        <p class="text-xs mt-0.5 leading-relaxed text-amber-700">
-                            Setelah file terbuka di Microsoft Word, tekan
-                            <kbd class="px-1.5 py-0.5 rounded bg-amber-200 font-mono font-bold">Ctrl+A</kbd>
+                        <p class="font-semibold text-sm text-white">File Word Berhasil Diunduh</p>
+                        <p class="text-xs mt-1 leading-relaxed text-slate-300">
+                            Setelah dibuka di Microsoft Word, tekan
+                            <kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/20 font-mono font-bold text-amber-300">Ctrl+A</kbd>
                             lalu
-                            <kbd class="px-1.5 py-0.5 rounded bg-amber-200 font-mono font-bold">F9</kbd>
-                            untuk memperbarui nomor halaman di Daftar Isi.
+                            <kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/20 font-mono font-bold text-amber-300">F9</kbd>
+                            untuk sinkronisasi nomor halaman Daftar Isi.
                         </p>
                     </div>
-                    <button onclick="document.getElementById('word-export-toast').classList.add('hidden')" class="text-amber-400 hover:text-amber-700 ml-1 shrink-0">&times;</button>
+                    <button onclick="document.getElementById('word-export-toast').classList.add('hidden')" class="text-slate-400 hover:text-white ml-1 shrink-0 text-lg">&times;</button>
                 </div>
             </div>
 

@@ -13,7 +13,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                geist: ['Geist', 'Inter', ...defaultTheme.fontFamily.sans],
+                serif: ['Instrument Serif', 'Cormorant Garamond', ...defaultTheme.fontFamily.serif],
+                mono: ['JetBrains Mono', 'SF Mono', ...defaultTheme.fontFamily.mono],
             },
         },
     },

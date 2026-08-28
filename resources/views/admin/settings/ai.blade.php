@@ -110,7 +110,7 @@
                         <div class="space-y-5">
                             <div>
                                 <label for="active_ai_provider" class="block text-[12px] font-bold text-black mb-1">DEFAULT_PROVIDER</label>
-                                <select id="active_ai_provider" name="active_ai_provider" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white">
+                                <select id="active_ai_provider" name="active_ai_provider" class="w-full text-[13px] text-black border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white">
                                     @foreach($providers as $key => $prov)
                                         <option value="{{ $key }}" {{ ($settings['active_ai_provider'] ?? '') == $key ? 'selected' : '' }}>{{ $prov['name'] }}</option>
                                     @endforeach
@@ -121,13 +121,13 @@
                                 <div>
                                     <label for="ai_temperature" class="block text-[12px] font-bold text-black mb-1 flex justify-between">
                                         <span>TEMPERATURE</span>
-                                        <span id="tempValueDisplay" class="text-blue-700">{{ $settings['ai_temperature'] ?? '0.7' }}</span>
+                                        <span id="tempValueDisplay" class="text-blue-700 font-bold">{{ $settings['ai_temperature'] ?? '0.7' }}</span>
                                     </label>
                                     <input type="range" step="0.1" min="0" max="2" id="ai_temperature" name="ai_temperature" value="{{ $settings['ai_temperature'] ?? '0.7' }}" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black">
                                 </div>
                                 <div>
                                     <label for="ai_max_tokens" class="block text-[12px] font-bold text-black mb-1">MAX_TOKENS</label>
-                                    <input type="number" id="ai_max_tokens" name="ai_max_tokens" value="{{ $settings['ai_max_tokens'] ?? '' }}" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black" placeholder="e.g. 2000">
+                                    <input type="number" id="ai_max_tokens" name="ai_max_tokens" value="{{ $settings['ai_max_tokens'] ?? '' }}" class="w-full text-[13px] text-black bg-white border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black placeholder:text-slate-400" placeholder="e.g. 2000">
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                             @foreach($features as $fKey => $fData)
                                 <div class="border border-black p-4 bg-slate-50/50">
                                     <div class="flex justify-between items-center mb-3">
-                                        <h3 class="text-[13px] font-bold flex items-center gap-2">{{ $fData['icon'] }} {{ $fData['name'] }}</h3>
+                                        <h3 class="text-[13px] font-bold text-black flex items-center gap-2">{{ $fData['icon'] }} {{ $fData['name'] }}</h3>
                                         <label class="flex items-center gap-2 cursor-pointer">
                                             <input type="checkbox" name="ai_{{ $fKey }}_use_default" class="feature-toggle peer sr-only" data-target="config_{{ $fKey }}" {{ ($settings["ai_{$fKey}_use_default"] ?? '1') == '1' ? 'checked' : '' }}>
                                             <div class="w-8 h-4 bg-slate-300 rounded-full peer peer-checked:bg-green-500 relative transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-4"></div>
@@ -158,7 +158,7 @@
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             <div>
                                                 <label class="block text-[11px] font-bold text-slate-600 mb-1">PROVIDER</label>
-                                                <select id="ai_{{ $fKey }}_provider" name="ai_{{ $fKey }}_provider" class="feature-provider-select w-full text-[12px] border border-black rounded-none px-2 py-1.5 focus:border-black bg-white" data-target="ai_{{ $fKey }}_model">
+                                                <select id="ai_{{ $fKey }}_provider" name="ai_{{ $fKey }}_provider" class="feature-provider-select w-full text-[12px] text-black border border-black rounded-none px-2 py-1.5 focus:border-black bg-white" data-target="ai_{{ $fKey }}_model">
                                                     @foreach($providers as $key => $prov)
                                                         <option value="{{ $key }}" {{ ($settings["ai_{$fKey}_provider"] ?? '') == $key ? 'selected' : '' }}>{{ $prov['name'] }}</option>
                                                     @endforeach
@@ -166,9 +166,9 @@
                                             </div>
                                             <div>
                                                 <label class="block text-[11px] font-bold text-slate-600 mb-1">MODEL</label>
-                                                <select id="ai_{{ $fKey }}_model_select" class="feature-model-select w-full text-[12px] border border-black rounded-none px-2 py-1.5 focus:border-black bg-white mb-1" data-target="ai_{{ $fKey }}_model">
+                                                <select id="ai_{{ $fKey }}_model_select" class="feature-model-select w-full text-[12px] text-black border border-black rounded-none px-2 py-1.5 focus:border-black bg-white mb-1" data-target="ai_{{ $fKey }}_model">
                                                 </select>
-                                                <input type="text" id="ai_{{ $fKey }}_model" name="ai_{{ $fKey }}_model" class="w-full text-[12px] border border-black rounded-none px-2 py-1.5 focus:border-black bg-white" placeholder="Enter custom model..." value="{{ $settings["ai_{$fKey}_model"] ?? '' }}" style="display: none;">
+                                                <input type="text" id="ai_{{ $fKey }}_model" name="ai_{{ $fKey }}_model" class="w-full text-[12px] text-black border border-black rounded-none px-2 py-1.5 focus:border-black bg-white placeholder:text-slate-400" placeholder="Enter custom model..." value="{{ $settings["ai_{$fKey}_model"] ?? '' }}" style="display: none;">
                                                 <input type="hidden" id="saved_ai_{{ $fKey }}_model" value="{{ $settings["ai_{$fKey}_model"] ?? '' }}">
                                             </div>
                                         </div>
@@ -207,9 +207,9 @@
                 <ul class="space-y-3 text-[13px] font-mono">
                     @foreach($providers as $key => $prov)
                         <li class="flex justify-between items-center">
-                            <span class="font-bold">{{ $prov['name'] }}</span>
+                            <span class="font-bold text-black">{{ $prov['name'] }}</span>
                             @if(!empty($settings["ai_{$key}_key"]))
-                                <span class="text-green-600 flex items-center gap-1">🟢 Ready</span>
+                                <span class="text-green-600 flex items-center gap-1 font-bold">🟢 Ready</span>
                             @else
                                 <span class="text-slate-400 flex items-center gap-1">○ Not configured</span>
                             @endif
@@ -225,7 +225,7 @@
                 <ul class="space-y-3 text-[13px]">
                     @foreach($features as $fKey => $fData)
                         <li class="flex flex-col mb-1 pb-2 border-b border-slate-100 last:border-0">
-                            <span class="font-bold flex items-center gap-1">{{ $fData['icon'] }} {{ $fData['name'] }}</span>
+                            <span class="font-bold text-black flex items-center gap-1">{{ $fData['icon'] }} {{ $fData['name'] }}</span>
                             <div class="flex items-center gap-2 mt-1">
                                 <span class="bg-black text-white px-2 py-0.5 text-[10px] uppercase font-bold">{{ $activeMapping[$fKey]['provider'] }}</span>
                                 <span class="text-slate-600 font-mono text-[11px]">{{ $activeMapping[$fKey]['model'] }}</span>
@@ -245,8 +245,8 @@
 <div id="providerModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm p-4">
     <div class="bg-white border border-black w-full max-w-lg shadow-xl shadow-black/20 flex flex-col max-h-[90vh]">
         <div class="flex justify-between items-center p-4 border-b border-black bg-slate-50">
-            <h2 id="modalTitle" class="text-[14px] font-bold uppercase tracking-wide">Configure Provider</h2>
-            <button type="button" onclick="closeProviderModal()" class="text-xl font-bold hover:text-red-600 focus:outline-none leading-none">&times;</button>
+            <h2 id="modalTitle" class="text-[14px] font-bold text-black uppercase tracking-wide">Configure Provider</h2>
+            <button type="button" onclick="closeProviderModal()" class="text-xl font-bold text-black hover:text-red-600 focus:outline-none leading-none">&times;</button>
         </div>
         
         <div class="p-6 overflow-y-auto space-y-4">
@@ -255,28 +255,28 @@
             
             <div>
                 <label class="block text-[12px] font-bold text-black mb-1">API_KEY</label>
-                <input type="text" id="modalApiKey" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-slate-50 font-mono" placeholder="sk-...">
+                <input type="text" id="modalApiKey" class="w-full text-[13px] text-black border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-slate-50 font-mono placeholder:text-slate-400" placeholder="sk-...">
             </div>
             
             <div>
                 <label class="block text-[12px] font-bold text-black mb-1">BASE_URL</label>
-                <input type="url" id="modalBaseUrl" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black font-mono">
+                <input type="url" id="modalBaseUrl" class="w-full text-[13px] text-black bg-white border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black font-mono">
             </div>
 
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2">
                     <label class="block text-[12px] font-bold text-black mb-1">DEFAULT_MODEL</label>
-                    <select id="modalModelSelect" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white mb-2">
+                    <select id="modalModelSelect" class="w-full text-[13px] text-black border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white mb-2">
                     </select>
-                    <input type="text" id="modalModel" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white" placeholder="Enter custom model..." style="display: none;">
+                    <input type="text" id="modalModel" class="w-full text-[13px] text-black border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black bg-white placeholder:text-slate-400" placeholder="Enter custom model..." style="display: none;">
                 </div>
                 <div>
                     <label class="block text-[12px] font-bold text-black mb-1">TIMEOUT (s)</label>
-                    <input type="number" id="modalTimeout" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black font-mono" placeholder="120">
+                    <input type="number" id="modalTimeout" class="w-full text-[13px] text-black bg-white border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black font-mono placeholder:text-slate-400" placeholder="120">
                 </div>
                 <div>
                     <label class="block text-[12px] font-bold text-black mb-1">MAX_RETRIES</label>
-                    <input type="number" id="modalRetry" class="w-full text-[13px] border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black font-mono" placeholder="0">
+                    <input type="number" id="modalRetry" class="w-full text-[13px] text-black bg-white border border-black rounded-none px-3 py-2 focus:ring-0 focus:border-black font-mono placeholder:text-slate-400" placeholder="0">
                 </div>
             </div>
 

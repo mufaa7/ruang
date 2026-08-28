@@ -7,23 +7,24 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         :root{
-            --paper:#0f172a;
+            --paper:#000000;
             --text:#ffffff;
             --muted:#94a3b8;
-            --secondary:#cbd5e1;
-            --accent:rgba(252, 211, 77, 0.8);
+            --secondary:#e2e8f0;
+            --accent:#fbbf24;
         }
 
-        body{
+        html, body{
             margin: 0;
-            background:var(--paper);
-            color:var(--text);
+            background: #000000;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
         /* ORNAMENT */
@@ -33,15 +34,13 @@
             overflow: hidden;
             pointer-events: none;
             z-index: 0;
+            background: #000000;
         }
         .ornament-bg {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 15% 30%, rgba(185,28,28,0.06), transparent 35%),
-                        radial-gradient(circle at 100% 100%, rgba(217,119,6,0.06), transparent 40%);
+            background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.04), transparent 70%);
         }
-
-
 
         @keyframes floatGuitar {
             0%, 100% { transform: translateY(-50%) rotate(0deg); }
@@ -54,7 +53,7 @@
             top: 50%;
             transform: translateY(-50%);
             width: 950px;
-            opacity: 0.12;
+            opacity: 0.14;
             mix-blend-mode: lighten;
             pointer-events: none;
             animation: floatGuitar 10s ease-in-out infinite;
@@ -81,14 +80,15 @@
             display:flex;
             justify-content:center;
             align-items:center;
-            background:var(--paper);
+            background:#000000;
             z-index:999;
-            transition:1s;
+            transition:0.8s ease;
         }
 
         #intro-screen.hide{
             opacity:0;
             visibility:hidden;
+            pointer-events:none;
         }
 
         .intro-logo{
@@ -96,6 +96,7 @@
             font-size:clamp(64px,10vw,120px);
             letter-spacing:.02em;
             margin: 0;
+            color: #ffffff;
         }
 
         /* HERO */
@@ -103,6 +104,8 @@
             min-height:100vh;
             display:flex;
             align-items:center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-container{
@@ -117,13 +120,14 @@
             text-transform:uppercase;
             letter-spacing:.35em;
             font-size:11px;
+            font-weight: 600;
             color:var(--accent);
         }
 
         .hero-divider{
             width:170px;
             height:1px;
-            background:rgba(31,31,29,.08);
+            background:rgba(255,255,255,.2);
             margin:32px 0 50px;
         }
 
@@ -133,6 +137,7 @@
             line-height:.9;
             font-weight:600;
             margin: 0;
+            color: #ffffff;
         }
 
         .hero-ritual{
@@ -144,24 +149,28 @@
 
         .hero-ritual span{
             font-size:24px;
-            color:var(--secondary);
+            color: #e2e8f0;
+            font-weight: 300;
         }
 
         .playing{
+            color: #ffffff !important;
+            font-weight: 500 !important;
             animation:pulse 2.2s infinite;
         }
 
         @keyframes pulse{
             0%,100%{ opacity:1; }
-            50%{ opacity:.45; }
+            50%{ opacity:.6; }
         }
 
         .hero-button{
             display:inline-block;
             margin-top:72px;
             text-decoration:none;
-            color:inherit;
-            border-bottom:1px solid currentColor;
+            color:#ffffff;
+            font-weight: 500;
+            border-bottom:1px solid rgba(255,255,255,0.4);
             padding-bottom:6px;
             transition: 0.3s;
         }
@@ -181,15 +190,16 @@
         .hero-right blockquote{
             font-family:"Cormorant Garamond",serif;
             font-size:clamp(42px,4vw,64px);
-            line-height:1.08;
-            color:rgba(255,255,255,.3);
+            line-height:1.15;
+            color:rgba(255,255,255,0.85);
             margin:0;
+            font-style: italic;
         }
 
         .hero-song{
             margin-top:90px;
             padding-top:24px;
-            border-top:1px solid rgba(255,255,255,.1);
+            border-top:1px solid rgba(255,255,255,.15);
         }
 
         .song-widget {
@@ -197,19 +207,19 @@
             align-items: center;
             gap: 20px;
             padding: 20px 28px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.04), transparent);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-            transition: 0.4s;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            transition: 0.3s;
         }
 
         .song-widget:hover {
-            background: linear-gradient(135deg, rgba(255,255,255,0.07), transparent);
-            transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.15);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.25);
         }
 
         .equalizer {
@@ -245,6 +255,7 @@
             color:var(--accent);
             margin-bottom:12px;
             font-size: 10px;
+            font-weight: 600;
         }
 
         .hero-song h3{
@@ -252,12 +263,12 @@
             font-size:32px;
             margin:0;
             line-height: 1;
-            color: var(--text);
+            color: #ffffff;
         }
 
         .hero-song p{
             margin-top:6px;
-            color:var(--secondary);
+            color:#cbd5e1;
             margin-bottom: 0;
             font-size: 14px;
         }
@@ -294,6 +305,8 @@
             justify-content:center;
             padding:140px 0;
             text-align:center;
+            position: relative;
+            z-index: 1;
         }
 
         .inside-container{
@@ -306,6 +319,7 @@
             text-transform:uppercase;
             letter-spacing:.35em;
             color:var(--accent);
+            font-weight: 600;
         }
 
         .inside-title{
@@ -314,14 +328,14 @@
             font-size:clamp(56px,6vw,82px);
             line-height:1.05;
             font-weight:600;
-            color:var(--text);
+            color:#ffffff;
         }
 
         .inside-text{
             margin-top:32px;
             font-size:20px;
             line-height:2;
-            color:var(--secondary);
+            color:#e2e8f0;
         }
 
         .features-grid {
@@ -339,48 +353,30 @@
         }
 
         .feature-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent, transparent);
-            backdrop-filter: blur(6px) saturate(120%);
-            -webkit-backdrop-filter: blur(6px) saturate(120%);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 30px 80px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 1px 0 0 rgba(255, 255, 255, 0.1),
-                inset -1px 0 0 rgba(255, 255, 255, 0.05),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
             padding: 36px 32px;
-            transition: .4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.04), transparent);
-            pointer-events: none;
+            transition: .4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .feature-card:hover {
             transform: translateY(-4px) !important;
-            box-shadow: 
-                0 40px 100px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                inset 1px 0 0 rgba(255, 255, 255, 0.2),
-                inset -1px 0 0 rgba(255, 255, 255, 0.1),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent, transparent);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.07);
         }
 
         .feature-card i {
             font-size: 28px;
             color: var(--accent);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.25);
             width: 56px;
             height: 56px;
             display: flex;
@@ -388,22 +384,20 @@
             justify-content: center;
             border-radius: 50%;
             margin-bottom: 24px;
-            box-shadow: inset 0 2px 10px rgba(255,255,255,0.05);
-            text-shadow: 0 0 15px rgba(252, 211, 77, 0.5);
         }
 
         .feature-card h3 {
-            font-family: "Cormorant Garamond", serif;
+            font-family:"Cormorant Garamond",serif;
             font-size: 32px;
             margin: 0 0 12px;
-            color: var(--text);
+            color: #ffffff;
             line-height: 1.1;
         }
 
         .feature-card p {
             font-size: 15px;
             line-height: 1.6;
-            color: var(--secondary);
+            color: #cbd5e1;
             margin: 0;
             text-align: justify;
         }
@@ -443,7 +437,7 @@
             width:160px;
             height:1px;
             margin:80px auto 0;
-            background:rgba(31,31,29,.08);
+            background:rgba(255,255,255,.15);
         }
 
         .inside-scroll{
@@ -481,6 +475,8 @@
             opacity: 0;
             transform: translateY(40px);
             transition: 0.8s;
+            position: relative;
+            z-index: 1;
         }
 
         #discover.show {
@@ -497,6 +493,7 @@
             letter-spacing:.35em;
             color:var(--accent);
             font-size:11px;
+            font-weight: 600;
         }
 
         .discover-header h2{
@@ -504,17 +501,18 @@
             font-family:"Cormorant Garamond",serif;
             font-size:clamp(42px,5vw,64px);
             line-height:1.05;
+            color: #ffffff;
         }
 
         .discover-item{
             position:relative;
             padding:48px 0;
-            border-top:1px solid rgba(255,255,255,.1);
+            border-top:1px solid rgba(255,255,255,.15);
             transition:.45s;
         }
 
         .discover-item:last-child{
-            border-bottom:1px solid rgba(255,255,255,.1);
+            border-bottom:1px solid rgba(255,255,255,.15);
         }
 
         .number{
@@ -523,7 +521,7 @@
             top:40px;
             font-size:140px;
             font-family:"Cormorant Garamond",serif;
-            color:rgba(255,255,255,.05);
+            color:rgba(255,255,255,.10);
             user-select:none;
             transition:.45s;
         }
@@ -532,13 +530,14 @@
             font-family:"Cormorant Garamond",serif;
             font-size:48px;
             margin-bottom:24px;
+            color: #ffffff;
             transition:.45s;
         }
 
         .discover-item p{
             width:360px;
             line-height:2;
-            color:var(--secondary);
+            color:#cbd5e1;
         }
 
         .discover-item:hover{
@@ -546,7 +545,7 @@
         }
 
         .discover-item:hover .number{
-            color:rgba(252, 211, 77, 0.1);
+            color:rgba(252, 211, 77, 0.2);
             transform: scale(1.05) translateX(-20px) rotate(2deg);
         }
 
@@ -563,6 +562,8 @@
             opacity: 0;
             transform: translateY(40px);
             transition: 0.8s;
+            position: relative;
+            z-index: 1;
         }
 
         #about.show {
@@ -581,13 +582,14 @@
             font-size:11px;
             letter-spacing:.35em;
             color:var(--accent);
+            font-weight: 600;
             margin-bottom:60px;
         }
 
         .about-content p{
             font-size:20px;
             line-height:2;
-            color:var(--secondary);
+            color:#e2e8f0;
             margin-bottom:32px;
         }
 
@@ -605,7 +607,7 @@
         .about-signature span{
             font-family:"Cormorant Garamond",serif;
             font-size:24px;
-            color:var(--text);
+            color:#ffffff;
         }
 
         @media (max-width: 900px) {
@@ -626,6 +628,8 @@
             opacity: 0;
             transform: translateY(40px);
             transition: 0.8s;
+            position: relative;
+            z-index: 1;
         }
 
         #ending.show {
@@ -642,20 +646,23 @@
             font-size:clamp(56px,6vw,86px);
             line-height:1.08;
             margin-bottom:90px;
-            color:var(--text);
+            color:#ffffff;
         }
 
         .ending-button{
             display:inline-block;
             text-decoration:none;
-            color:var(--text);
-            border-bottom:1px solid rgba(255,255,255,.2);
+            color:#ffffff;
+            font-weight: 500;
+            border-bottom:1px solid rgba(255,255,255,.4);
             padding-bottom:8px;
             transition:.3s;
         }
 
         .ending-button:hover{
             letter-spacing:.08em;
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         /* ==========================
@@ -664,12 +671,14 @@
         .site-footer {
             padding: 40px 0 80px;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-logo {
             font-family: "Cormorant Garamond", serif;
             font-size: 32px;
-            color: var(--text);
+            color: #ffffff;
         }
 
         .footer-signature {
@@ -715,13 +724,17 @@
     <x-landing.footer />
 
     <script>
+        const hideIntro = () => {
+            const intro = document.getElementById("intro-screen");
+            if (intro) intro.classList.add("hide");
+        };
+
         window.addEventListener("load", () => {
-            setTimeout(() => {
-                document
-                    .getElementById("intro-screen")
-                    .classList.add("hide");
-            }, 1800);
+            setTimeout(hideIntro, 800);
         });
+
+        // Fallback in case load already fired
+        setTimeout(hideIntro, 1200);
 
         const observer = new IntersectionObserver(entries=>{
             entries.forEach(entry=>{
@@ -730,7 +743,7 @@
                 }
             });
         },{
-            threshold: .15
+            threshold: 0.05
         });
 
         const revealElements = document.querySelectorAll("#inside, #discover, #about, #ending");

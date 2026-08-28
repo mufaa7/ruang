@@ -1,10 +1,10 @@
 <div id="duck-mascot"
      x-data="duckSystem()"
      @click.outside="closeChat()"   
-     class="fixed -top-6 -right-4 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
+     class="fixed top-1 md:-top-4 right-1 md:right-5 z-[100] pointer-events-auto select-none font-sans flex flex-col items-end"
      x-cloak>
 
-    <div class="relative w-40 h-40 cursor-pointer group z-10" 
+    <div class="relative w-36 h-36 md:w-40 md:h-40 cursor-pointer group z-10" 
      @click="toggleChat()" 
      :class="{ 'animate-bounce': isWalking }">
     
@@ -22,11 +22,11 @@
             20% { transform: rotate(-18deg) translate(23px, 80px) rotate(10deg) translate(-23px, -80px); }
             30% { transform: rotate(-18deg) translate(23px, 80px) rotate(0deg) translate(-23px, -80px); }
         }
-        /* Animasi tamborin pas di-hover (goyang brutal) */
+        /* Animasi tamborin pas di-hover */
         @keyframes aggro-jingle {
             0%, 100% { transform: rotate(-18deg) translate(23px, 80px) rotate(0deg) translate(-23px, -80px); }
-            25% { transform: rotate(-18deg) translate(23px, 80px) rotate(-20deg) translate(-23px, -80px); }
-            75% { transform: rotate(-18deg) translate(23px, 80px) rotate(20deg) translate(-23px, -80px); }
+            25% { transform: rotate(-18deg) translate(23px, 80px) rotate(-12deg) translate(-23px, -80px); }
+            75% { transform: rotate(-18deg) translate(23px, 80px) rotate(12deg) translate(-23px, -80px); }
         }
 
         .duck-body { 
@@ -37,16 +37,14 @@
             animation: idle-jingle 4s ease-in-out infinite; 
         }
         .group:hover .tambourine-group { 
-            animation: aggro-jingle 0.15s ease-in-out infinite; 
+            animation: aggro-jingle 0.25s ease-in-out infinite; 
         }
     </style>
 
-    <!-- === COMIC BUBBLE (Muncul saat hover pake Tailwind) === -->
-    <div class="absolute top-5 -left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 -rotate-3 group-hover:animate-pulse">
-        <div class="relative bg-amber-400 text-stone-900 font-black px-3 py-1 text-xs rounded-lg border-2 border-stone-900 shadow-[3px_3px_0px_0px_rgba(28,25,23,1)]">
-            WOTCHER!
-            <!-- Tail balon kata (pointing right to the duck) -->
-            <div class="absolute -right-8 top-5 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[7px] border-l-stone-900"></div>
+    <!-- === HOVER BUBBLE (Subtle Frosted Pill) === -->
+    <div class="absolute top-7 -left-12 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-20">
+        <div class="relative bg-black/80 text-white font-bold px-3 py-1 text-xs rounded-full border border-white/20 backdrop-blur-md shadow-lg tracking-wide font-mono">
+            wotcher.
         </div>
     </div>
 
@@ -54,7 +52,7 @@
     <div class="relative w-full h-full">
         <!-- Gambar Bebek -->
         <img src="{{ asset('images/bebek.png') }}" 
-             class="w-full h-full object-contain drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-2 group-active:scale-95" 
+             class="w-full h-full object-contain drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-1.5 group-active:scale-95" 
              :class="['dengerin', 'konser', 'asbun'].includes(mood) ? 'duck-shaking' : 'duck-body'"
              alt="Bebek">
 
@@ -115,52 +113,104 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
-         class="absolute top-[50px] right-[120px] mt-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-5 py-3 rounded-2xl rounded-tr-none shadow-lg border border-slate-200 dark:border-slate-700 min-w-[140px] max-w-[260px] text-base font-medium shadow-[0_4px_20px_rgba(0,0,0,0.08)] cursor-pointer z-20"
+         class="absolute top-[50px] right-[120px] mt-2 bg-slate-900/95 text-white px-4 py-2.5 rounded-2xl rounded-tr-none shadow-xl border border-white/15 min-w-[140px] max-w-[260px] text-sm font-medium cursor-pointer z-20 backdrop-blur-md"
          @click="openChat()">
         <p x-text="currentMessage" class="leading-relaxed"></p>
     </div>
 
-    <!-- Mini Chat Popover (Now below Duck) -->
+    <!-- Mini Chat Popover (Modern iOS 17/18 iMessage Experience) -->
     <div x-show="chatVisible"
          @click.stop
-         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter="transition ease-out duration-250"
          x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
          id="duck-chat-popover"
-         class="fixed top-36 right-1 w-72 md:absolute md:top-32 md:right-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-[200]">
+         class="fixed top-28 right-3 w-[335px] md:absolute md:top-28 md:right-0 bg-black rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-white/[0.12] overflow-hidden flex flex-col z-[200] backdrop-blur-3xl">
         
-        <!-- Chat History -->
-        <div class="p-3 max-h-48 overflow-y-auto space-y-3 bg-white dark:bg-slate-900" id="duck-chat-history">
+        <!-- iOS 17 Authentic Top Navigation Header -->
+        <div class="px-3 pt-3 pb-2.5 bg-[#161618]/95 border-b border-white/[0.08] flex items-center justify-between relative shrink-0">
+            <!-- iOS Back Button -->
+            <button @click="closeChat()" class="flex items-center text-[#007aff] hover:opacity-80 transition-opacity -ml-1 text-[14px] font-normal" title="Kembali">
+                <i class="ph-bold ph-caret-left text-lg"></i>
+                <span class="text-xs font-medium -ml-0.5">Pesan</span>
+            </button>
+
+            <!-- Centered Contact Info -->
+            <div class="flex flex-col items-center justify-center -ml-2 cursor-default">
+                <div class="w-9 h-9 rounded-full bg-[#26252A] border border-white/15 flex items-center justify-center overflow-hidden shadow-inner mb-0.5">
+                    <img src="{{ asset('images/bebek.png') }}" alt="Duki" class="w-7 h-7 object-contain">
+                </div>
+                <div class="flex items-center gap-0.5">
+                    <span class="text-[11px] font-semibold text-white tracking-tight font-sans">Duki</span>
+                    <i class="ph-bold ph-caret-right text-[8px] text-[#86868b]"></i>
+                </div>
+            </div>
+
+            <!-- FaceTime / Close Button -->
+            <button @click="closeChat()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors" title="Tutup">
+                <i class="ph ph-x text-xs"></i>
+            </button>
+        </div>
+
+        <!-- iOS iMessage Chat History (OLED Black) -->
+        <div class="p-3.5 max-h-60 min-h-[150px] overflow-y-auto space-y-2.5 bg-black" id="duck-chat-history">
+            {{-- Centered Timestamp Pill --}}
+            <div class="text-center my-1">
+                <span class="text-[10px] text-[#86868b] font-medium font-sans">Hari ini {{ date('H:i') }}</span>
+            </div>
+
             <template x-for="msg in chatHistory">
                 <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
-                    <div class="px-3.5 py-1.5 text-[14.5px] inline-block shadow-none relative"
-                         style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; text-align: left; text-justify: none; word-spacing: 0; overflow-wrap: break-word;"
+                    <div class="px-3.5 py-2 text-[14.5px] leading-[1.35] max-w-[82%] shadow-sm"
+                         style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif; word-wrap: break-word;"
                          :class="msg.role === 'user' 
-                                ? 'bg-[#007AFF] text-white rounded-[18px] rounded-br-[4px]' 
-                                : 'bg-[#E5E5EA] dark:bg-[#262628] text-black dark:text-white rounded-[18px] rounded-bl-[4px]'">
+                                ? 'bg-gradient-to-b from-[#1a8cff] to-[#0071e3] text-white rounded-[20px] rounded-br-[6px] font-normal tracking-[-0.01em]' 
+                                : 'bg-[#26252a] text-white rounded-[20px] rounded-bl-[6px] border border-white/5 font-normal tracking-[-0.01em]'">
                         <span x-text="msg.content"></span>
                     </div>
                     <!-- Read Receipt -->
                     <template x-if="msg.role === 'user' && msg.status && isLastUserMessage(msg)">
-                        <div class="flex justify-end w-full mt-1 pr-1">
-                            <span class="text-[10px] text-slate-400 font-sans tracking-wide" x-text="msg.status === 'seen' ? 'Seen' : 'Delivered'"></span>
+                        <div class="flex justify-end w-full mt-1 pr-1.5">
+                            <span class="text-[10px] text-[#86868b] font-sans font-medium" x-text="msg.status === 'seen' ? 'Dibaca' : 'Terkirim'"></span>
                         </div>
                     </template>
                 </div>
             </template>
-            <div x-show="isTyping" class="text-[11px] text-slate-400 italic px-2 animate-pulse font-sans">duck ngetik...</div>
+
+            <!-- Typing Bubble -->
+            <div x-show="isTyping" class="flex items-center gap-1 bg-[#26252a] px-3.5 py-2.5 rounded-[20px] rounded-bl-[6px] w-fit border border-white/5">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.15s;"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.3s;"></span>
+            </div>
         </div>
 
-        <!-- Chat Input -->
-        <div class="border-t border-slate-200 dark:border-[#2C2C2E] p-2 flex gap-2 bg-[#F9F9F9] dark:bg-[#1C1C1E] font-sans items-center">
-            <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" @focus="const _y = window.scrollY; setTimeout(() => window.scrollTo(0, _y), 50)" placeholder="iMessage" class="flex-1 bg-white dark:bg-[#000000] text-[15px] rounded-full px-4 py-1.5 border border-[#C8C8CC] dark:border-[#3A3A3C] focus:ring-0 focus:border-[#C8C8CC] dark:focus:border-[#3A3A3C] outline-none text-black dark:text-white transition-none shadow-none min-w-0" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; word-spacing: 0;">
-            <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007AFF] hover:opacity-80 flex items-center justify-center text-white transition-opacity disabled:opacity-30 shrink-0" :disabled="!chatInput.trim()">
-                <i class="ph-bold ph-arrow-up text-[16px]"></i>
-
+        <!-- iOS 17 Authentic Redesigned Input Bar -->
+        <div class="border-t border-white/10 px-2.5 py-2 flex items-center gap-2 bg-black font-sans shrink-0">
+            <!-- iOS 17 Plus Button -->
+            <button type="button" class="w-8 h-8 rounded-full bg-[#26252a] hover:bg-[#343338] text-[#8e8e93] hover:text-white flex items-center justify-center transition-all active:scale-95 shrink-0" title="Menu">
+                <i class="ph-bold ph-plus text-sm"></i>
             </button>
+
+            <!-- Pill Input Box -->
+            <div class="flex-1 relative flex items-center">
+                <input type="text" x-model="chatInput" @input="delaySend()" @keydown.enter.prevent.stop="sendMessage()" @focus="const _y = window.scrollY; setTimeout(() => window.scrollTo(0, _y), 50)" placeholder="iMessage" class="w-full bg-[#1c1c1e] text-[14.5px] rounded-full pl-3.5 pr-2 py-1.5 border border-[#38383a] focus:border-[#007aff] focus:ring-1 focus:ring-[#007aff] outline-none text-white placeholder-[#636366] transition-colors" autocomplete="off" inputmode="text" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;">
+            </div>
+
+            <!-- Dynamic Send / Mic Button -->
+            <template x-if="chatInput.trim()">
+                <button @click.prevent.stop="sendMessage()" class="w-8 h-8 rounded-full bg-[#007aff] hover:bg-[#0062cc] flex items-center justify-center text-white transition-all active:scale-90 shrink-0 shadow-sm">
+                    <i class="ph-bold ph-arrow-up text-[15px]"></i>
+                </button>
+            </template>
+            <template x-if="!chatInput.trim()">
+                <button type="button" class="w-8 h-8 rounded-full text-[#8e8e93] hover:text-white flex items-center justify-center shrink-0">
+                    <i class="ph ph-microphone text-lg"></i>
+                </button>
+            </template>
         </div>
     </div>
 </div>

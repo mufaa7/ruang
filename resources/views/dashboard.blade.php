@@ -11,21 +11,22 @@
 
         <div class="flex flex-col md:flex-row md:items-start md:justify-between relative z-10 md:gap-4">
             <div class="w-full md:max-w-2xl mt-4 md:mt-0">
-                <h1 id="dynamicGreeting" class="text-2xl sm:text-3xl font-semibold tracking-tight text-white dark:text-white pr-20 md:pr-0">
+                <h1 id="dynamicGreeting" class="text-2xl sm:text-3xl font-bold tracking-tight text-white font-geist pr-20 md:pr-0">
                     {!! $greeting !!}
                 </h1>
-                <blockquote class="mt-4 border-l-2 border-[#1e293b] pl-4 dark:border-slate-700/50 pr-2 md:pr-0">
-                    <p class="quote text-sm sm:text-base text-blue-200 leading-relaxed dark:text-slate-300">
+                <blockquote class="mt-4 border-l-2 border-white/15 pl-4 pr-2 md:pr-0">
+                    <p class="quote text-base sm:text-lg text-slate-200 leading-relaxed font-serif">
                         "{{ $quote['text'] }}"
                     </p>
-                    <footer class="mt-1 text-xs sm:text-sm font-medium text-slate-300">
-                        — {{ $quote['author'] }}
+                    <footer class="mt-2 flex items-center gap-1.5 text-xs text-slate-400 select-none tracking-widest font-mono uppercase">
+                        <span class="text-amber-400/80 font-bold">/</span>
+                        <span class="text-slate-300 font-semibold">{{ $quote['author'] }}</span>
                     </footer>
                 </blockquote>
             </div>
 
-            {{-- Flip Clock on a Stage --}}
-            <div class="absolute -top-8 right-0 md:relative md:top-auto md:right-auto flex flex-col items-center justify-start scale-[0.6] sm:scale-75 md:scale-100 origin-top-right md:origin-center shrink-0 -mt-2 lg:-mt-8 lg:-mr-5 lg:translate-x-2 lg:-translate-y-2">
+            {{-- Flip Clock (Clean Floating Matte) --}}
+            <div class="absolute -top-8 right-0 md:relative md:top-auto md:right-auto flex flex-col items-center justify-start scale-[0.6] sm:scale-75 md:scale-100 origin-top-right md:origin-center shrink-0 -mt-2 lg:-mt-6 lg:-mr-4">
                 
                 {{-- The Clock Box --}}
                 <div x-data="{
@@ -39,57 +40,44 @@
                             }, 1000);
                         }
                     }"
-                    class="relative font-mono font-extrabold text-4xl flex items-center gap-2 text-center text-white z-10 px-4 py-3 bg-[#0f172a]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    class="relative font-mono font-bold text-3xl sm:text-4xl flex items-center gap-2 text-center text-white px-3.5 py-2.5 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl shadow-lg">
                     
                     <!-- left timer (hours) -->
-                    <div class="relative w-14 h-16 bg-gradient-to-b from-slate-800 to-slate-900 rounded-lg shadow-inner flex items-center justify-center border border-slate-700 overflow-hidden">
-                        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-black/60 z-10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"></div>
-                        <span class="relative z-0 drop-shadow-md" x-text="hours">00</span>
+                    <div class="relative w-12 sm:w-14 h-14 sm:h-16 bg-white/[0.04] rounded-xl flex items-center justify-center border border-white/10 overflow-hidden">
+                        <div class="absolute inset-x-0 top-1/2 h-px bg-black/60 z-10"></div>
+                        <span class="relative z-0 text-white font-mono tabular-nums" x-text="hours">00</span>
                     </div>
 
                     <!-- blinker -->
-                    <div class="flex flex-col gap-2 opacity-50 animate-pulse">
-                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                    <div class="flex flex-col gap-1.5 opacity-40">
+                        <span class="w-1 h-1 rounded-full bg-white"></span>
+                        <span class="w-1 h-1 rounded-full bg-white"></span>
                     </div>
 
                     <!-- right timer (minutes) -->
-                    <div class="relative w-14 h-16 bg-gradient-to-b from-slate-800 to-slate-900 rounded-lg shadow-inner flex items-center justify-center border border-slate-700 overflow-hidden">
-                        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-black/60 z-10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"></div>
-                        <span class="relative z-0 drop-shadow-md" x-text="minutes">00</span>
+                    <div class="relative w-12 sm:w-14 h-14 sm:h-16 bg-white/[0.04] rounded-xl flex items-center justify-center border border-white/10 overflow-hidden">
+                        <div class="absolute inset-x-0 top-1/2 h-px bg-black/60 z-10"></div>
+                        <span class="relative z-0 text-white font-mono tabular-nums" x-text="minutes">00</span>
                     </div>
-                </div>
-
-                {{-- The Stage (Panggung) --}}
-                <div class="relative flex flex-col items-center justify-center -mt-2 z-0">
-                    <!-- Top plate (Glass) -->
-                    <div class="w-[180px] h-3 bg-white/10 backdrop-blur-md rounded-t-xl border-t border-x border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] relative z-10"></div>
-                    <!-- Bottom base (Dark) -->
-                    <div class="w-[200px] h-6 bg-gradient-to-b from-slate-900 to-black rounded-b-2xl border-b border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] relative z-0 overflow-hidden">
-                        <!-- Stage spotlight effect -->
-                        <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-amber-300/40 to-transparent"></div>
-                    </div>
-                    <!-- Ground reflection/shadow -->
-                    <div class="w-[160px] h-3 bg-amber-500/10 blur-xl rounded-full mt-2"></div>
                 </div>
             </div>
         </div>
 
         {{-- QUICK ACTIONS --}}
-        <div class="mt-10 mb-2">
+        <div class="mt-8 mb-2">
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-2">
-                <h3 class="text-sm font-medium text-amber-300/80 tracking-widest uppercase">ngapain.?</h3>
-                <div class="flex flex-wrap gap-3 sm:gap-4">
-                    <a href="{{ route('makalah.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-blue-200/80 hover:text-white font-medium active:scale-95 transition-transform">
-                        <i class="ph ph-pencil-simple-line text-lg"></i>
+                <h3 class="text-xs font-semibold text-slate-400 tracking-widest uppercase">ngapain.?</h3>
+                <div class="flex flex-wrap gap-2.5 sm:gap-3">
+                    <a href="{{ route('makalah.index') }}" class="dashboard-card flex items-center gap-2 px-4 py-2 text-slate-300 hover:text-white text-sm font-medium transition-colors">
+                        <i class="ph ph-pencil-simple-line text-base text-amber-300"></i>
                         <span>nugas</span>
                     </a>
-                    <a href="{{ route('coretan.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-blue-200/80 hover:text-cyan-300 font-medium active:scale-95 transition-transform">
-                        <i class="ph ph-notebook text-lg"></i>
+                    <a href="{{ route('coretan.index') }}" class="dashboard-card flex items-center gap-2 px-4 py-2 text-slate-300 hover:text-white text-sm font-medium transition-colors">
+                        <i class="ph ph-notebook text-base text-amber-300"></i>
                         <span>nyatet</span>
                     </a>
-                    <a href="{{ route('subjects.index') }}" class="dashboard-card flex items-center gap-2 px-5 py-2.5 text-blue-200/80 hover:text-rose-300 font-medium active:scale-95 transition-transform">
-                        <i class="ph ph-target text-lg"></i>
+                    <a href="{{ route('subjects.index') }}" class="dashboard-card flex items-center gap-2 px-4 py-2 text-slate-300 hover:text-white text-sm font-medium transition-colors">
+                        <i class="ph ph-target text-base text-amber-300"></i>
                         <span>latihan</span>
                     </a>
                 </div>
@@ -111,7 +99,7 @@
                     {{ $activeDoc->judul }}
                 </h2>
 
-                <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-blue-200/60">
+                <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-400">
                     <span>{{ number_format($wordCount) }} kata</span>
                     <span class="hidden sm:inline">&middot;</span>
                     <span>terakhir dibuka {{ $activeDoc->updated_at ? $activeDoc->updated_at->diffForHumans() : 'Baru Saja' }}</span>
@@ -125,15 +113,15 @@
                 </div>
             </a>
         @else
-            <div class="dashboard-card border-dashed border-white/20 p-6 sm:p-8 h-full flex flex-col justify-center text-center">
-                <h2 class="text-xl sm:text-2xl font-semibold text-white">
+            <div class="dashboard-card border-dashed border-white/15 p-6 sm:p-8 h-full flex flex-col justify-center text-center">
+                <h2 class="text-xl sm:text-2xl font-bold text-white">
                     belom ada yg dikerjain.
                 </h2>
-                <p class="mt-2 text-sm sm:text-base text-blue-200/80">
+                <p class="mt-2 text-sm text-slate-400">
                     bikin makalah pertama dulu.
                 </p>
                 <div class="mt-6">
-                    <a href="{{ route('makalah.create') }}" class="inline-flex rounded-xl bg-white/10 border border-white/20 px-6 min-h-11 items-center justify-center text-sm font-medium text-white transition hover:bg-white/20 active:scale-95">
+                    <a href="{{ route('makalah.create') }}" class="inline-flex rounded-xl bg-white text-slate-950 font-semibold px-5 min-h-10 items-center justify-center text-sm transition hover:bg-slate-200 active:scale-95 shadow-sm">
                         mulai nulis
                     </a>
                 </div>
@@ -214,12 +202,24 @@
     }
 
     .ruang-vinyl {
-        transition-property: left, width, height, margin, padding, opacity !important;
+        transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease !important;
     }
 
-    .ruang-music-widget.group:hover .ruang-vinyl,
+    /* Geser keluar & putar saat lagu sedang aktif dimainkan (Berlaku di Desktop & HP) */
     .ruang-vinyl.is-playing {
+        left: 92% !important;
         animation: ruang-vinyl-spin 2s linear infinite !important;
+    }
+
+    /* Geser keluar & putar saat di-hover HANYA jika perangkat menggunakan mouse/pointer desktop (Mencegah sticky hover di HP) */
+    @media (hover: hover) and (pointer: fine) {
+        .ruang-music-widget.group:hover .ruang-vinyl {
+            left: 92% !important;
+            animation: ruang-vinyl-spin 2s linear infinite !important;
+        }
+        .ruang-music-widget.group:hover .ruang-cover {
+            transform: translate(-6px, -2px) !important;
+        }
     }
 
     .ruang-lyrics p {
@@ -241,82 +241,93 @@
     }
 </style>
 
-<div class="ruang-music-widget group mt-6 flex flex-row items-start gap-4 pb-8 sm:pb-0 sm:gap-6" id="wonderwall-widget">
+<div class="ruang-music-widget group mt-5 flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 pb-2" id="wonderwall-widget">
     <audio id="wonderwall-audio" src="{{ asset('audio/wonderwall.mp3') }}" preload="auto"></audio>
-    {{-- Artwork --}}
-    <div class="ruang-artwork relative z-20 h-40 w-40 shrink-0">
-        {{-- Vinyl --}}
-        <img
-            src="{{ asset('images/oasis.png') }}"
-            alt="Vinyl"
-            class="ruang-vinyl absolute left-[68%] top-1/2 -z-10 h-[130px] w-[130px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_22px_55px_rgba(0,0,0,.12)] transition-all duration-700 ease-out group-hover:left-[92%] object-cover"
-        />
+    
+    {{-- Top / Left Row: Artwork & Track Info on Mobile --}}
+    <div class="flex items-center sm:items-start gap-4 w-full sm:w-auto">
+        {{-- Artwork --}}
+        <div class="ruang-artwork relative z-20 h-24 w-24 sm:h-36 sm:w-36 shrink-0">
+            {{-- Vinyl --}}
+            <img
+                src="{{ asset('images/oasis.png') }}"
+                alt="Vinyl"
+                class="ruang-vinyl absolute left-[70%] sm:left-[74%] top-1/2 z-10 h-[86px] w-[86px] sm:h-[125px] sm:w-[125px] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,.4)] object-cover pointer-events-none"
+            />
 
-        {{-- Cover album --}}
-        <img
-            src="{{ asset('images/wonderwall.jpg') }}"
-            alt="Wonderwall"
-            class="ruang-cover relative z-20 h-full w-full rounded-[12px] object-cover shadow-[0_22px_55px_rgba(0,0,0,.12)] transition duration-700 group-hover:-translate-x-2 group-hover:-translate-y-1 sm:rounded-[16px]"
-        />
+            {{-- Cover album --}}
+            <img
+                src="{{ asset('images/wonderwall.jpg') }}"
+                alt="Wonderwall"
+                class="ruang-cover relative z-20 h-full w-full rounded-[12px] sm:rounded-[16px] object-cover shadow-[0_15px_35px_rgba(0,0,0,.3)] transition duration-700 group-hover:-translate-x-1.5 group-hover:-translate-y-0.5"
+            />
 
-        {{-- Lyrics typewriter --}}
-        <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+12px)] z-30 w-[220px] font-mono text-[10px] text-blue-200 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-slate-300 sm:w-[250px] sm:top-[calc(100%+40px)] sm:text-[10px]">
-        </div>
-    </div>
-
-    {{-- Details --}}
-    <div class="w-full flex-1 text-left">
-        <div class="flex items-start justify-between">
-            <div>
-                <h3
-                    class="text-[20px] font-normal leading-none text-white dark:text-white sm:text-[36px]"
-                    style="font-family: 'Cormorant Garamond', serif;"
-                >
-                    Wonderwall
-                </h3>
-
-                <p class="mt-1 text-[14px] font-light text-blue-200 dark:text-slate-400 sm:mt-2 sm:text-[18px]">
-                    Oasis
-                </p>
-
-                <p class="mt-0.5 text-[10px] tracking-[0.01em] text-slate-300 sm:mt-1 sm:text-[13px]">
-                    (What's the Story) Morning Glory?
-                    <span class="mx-1.5 hidden sm:inline">&bull;</span>
-                    <br class="sm:hidden" />
-                    1995
-                </p>
+            {{-- Lyrics typewriter --}}
+            <div class="ruang-lyrics pointer-events-none absolute left-0 top-[calc(100%+8px)] sm:top-[calc(100%+20px)] z-30 w-[200px] sm:w-[250px] font-mono text-[9px] sm:text-[10px] text-slate-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
         </div>
 
-        {{-- Player --}}
-        <div class="mt-3 pb-2 sm:mt-5 sm:pb-4">
-            <div class="mb-2 flex items-center justify-end">
-                <button type="button" aria-label="Sukai lagu" class="text-xl text-red-500">
+        {{-- Mobile Track Info (Shown alongside artwork on small screens, hidden on desktop) --}}
+        <div class="flex-1 min-w-0 sm:hidden flex flex-col justify-center pl-1.5">
+            <h3 class="text-2xl font-normal font-serif text-white truncate leading-snug tracking-[0.03em]">
+                Wonderwall
+            </h3>
+            <p class="text-xs font-medium text-slate-300 truncate mt-0.5">
+                Oasis
+            </p>
+            <p class="text-[11px] text-slate-400 truncate mt-0.5 font-sans leading-tight">
+                (What's the Story) Morning Glory?
+            </p>
+            <p class="text-[10px] text-slate-500 font-sans mt-0.5">
+                1995
+            </p>
+        </div>
+    </div>
+
+    {{-- Details & Player (Desktop view + Controls on Mobile) --}}
+    <div class="w-full flex-1 text-left min-w-0 flex flex-col justify-between">
+        {{-- Desktop Track Info (Hidden on mobile) --}}
+        <div class="hidden sm:block">
+            <h3 class="text-3xl lg:text-4xl font-normal font-serif text-white leading-snug truncate tracking-[0.02em]">
+                Wonderwall
+            </h3>
+
+            <p class="mt-1 text-sm font-medium text-slate-300">
+                Oasis
+            </p>
+
+            <p class="mt-0.5 text-xs text-slate-400 font-sans">
+                (What's the Story) Morning Glory? &middot; 1995
+            </p>
+        </div>
+
+        {{-- Player Controls & Seekbar --}}
+        <div class="mt-2 sm:mt-4 pb-1">
+            <div class="mb-1.5 flex items-center justify-end">
+                <button type="button" aria-label="Sukai lagu" class="text-base sm:text-lg text-rose-500 hover:scale-110 transition-transform active:scale-90">
                     &hearts;
                 </button>
             </div>
 
-            <div class="relative">
-                <div class="h-[2px] rounded-full bg-[#1e293b] dark:bg-slate-800"></div>
-                <div class="ruang-progress absolute left-[41%] -top-[5px] h-3 w-3 rounded-full bg-white/20 dark:bg-white transition-all duration-[46s] ease-linear"></div>
+            <div class="relative w-full">
+                <div class="h-[3px] rounded-full bg-white/10"></div>
+                <div class="ruang-progress absolute left-[41%] -top-[4.5px] h-3 w-3 rounded-full bg-white shadow-sm transition-all duration-[46s] ease-linear"></div>
             </div>
 
-            <div class="mt-3 flex items-center justify-between text-xs text-slate-300 sm:text-sm">
+            <div class="mt-2 flex items-center justify-between text-[11px] text-slate-400 font-mono tabular-nums">
                 <span>01:22</span>
                 <span>02:08</span>
             </div>
 
-            <div class="mt-4 flex items-center justify-center gap-6 text-slate-300">
-                <button type="button" aria-label="Lagu sebelumnya">
-                    <i class="ph-fill ph-skip-back text-[15px]"></i>
+            <div class="mt-3 flex items-center justify-center gap-6 sm:gap-7 text-slate-300">
+                <button type="button" aria-label="Lagu sebelumnya" class="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center transition-all active:scale-75">
+                    <i class="ph-bold ph-skip-back text-xs"></i>
                 </button>
-
-                <button type="button" id="wonderwall-play-btn" aria-label="Putar lagu" class="text-white dark:text-white transition-transform active:scale-90">
-                    <i id="wonderwall-play-icon" class="ph-fill ph-play text-[20px]"></i>
+                <button type="button" id="wonderwall-play-btn" aria-label="Putar lagu" class="relative group/play w-10 h-10 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/20 backdrop-blur-xl shadow-md flex items-center justify-center transition-all hover:scale-105 active:scale-90 duration-200 text-white">
+                    <i id="wonderwall-play-icon" class="ph-fill ph-play text-base ml-0.5 text-white"></i>
                 </button>
-
-                <button type="button" aria-label="Lagu berikutnya">
-                    <i class="ph-fill ph-skip-forward text-[15px]"></i>
+                <button type="button" aria-label="Lagu berikutnya" class="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center transition-all active:scale-75">
+                    <i class="ph-fill ph-skip-forward text-xs"></i>
                 </button>
             </div>
         </div>
@@ -460,6 +471,11 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
             }
         });
         
+        audio.addEventListener('ended', stopPlaying);
+        audio.addEventListener('pause', () => {
+            if (isPlaying) stopPlaying();
+        });
+
         audio.addEventListener('timeupdate', () => {
             if (isPlaying) {
                 let newBlock = -1;
@@ -610,7 +626,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                     active:scale-95
 
                                     {{ $isToday
-                                        ? 'border-2 border-amber-300/80 bg-amber-300/10 shadow-[0_0_15px_rgba(252,211,77,0.2)]'
+                                        ? 'border-2 border-amber-300/80 bg-amber-300/10 shadow-sm'
                                         : 'border border-white/10 bg-white/5 hover:border-amber-300/50 hover:bg-white/10'
                                     }}
                                  flex flex-col justify-center sm:justify-start items-center sm:items-start"
@@ -676,7 +692,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                  x-transition:leave="transition ease-in duration-200"
                                  x-transition:leave-start="transform translate-y-0 sm:scale-100 opacity-100"
                                  x-transition:leave-end="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
-                                 class="relative overflow-hidden w-full max-w-md bg-gradient-to-br from-white/[0.05] via-transparent to-transparent backdrop-blur-[6px] backdrop-saturate-[120%] border border-white/20 rounded-t-[32px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-[0_30px_80px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.3),inset_1px_0_0_rgba(255,255,255,0.1),inset_-1px_0_0_rgba(255,255,255,0.05),inset_0_-1px_0_rgba(255,255,255,0.1)] p-6 sm:p-8 z-10">
+                                 class="relative overflow-hidden w-full max-w-md bg-slate-950/95 backdrop-blur-2xl border border-white/15 rounded-t-[32px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-2xl p-6 sm:p-8 z-10">
 
                                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent"></div>
                                 
@@ -838,7 +854,7 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                                  x-transition:leave="transition ease-in duration-200"
                                  x-transition:leave-start="transform translate-y-0 sm:scale-100 opacity-100"
                                  x-transition:leave-end="transform translate-y-full sm:translate-y-0 sm:scale-95 opacity-0"
-                                 class="relative overflow-hidden w-full max-w-md bg-gradient-to-br from-white/[0.05] via-transparent to-transparent backdrop-blur-[6px] backdrop-saturate-[120%] border border-white/20 rounded-t-[32px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-[0_30px_80px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.3),inset_1px_0_0_rgba(255,255,255,0.1),inset_-1px_0_0_rgba(255,255,255,0.05),inset_0_-1px_0_rgba(255,255,255,0.1)] p-6 sm:p-8 z-10">
+                                 class="relative overflow-hidden w-full max-w-md bg-slate-950/95 backdrop-blur-2xl border border-white/15 rounded-t-[32px] sm:rounded-[32px] mt-auto sm:mt-0 shadow-2xl p-6 sm:p-8 z-10">
                                 
                                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent"></div>
 
@@ -891,10 +907,10 @@ document.querySelectorAll('.ruang-music-widget').forEach(function (widget) {
                         @php
                             $percentage = min(100, ($todayWords / 1000) * 100);
                         @endphp
-                        <div class="mt-5 h-2 rounded-full bg-[#1e293b] overflow-hidden dark:bg-slate-800">
-                            <div class="h-full rounded-full bg-white/20 transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
+                        <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
+                            <div class="h-full rounded-full bg-amber-400 shadow-sm transition-all duration-1000 ease-out" style="width:{{ $percentage }}%"></div>
                         </div>
-                        <p class="mt-3 text-xs sm:text-sm text-blue-200 dark:text-slate-400">
+                        <p class="mt-3 text-xs sm:text-sm text-slate-400">
                             {{ round($percentage) }}% selesai
                         </p>
                     </div>

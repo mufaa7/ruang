@@ -8,10 +8,10 @@
         
         {{-- Sidebar Pengaturan --}}
         <div class="w-full md:w-64 shrink-0 space-y-2">
-            <button @click="activeTab = 'profil'" :class="activeTab === 'profil' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-500 font-bold shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'" class="w-full text-left px-5 py-3 rounded-xl text-[15px] transition-all flex items-center gap-3">
+            <button @click="activeTab = 'profil'" :class="activeTab === 'profil' ? 'bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'" class="w-full text-left px-5 py-3 rounded-xl text-[15px] transition-all flex items-center gap-3">
                 <i class="ph-bold ph-user"></i> Informasi Profil
             </button>
-            <button @click="activeTab = 'keamanan'" :class="activeTab === 'keamanan' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-500 font-bold shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'" class="w-full text-left px-5 py-3 rounded-xl text-[15px] transition-all flex items-center gap-3">
+            <button @click="activeTab = 'keamanan'" :class="activeTab === 'keamanan' ? 'bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'" class="w-full text-left px-5 py-3 rounded-xl text-[15px] transition-all flex items-center gap-3">
                 <i class="ph-bold ph-lock-key"></i> Keamanan (Password)
             </button>
         </div>

@@ -31,12 +31,12 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Title</label>
-                    <input type="text" name="title" value="{{ old('title') }}" required class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black" placeholder="e.g. Vocabulary Set 1">
+                    <input type="text" name="title" value="{{ old('title') }}" required class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black placeholder:text-slate-400" placeholder="e.g. Vocabulary Set 1">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Subject</label>
-                    <select name="subject_id" x-model="selectedSubjectId" required class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black bg-white dark:bg-slate-900">
+                    <select name="subject_id" x-model="selectedSubjectId" required class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black">
                         <option value="">Select Subject...</option>
                         <template x-for="subject in subjectsData" :key="subject.id">
                             <option :value="subject.id" x-text="subject.name"></option>
@@ -54,7 +54,7 @@
                         <div class="text-xs text-slate-500 italic col-span-full">No users enrolled in this subject.</div>
                     </template>
                     <template x-for="user in currentUsers" :key="user.id">
-                        <label class="flex items-center gap-2 cursor-pointer bg-white p-2 border border-slate-200 hover:border-black transition-colors dark:bg-slate-900">
+                        <label class="flex items-center gap-2 cursor-pointer bg-white p-2 border border-slate-200 hover:border-black transition-colors">
                             <input type="checkbox" name="target_users[]" :value="user.id" x-model="selectedUsers" class="text-black border-slate-300 focus:ring-black">
                             <span class="text-xs font-bold text-black" x-text="user.name"></span>
                         </label>
@@ -67,11 +67,11 @@
         <div class="dev-card p-0 overflow-hidden">
             <button type="button" @click="showBulk = !showBulk" class="w-full flex items-center justify-between p-4 bg-[#f8f9fa] border-b border-black hover:bg-slate-50">
                 <span class="text-sm font-bold text-black">⚡ Bulk Paste Magic</span>
-                <span x-text="showBulk ? '▲' : '▼'" class="text-xs"></span>
+                <span x-text="showBulk ? '▲' : '▼'" class="text-xs text-black"></span>
             </button>
-            <div x-show="showBulk" x-collapse class="p-4 bg-white border-b border-black dark:bg-slate-900">
+            <div x-show="showBulk" x-collapse class="p-4 bg-white border-b border-black">
                 <p class="text-xs text-slate-600 mb-2 font-medium">Paste text here. Use a colon (:) to separate Front and Back. E.g., <span class="bg-slate-100 px-1">Gravity: The force that attracts a body toward the center of the earth.</span></p>
-                <textarea x-model="bulkText" rows="6" class="w-full border border-black p-2 text-xs font-mono focus:outline-none focus:ring-0 focus:border-black mb-2" placeholder="Photosynthesis: Process by which plants use sunlight to synthesize foods.&#10;Mitochondria: Powerhouse of the cell."></textarea>
+                <textarea x-model="bulkText" rows="6" class="w-full border border-black p-2 text-xs font-mono text-black bg-white focus:outline-none focus:ring-0 focus:border-black mb-2 placeholder:text-slate-400" placeholder="Photosynthesis: Process by which plants use sunlight to synthesize foods.&#10;Mitochondria: Powerhouse of the cell."></textarea>
                 <button type="button" @click="parseBulk" class="bg-black text-white px-4 py-1.5 text-xs font-bold border border-black hover:bg-slate-800">
                     Parse Text
                 </button>
@@ -81,7 +81,7 @@
 
         {{-- Spreadsheet Layout --}}
         <div class="dev-card p-0 overflow-x-auto relative">
-            <div class="flex items-center justify-between p-4 bg-white border-b border-black min-w-[600px] dark:bg-slate-900">
+            <div class="flex items-center justify-between p-4 bg-white border-b border-black min-w-[600px]">
                 <h3 class="text-sm font-bold text-black flex items-center gap-2">Cards (Spreadsheet)</h3>
                 <button type="button" @click="addCard" class="bg-black text-white px-3 py-1 text-xs font-bold border border-black hover:bg-slate-800">
                     + Add Card
@@ -100,12 +100,12 @@
                 <tbody class="divide-y divide-black">
                     <template x-for="(card, index) in cards" :key="card.id">
                         <tr class="hover:bg-slate-50 group">
-                            <td class="px-2 py-1 text-center font-bold text-xs border-r border-black" x-text="index + 1"></td>
+                            <td class="px-2 py-1 text-center font-bold text-xs text-black border-r border-black" x-text="index + 1"></td>
                             <td class="px-0 py-0 border-r border-black">
-                                <textarea :name="`flashcards[${index}][front]`" x-model="card.front" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="Front..."></textarea>
+                                <textarea :name="`flashcards[${index}][front]`" x-model="card.front" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="Front..."></textarea>
                             </td>
                             <td class="px-0 py-0 border-r border-black relative group-td">
-                                <textarea :name="`flashcards[${index}][back]`" x-model="card.back" class="w-full h-full border-none p-2 text-xs focus:outline-none focus:ring-0 bg-transparent resize-none leading-relaxed" rows="2" placeholder="Definisi..."></textarea>
+                                <textarea :name="`flashcards[${index}][back]`" x-model="card.back" class="w-full h-full border-none p-2 text-xs text-black focus:outline-none focus:ring-0 bg-transparent resize-none leading-relaxed placeholder:text-slate-400" rows="2" placeholder="Definisi..."></textarea>
                             </td>
                             <td class="px-1 py-1 text-center align-middle">
                                 <button type="button" @click="removeCard(index)" class="text-rose-600 hover:text-stone-600 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus baris">
@@ -136,7 +136,7 @@
             <div>
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-black mb-1">Judul Kuis (Opsional)</label>
-                    <input type="text" name="quiz_title" x-model="quizTitle" class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black" placeholder="Biarkan kosong untuk judul otomatis: 'Kuis: [Judul Flashcard]'">
+                    <input type="text" name="quiz_title" x-model="quizTitle" class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black placeholder:text-slate-400" placeholder="Biarkan kosong untuk judul otomatis: 'Kuis: [Judul Flashcard]'">
                 </div>
 
                 {{-- Quiz Spreadsheet Layout --}}
@@ -161,27 +161,27 @@
                                 <th class="px-2 py-2 font-bold text-black border-b border-black w-12 text-center">Del</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-black bg-white dark:bg-slate-900">
+                        <tbody class="divide-y divide-black bg-white">
                             <template x-for="(q, index) in questions" :key="q.id">
                                 <tr class="hover:bg-slate-50 group">
                                     <input type="hidden" :name="`questions[${index}][type]`" value="multiple_choice">
                                     <td class="px-0 py-0 border-r border-black relative group-td">
-                                        <textarea :name="`questions[${index}][question]`" x-model="q.question" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="Question text..."></textarea>
+                                        <textarea :name="`questions[${index}][question]`" x-model="q.question" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="Question text..."></textarea>
                                     </td>
                                     <td class="px-0 py-0 border-r border-black">
-                                        <textarea :name="`questions[${index}][options][0]`" x-model="q.options[0]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="A"></textarea>
+                                        <textarea :name="`questions[${index}][options][0]`" x-model="q.options[0]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="A"></textarea>
                                     </td>
                                     <td class="px-0 py-0 border-r border-black">
-                                        <textarea :name="`questions[${index}][options][1]`" x-model="q.options[1]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="B"></textarea>
+                                        <textarea :name="`questions[${index}][options][1]`" x-model="q.options[1]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="B"></textarea>
                                     </td>
                                     <td class="px-0 py-0 border-r border-black">
-                                        <textarea :name="`questions[${index}][options][2]`" x-model="q.options[2]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="C"></textarea>
+                                        <textarea :name="`questions[${index}][options][2]`" x-model="q.options[2]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="C"></textarea>
                                     </td>
                                     <td class="px-0 py-0 border-r border-black">
-                                        <textarea :name="`questions[${index}][options][3]`" x-model="q.options[3]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="D"></textarea>
+                                        <textarea :name="`questions[${index}][options][3]`" x-model="q.options[3]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="D"></textarea>
                                     </td>
                                     <td class="px-2 py-1 text-center border-r border-black">
-                                        <select :name="`questions[${index}][correct_answer]`" x-model="q.correct_answer" class="w-full border border-black p-1 text-xs focus:outline-none focus:ring-0 focus:border-black bg-white font-bold text-center appearance-none dark:bg-slate-900">
+                                        <select :name="`questions[${index}][correct_answer]`" x-model="q.correct_answer" class="w-full border border-black p-1 text-xs text-black focus:outline-none focus:ring-0 focus:border-black bg-white font-bold text-center appearance-none">
                                             <option value="0">A</option>
                                             <option value="1">B</option>
                                             <option value="2">C</option>
@@ -189,7 +189,7 @@
                                         </select>
                                     </td>
                                     <td class="px-0 py-0 border-r border-black">
-                                        <textarea :name="`questions[${index}][explanation]`" x-model="q.explanation" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight text-slate-500" placeholder="Optional exp..."></textarea>
+                                        <textarea :name="`questions[${index}][explanation]`" x-model="q.explanation" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="Optional exp..."></textarea>
                                     </td>
                                     <td class="px-1 py-1 text-center align-middle">
                                         <button type="button" @click="removeQuestion(index)" class="text-rose-600 hover:text-stone-600 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus soal">
@@ -200,7 +200,7 @@
                             </template>
                         </tbody>
                     </table>
-                    <div x-show="questions.length === 0" class="text-center text-slate-500 py-6 font-medium text-sm bg-white dark:bg-slate-900">
+                    <div x-show="questions.length === 0" class="text-center text-slate-500 py-6 font-medium text-sm bg-white">
                         No quiz questions added. Click "+ Add Question".
                     </div>
                 </div>

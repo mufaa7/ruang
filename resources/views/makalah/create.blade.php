@@ -26,24 +26,24 @@
 
                     <div>
                         <label class="block text-sm font-medium mb-2 text-slate-300">Judul</label>
-                        <textarea name="judul" rows="2" required class="w-full rounded-xl bg-black/30 border-none p-4 text-white placeholder-white/40 resize-none transition-colors focus:ring-2 focus:ring-blue-500" placeholder="Contoh : Analisis Inflasi Indonesia Tahun 2025"></textarea>
+                        <textarea name="judul" rows="2" required class="w-full rounded-xl bg-black/30 border-none p-4 text-white placeholder-white/40 resize-none transition-colors focus:ring-2 focus:ring-amber-400/50" placeholder="Contoh : Analisis Inflasi Indonesia Tahun 2025"></textarea>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium mb-2 text-slate-300">
                             Sub Judul <span class="text-slate-500">(Opsional)</span>
                         </label>
-                        <input name="sub_judul" class="w-full rounded-xl bg-black/30 border-none p-3 text-white placeholder-white/40 transition-colors focus:ring-2 focus:ring-blue-500" placeholder="Opsional">
+                        <input name="sub_judul" class="w-full rounded-xl bg-black/30 border-none p-3 text-white placeholder-white/40 transition-colors focus:ring-2 focus:ring-amber-400/50" placeholder="Opsional">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-sm font-medium mb-2 text-slate-300">Mata Kuliah</label>
-                            <input name="mata_kuliah" class="w-full rounded-xl bg-black/30 border-none p-3 text-white placeholder-white/40 transition-colors focus:ring-2 focus:ring-blue-500" placeholder="Ekonomi Makro">
+                            <input name="mata_kuliah" class="w-full rounded-xl bg-black/30 border-none p-3 text-white placeholder-white/40 transition-colors focus:ring-2 focus:ring-amber-400/50" placeholder="Ekonomi Makro">
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2 text-slate-300">Nama Dosen</label>
-                            <input name="nama_dosen" class="w-full rounded-xl bg-black/30 border-none p-3 text-white placeholder-white/40 transition-colors focus:ring-2 focus:ring-blue-500" placeholder="Dr. Ahmad">
+                            <input name="nama_dosen" class="w-full rounded-xl bg-black/30 border-none p-3 text-white placeholder-white/40 transition-colors focus:ring-2 focus:ring-amber-400/50" placeholder="Dr. Ahmad">
                         </div>
                     </div>
 

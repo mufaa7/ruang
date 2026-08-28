@@ -91,7 +91,7 @@
     {{-- MODALS --}}
     <!-- Create/Edit Modal -->
     <div x-show="isFormModalOpen" style="display: none;" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" @click.self="closeModal()">
-        <div class="bg-white border-2 border-black p-6 w-full max-w-md shadow-[4px_4px_0_0_#000] flex flex-col max-h-[90vh] dark:bg-slate-900">
+        <div class="bg-white border-2 border-black p-6 w-full max-w-md shadow-[4px_4px_0_0_#000] flex flex-col max-h-[90vh]">
             <div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
                 <h3 class="text-lg font-bold text-black" x-text="isEdit ? 'Edit User' : 'Create New User'"></h3>
                 <button @click="closeModal()" type="button" class="text-black hover:bg-slate-100 p-1 font-bold">✕</button>
@@ -105,19 +105,19 @@
 
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Name</label>
-                    <input type="text" name="name" x-model="formData.name" required class="w-full border border-black p-2 text-sm focus:outline-none focus:border-black bg-[#f8f9fa]">
+                    <input type="text" name="name" x-model="formData.name" required class="w-full border border-black p-2 text-sm text-black focus:outline-none focus:border-black bg-[#f8f9fa]">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Username</label>
-                    <input type="text" name="username" x-model="formData.username" required class="w-full border border-black p-2 text-sm focus:outline-none focus:border-black bg-[#f8f9fa]">
+                    <input type="text" name="username" x-model="formData.username" required class="w-full border border-black p-2 text-sm text-black focus:outline-none focus:border-black bg-[#f8f9fa]">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Email</label>
-                    <input type="email" name="email" x-model="formData.email" required class="w-full border border-black p-2 text-sm focus:outline-none focus:border-black bg-[#f8f9fa]">
+                    <input type="email" name="email" x-model="formData.email" required class="w-full border border-black p-2 text-sm text-black focus:outline-none focus:border-black bg-[#f8f9fa]">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Role</label>
-                    <select name="role" x-model="formData.role" required class="w-full border border-black p-2 text-sm focus:outline-none focus:border-black bg-white appearance-none cursor-pointer dark:bg-slate-900">
+                    <select name="role" x-model="formData.role" required class="w-full border border-black p-2 text-sm text-black focus:outline-none focus:border-black bg-white appearance-none cursor-pointer">
                         <option value="student">Student</option>
                         <option value="lecturer">Lecturer</option>
                         <option value="admin">Admin</option>
@@ -125,11 +125,11 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Password</label>
-                    <input type="password" name="password" class="w-full border border-black p-2 text-sm focus:outline-none focus:border-black bg-[#f8f9fa]" :placeholder="isEdit ? 'Leave blank to keep current' : 'Min 8 characters'" :required="!isEdit">
+                    <input type="password" name="password" class="w-full border border-black p-2 text-sm text-black focus:outline-none focus:border-black bg-[#f8f9fa]" :placeholder="isEdit ? 'Leave blank to keep current' : 'Min 8 characters'" :required="!isEdit">
                 </div>
 
                 <div class="pt-4 flex justify-end gap-2 border-t border-black">
-                    <button type="button" @click="closeModal()" class="px-4 py-2 text-sm font-bold border border-black hover:bg-slate-100">Cancel</button>
+                    <button type="button" @click="closeModal()" class="px-4 py-2 text-sm font-bold text-black border border-black hover:bg-slate-100">Cancel</button>
                     <button type="submit" class="bg-black text-white px-4 py-2 text-sm font-bold border border-black hover:bg-slate-800" x-text="isEdit ? 'Save Changes' : 'Create User'"></button>
                 </div>
             </form>
@@ -138,7 +138,7 @@
 
     <!-- Info Modal -->
     <div x-show="isInfoModalOpen" style="display: none;" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" @click.self="closeModal()">
-        <div class="bg-white border-2 border-black p-6 w-full max-w-md shadow-[4px_4px_0_0_#000] dark:bg-slate-900">
+        <div class="bg-white border-2 border-black p-6 w-full max-w-md shadow-[4px_4px_0_0_#000]">
             <div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
                 <h3 class="text-lg font-bold text-black">User Info</h3>
                 <button @click="closeModal()" type="button" class="text-black hover:bg-slate-100 p-1 font-bold">✕</button>
@@ -146,7 +146,7 @@
 
             <div class="space-y-4" x-show="selectedUser">
                 <div class="flex items-center gap-4 border border-black p-4 bg-[#f8f9fa]">
-                    <img :src="selectedUser?.avatar_url" class="w-12 h-12 rounded-full border border-black bg-white dark:bg-slate-900">
+                    <img :src="selectedUser?.avatar_url" class="w-12 h-12 rounded-full border border-black bg-white">
                     <div>
                         <div class="font-bold text-black text-lg" x-text="selectedUser?.name"></div>
                         <div class="text-xs text-slate-600" x-text="selectedUser?.email"></div>
@@ -154,19 +154,19 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="border border-black p-3 text-center bg-white dark:bg-slate-900">
+                    <div class="border border-black p-3 text-center bg-white">
                         <div class="text-2xl font-bold text-black" x-text="selectedUser?.papers_count || 0"></div>
                         <div class="text-[10px] font-bold uppercase text-slate-500">Papers</div>
                     </div>
-                    <div class="border border-black p-3 text-center bg-white dark:bg-slate-900">
+                    <div class="border border-black p-3 text-center bg-white">
                         <div class="text-2xl font-bold text-black" x-text="selectedUser?.makalah_count || 0"></div>
                         <div class="text-[10px] font-bold uppercase text-slate-500">Makalah</div>
                     </div>
-                    <div class="border border-black p-3 text-center bg-white dark:bg-slate-900">
+                    <div class="border border-black p-3 text-center bg-white">
                         <div class="text-2xl font-bold text-black" x-text="selectedUser?.notes_count || 0"></div>
                         <div class="text-[10px] font-bold uppercase text-slate-500">Notes</div>
                     </div>
-                    <div class="border border-black p-3 text-center bg-white dark:bg-slate-900">
+                    <div class="border border-black p-3 text-center bg-white">
                         <div class="text-2xl font-bold text-black" x-text="selectedUser?.subjects_count || 0"></div>
                         <div class="text-[10px] font-bold uppercase text-slate-500">Subjects Enrolled</div>
                     </div>

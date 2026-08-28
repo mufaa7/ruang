@@ -62,7 +62,7 @@
                                 </span>
                             @endif
                             <button
-                                class="btn-regenerate-sub flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-stone-500 border border-stone-200 bg-white hover:bg-violet-50 hover:text-violet-600 hover:border-violet-300 transition opacity-100 lg:opacity-0 lg:group-hover/sub:opacity-100 active:scale-95"
+                                class="btn-regenerate-sub flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold text-stone-700 border border-stone-300 bg-white hover:bg-violet-50 hover:text-violet-700 hover:border-violet-400 transition opacity-100 lg:opacity-0 lg:group-hover/sub:opacity-100 active:scale-95"
                                 data-url="{{ route('api.ai.regenerate-subchapter', [$makalah, $sub]) }}"
                                 data-csrf="{{ csrf_token() }}"
                                 title="Tulis ulang sub-bab ini dengan AI">

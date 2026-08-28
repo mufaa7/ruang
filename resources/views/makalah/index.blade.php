@@ -15,8 +15,8 @@
             </div>
 
             {{-- Tombol Bikin Makalah --}}
-            <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto self-start sm:self-auto min-h-11 px-5 justify-center bg-white text-black hover:bg-neutral-200 font-medium text-sm rounded-xl flex items-center gap-2 transition-all active:scale-95 shadow-lg">
-                <i class="ph ph-plus text-lg"></i>
+            <a href="{{ route('makalah.create') }}" class="ios-liquid-btn w-full sm:w-auto self-start sm:self-auto min-h-11 px-5 justify-center font-semibold text-sm rounded-xl flex items-center gap-2">
+                <i class="ph-bold ph-plus text-lg"></i>
                 Bikin Makalah
             </a>
         </div>
@@ -29,8 +29,9 @@
                 <div class="dashboard-card group flex flex-col min-h-[220px] overflow-hidden cursor-pointer relative p-6 active:scale-[0.98] transition-transform" onclick="window.location='{{ route('makalah.edit', $m) }}'">
                     
                     {{-- Status Indicator (Top Right Dot) --}}
-                    <div class="absolute top-6 right-6 flex items-center gap-2">
-                        <div class="h-2 w-2 rounded-full {{ $m->status === 'final' ? 'bg-emerald-500' : 'bg-neutral-900 animate-pulse' }}"></div>
+                    <div class="absolute top-6 right-6 flex items-center gap-1.5" title="{{ $m->status === 'final' ? 'Selesai' : 'Draf' }}">
+                        <div class="h-2 w-2 rounded-full {{ $m->status === 'final' ? 'bg-emerald-400' : 'bg-amber-400/70' }}"></div>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase">{{ $m->status === 'final' ? 'Final' : 'Draf' }}</span>
                     </div>
 
                     <div class="flex flex-col h-full">
@@ -41,7 +42,7 @@
                         </div>
                         
                         <h3 class="font-bold text-lg sm:text-xl text-white leading-snug mb-2 group-hover:text-amber-200 transition-colors line-clamp-3">
-                            {{ $m->judul ?: 'Tugas Nggak Jelas Tanpa Judul' }}
+                            {{ $m->judul ?: 'Tugas Tanpa Judul' }}
                         </h3>
 
                         <p class="text-xs text-slate-400 mb-6 font-medium">terakhir dibuka {{ $m->updated_at->diffForHumans() }}</p>
@@ -64,10 +65,10 @@
                                         <i class="ph ph-file-doc text-lg sm:text-xl"></i>
                                     </a>
                                 </div>
-                                <form action="{{ route('makalah.destroy', $m) }}" method="POST" class="inline" onclick="event.stopPropagation()" onsubmit="return confirm('Yakin mau buang makalah ini? Ntar nangis nyarinya.')">
+                                <form action="{{ route('makalah.destroy', $m) }}" method="POST" class="inline" onclick="event.stopPropagation()" onsubmit="return confirm('Hapus makalah ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="p-2 sm:p-2.5 text-slate-300 hover:text-red-500 bg-white/5 hover:bg-red-500/20 hover:border-red-500/30 rounded-lg transition-colors active:scale-90" title="Hapus Makalah">
+                                    <button type="submit" class="p-2 sm:p-2.5 text-slate-400 hover:text-rose-400 bg-white/5 hover:bg-rose-500/20 border border-transparent hover:border-rose-500/30 rounded-lg transition-colors active:scale-90" title="Hapus Makalah">
                                         <i class="ph ph-trash text-lg sm:text-xl"></i>
                                     </button>
                                 </form>
@@ -85,7 +86,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-white">Belum ada beban kehidupan di sini <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-coffee text-[1.1em] align-middle"></i></span></h3>
                 <p class="text-slate-300 mt-2 mb-8 max-w-sm">Bikin aja dulu selembar, nggak usah mikir terlalu jauh, yang penting mulai ngetik aja.</p>
-                <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto px-6 min-h-11 inline-flex items-center justify-center bg-white text-black hover:bg-neutral-200 shadow-lg font-medium rounded-xl transition-all active:scale-95">
+                <a href="{{ route('makalah.create') }}" class="w-full sm:w-auto px-6 min-h-11 inline-flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold text-sm rounded-xl transition-all active:scale-95 duration-300 backdrop-blur-md hover:scale-105 shadow-sm">
                     Mulai Nulis Makalah
                 </a>
             </div>

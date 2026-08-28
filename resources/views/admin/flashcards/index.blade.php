@@ -11,7 +11,7 @@
 
     {{-- Tabs --}}
     <div class="flex border-b border-black text-sm font-bold">
-        <a href="{{ route('admin.quizzes.index') }}" class="px-4 md:px-6 py-2 bg-white text-slate-600 border-b border-black hover:bg-slate-50 transition-colors whitespace-nowrap dark:bg-slate-900">
+        <a href="{{ route('admin.quizzes.index') }}" class="px-4 md:px-6 py-2 bg-white text-slate-600 border-b border-black hover:bg-slate-50 transition-colors whitespace-nowrap">
             Quizzes
         </a>
         <a href="{{ route('admin.flashcards.index') }}" class="px-4 md:px-6 py-2 bg-black text-white border-t border-l border-r border-black whitespace-nowrap">

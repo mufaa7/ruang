@@ -35,7 +35,7 @@
                         <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-400 flex items-center gap-1">
                             #{{ request('hashtag') }}
                         </span>
-                        <a href="{{ route('coretan.index') }}" class="w-5 h-5 flex items-center justify-center rounded-full bg-white/10 text-slate-300 hover:text-rose-400 hover:bg-rose-500/20 transition-colors" title="Hapus filter hashtag">
+                        <a href="{{ route('coretan.index') }}" class="w-5 h-5 flex items-center justify-center rounded-full bg-white/10 text-slate-300 hover:text-white hover:bg-rose-500/30 transition-colors" title="Hapus filter hashtag">
                             <i class="ph-bold ph-x text-[10px]"></i>
                         </a>
                     </div>
@@ -45,13 +45,13 @@
                     <span class="text-[10px] font-bold bg-white/10 text-white px-2.5 py-0.5 rounded-full">{{ $notes->count() }}</span>
                 </div>
                 <div class="flex items-center gap-2 hide-scrollbar overflow-x-auto pb-1">
-                    <a href="{{ route('coretan.index') }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ !request('filter') && !request('hashtag') ? 'bg-white/20 text-white border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">Semua</a>
-                    <a href="{{ route('coretan.index', ['filter' => 'pinned']) }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 flex items-center gap-1 {{ request('filter') == 'pinned' ? 'bg-white/20 text-white border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">
+                    <a href="{{ route('coretan.index') }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ !request('filter') && !request('hashtag') ? 'bg-white/15 text-white border border-white/20' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">Semua</a>
+                    <a href="{{ route('coretan.index', ['filter' => 'pinned']) }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 flex items-center gap-1 {{ request('filter') == 'pinned' ? 'bg-white/15 text-white border border-white/20' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">
                         <i class="ph-fill ph-push-pin text-[12px]"></i> Pin
                     </a>
                     @if(isset($allHashtags) && !empty($allHashtags))
                         @foreach($allHashtags as $tag)
-                        <a href="{{ route('coretan.index', ['hashtag' => ltrim($tag, '#')]) }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ request('hashtag') === ltrim($tag, '#') ? 'bg-white/20 text-white border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">{{ $tag }}</a>
+                        <a href="{{ route('coretan.index', ['hashtag' => ltrim($tag, '#')]) }}" class="ajax-link px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all shrink-0 {{ request('hashtag') === ltrim($tag, '#') ? 'bg-white/15 text-white border border-white/20' : 'bg-transparent border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white' }}">{{ $tag }}</a>
                         @endforeach
                     @endif
                 </div>
@@ -86,7 +86,7 @@
                                 <form method="POST" action="{{ route('coretan.pin', $note->id) }}" class="relative z-20">
                                     @csrf
                                     <button type="submit" title="{{ $note->is_pinned ? 'Lepas pin' : 'Pin catatan ini' }}"
-                                            class="text-[14px] transition-all duration-300 {{ $note->is_pinned ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(251,191,36,0.5)]' : 'text-slate-500 opacity-0 group-hover/card:opacity-100 hover:text-white' }}">
+                                            class="text-[14px] transition-all duration-200 {{ $note->is_pinned ? 'text-amber-300' : 'text-slate-500 opacity-0 group-hover/card:opacity-100 hover:text-white' }}">
                                         <i class="{{ $note->is_pinned ? 'ph-fill' : 'ph' }} ph-push-pin align-middle"></i>
                                     </button>
                                 </form>
@@ -175,11 +175,11 @@
                         
                         <div class="w-px h-5 bg-white/10 mx-1"></div>
                         
-                        <button type="submit" id="btn-simpan" class="px-4 py-1.5 min-h-[32px] bg-white text-black hover:bg-slate-200 font-bold text-xs rounded-lg transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)] active:scale-95 flex items-center gap-1.5">
+                        <button type="submit" id="btn-simpan" class="px-4 py-1.5 min-h-[32px] bg-white text-black hover:bg-slate-200 font-bold text-xs rounded-lg transition-all shadow-sm active:scale-95 flex items-center gap-1.5">
                             <i class="ph-bold ph-floppy-disk"></i> Simpan
                         </button>
                         
-                        <button type="button" onclick="if(confirm('Hapus coretan ini ke tong sampah?')) document.getElementById('delete-note-form').submit();" class="p-1.5 ml-1 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors active:scale-95">
+                        <button type="button" onclick="if(confirm('Hapus coretan ini ke tong sampah?')) document.getElementById('delete-note-form').submit();" class="p-1.5 ml-1 text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 rounded-lg transition-colors active:scale-95">
                             <i class="ph-bold ph-trash text-lg"></i>
                         </button>
                     </div>
@@ -189,19 +189,19 @@
                 <div class="flex-1 overflow-y-auto px-6 sm:px-10 py-8 hide-scrollbar">
                     
                     <input type="text" name="title" value="{{ $activeNote->title }}"
-                           class="block text-3xl sm:text-4xl font-bold text-white font-geist bg-transparent border-none outline-none w-full focus:ring-0 p-0 mb-6 placeholder:text-slate-600 transition-colors"
+                           class="block text-3xl sm:text-4xl font-bold text-white font-geist bg-transparent border-none outline-none w-full focus:ring-0 p-0 mb-6 placeholder:text-slate-500 transition-colors"
                            placeholder="Judul Coretan..." />
 
                     <textarea name="content" id="note-content"
                               oninput="handleContentInput(this)"
-                              class="block w-full font-serif-editor leading-relaxed text-slate-200 outline-none resize-none bg-transparent border-none focus:ring-0 p-0 mb-12 placeholder:text-slate-600 transition-colors selection:bg-emerald-500/30"
+                              class="block w-full font-sans leading-[1.8] text-slate-200 outline-none resize-none bg-transparent border-none focus:ring-0 p-0 mb-12 placeholder:text-slate-500 transition-colors selection:bg-amber-400/20"
                               style="font-size: {{ strlen(strip_tags($activeNote->content)) < 80 ? '22' : (strlen(strip_tags($activeNote->content)) < 300 ? '17' : '15') }}px; min-height: 280px;"
                               placeholder="Ada ide apa hari ini? Tulis aja semuanya di sini...">{{ strip_tags($activeNote->content) }}</textarea>
 
                     {{-- ─── To-Do List ──────────────────────────────── --}}
                     <div class="border-t border-white/10 pt-6 mt-4 pb-8">
-                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2 mb-4">
-                            <i class="ph-bold ph-check-square-offset text-lg text-emerald-400"></i>
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2 mb-4 font-mono">
+                            <i class="ph-bold ph-check-square-offset text-base text-emerald-400"></i>
                             Checklist / To-Do
                         </p>
 
@@ -209,12 +209,12 @@
                             @foreach($activeChecklist as $i => $item)
                             <div class="checklist-item flex items-start gap-3 group" data-idx="{{ $i }}">
                                 <button type="button" onclick="toggleCheck({{ $i }})"
-                                        class="w-5 h-5 mt-0.5 rounded-[6px] border-2 shrink-0 flex items-center justify-center transition-all duration-300 {{ ($item['done'] ?? false) ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.4)]' : 'border-slate-600 hover:border-slate-400 bg-white/5' }}">
+                                        class="w-5 h-5 mt-0.5 rounded-[6px] border-2 shrink-0 flex items-center justify-center transition-all duration-200 {{ ($item['done'] ?? false) ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-600 hover:border-slate-400 bg-white/5' }}">
                                     @if($item['done'] ?? false)
                                     <i class="ph-bold ph-check text-[10px]"></i>
                                     @endif
                                 </button>
-                                <span class="text-[15px] flex-1 leading-relaxed outline-none transition-all duration-300 {{ ($item['done'] ?? false) ? 'line-through text-slate-500' : 'text-slate-200' }}"
+                                <span class="text-[15px] flex-1 leading-relaxed outline-none transition-all duration-200 {{ ($item['done'] ?? false) ? 'line-through text-slate-500' : 'text-slate-200' }}"
                                       contenteditable="true" onblur="updateCheckText({{ $i }}, this)">{{ $item['text'] ?? '' }}</span>
                                 <button type="button" onclick="removeCheck({{ $i }})" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 transition-all shrink-0 mt-1">
                                     <i class="ph-bold ph-x text-sm"></i>
@@ -237,13 +237,13 @@
 
             @else
             <div class="flex-1 flex flex-col items-center justify-center text-center p-8 bg-transparent">
-                <div class="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 backdrop-blur-md shadow-2xl">
+                <div class="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 backdrop-blur-md shadow-lg">
                     <i class="ph-fill ph-note-pencil text-5xl text-slate-400"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-white font-geist tracking-tight">Ruang Kosong</h3>
                 <p class="text-slate-400 mt-2 max-w-sm leading-relaxed">Ga harus bagus, ga harus panjang. Yang penting mulai aja nulis idemu.</p>
                 <button onclick="document.getElementById('modal-new-note').classList.remove('hidden')"
-                        class="mt-8 px-6 py-3 bg-white text-black font-bold text-sm rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-slate-200 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 mx-auto">
+                        class="mt-8 px-6 py-3 bg-white text-black font-bold text-sm rounded-xl shadow-md hover:bg-slate-200 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 mx-auto">
                     <i class="ph-bold ph-plus text-lg"></i>
                     Bikin Coretan Pertama
                 </button>
@@ -276,7 +276,7 @@
                 </div>
                 <div class="pt-3 flex flex-col-reverse sm:flex-row items-center sm:justify-end gap-3">
                     <button type="button" onclick="document.getElementById('modal-new-note').classList.add('hidden')" class="w-full sm:w-auto justify-center px-5 py-2.5 bg-transparent border border-white/10 text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm rounded-xl transition-colors active:scale-95">Batal</button>
-                    <button type="submit" class="w-full sm:w-auto justify-center px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all active:scale-95">Yuk, Tulis!</button>
+                    <button type="submit" class="w-full sm:w-auto justify-center px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm rounded-xl shadow-md transition-all active:scale-95">Yuk, Tulis!</button>
                 </div>
             </form>
         </div>

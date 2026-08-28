@@ -23,8 +23,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
         
         <!-- Preload Geist font agar tidak ada FOUT -->
         <link rel="preload" as="font" type="font/woff2" crossorigin
@@ -71,22 +70,21 @@
     
     <body class="antialiased min-h-screen font-sans opacity-0 text-white dark:text-white relative overflow-x-hidden">
         @if(session()->has('impersonated_by'))
-        <div class="bg-amber-400 text-white px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-black">
+        <div class="bg-amber-400 text-slate-950 px-4 py-2 text-center text-sm font-bold flex justify-center items-center gap-4 z-50 relative border-b border-amber-500/30">
             <span>⚠️ You are impersonating <strong>{{ auth()->user()->name }}</strong></span>
             <form action="{{ route('impersonate.leave') }}" method="POST" class="inline">
                 @csrf
-                <button type="submit" class="bg-black text-white px-3 py-1 rounded hover:bg-slate-800 text-xs">Leave Impersonate</button>
+                <button type="submit" class="bg-slate-950 text-white px-3 py-1 rounded-lg hover:bg-slate-800 text-xs font-semibold">Leave Impersonate</button>
             </form>
         </div>
         @endif
 
-        <div class="fixed inset-0 overflow-hidden pointer-events-none -z-50 bg-[#0b101e]">
-            <!-- Subtle cool-toned orbs for texture (doesn't clash with text) -->
-            <div class="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-900/30 blur-[120px]"></div>
-            <div class="absolute bottom-[0%] right-[0%] w-[60%] h-[60%] rounded-full bg-cyan-900/20 blur-[150px]"></div>
+        <div class="fixed inset-0 overflow-hidden pointer-events-none -z-50 bg-black">
+            <!-- Subtle neutral ambient glow for crystal clear glass refraction -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.03),transparent_70%)]"></div>
 
             <!-- Custom Background Image (faint texture, responsive) -->
-            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-30 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
+            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-25 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
         </div>
 
         {{-- Dummy Data Simulasi (Nanti diganti dengan variabel dari Controller/ViewComposer) --}}
@@ -191,7 +189,7 @@
                     </h1>
 
                     <div class="mt-5">
-                        <p class="text-[13px] md:text-[14px] text-blue-200 dark:text-slate-400 leading-[1.8] tracking-wide">
+                        <p class="text-[13px] md:text-[14px] text-slate-400 leading-[1.8] tracking-wide">
                             masuk. denger lagu. pulang.
                         </p>
                     </div>
@@ -203,7 +201,7 @@
                         type="button"
                         class="group w-full h-11 rounded-xl border border-white/10 bg-black/20 px-4 flex items-center justify-between transition-all duration-200 hover:bg-white/10 hover:border-white/30">
 
-                        <div class="flex items-center gap-3 text-sm text-blue-200 group-hover:text-slate-200 dark:group-hover:text-slate-300 transition-colors">
+                        <div class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-200 transition-colors">
                             <i class="ph ph-magnifying-glass text-lg"></i>
                             <span>cari apa aja...</span>
                         </div>
@@ -250,6 +248,18 @@
                             @endif
                         </a>
                     @endforeach
+
+                    @if(auth()->check() && auth()->user()->role === 'admin')
+                        <div class="pt-2">
+                            <a href="{{ route('admin.dashboard') }}" class="group w-full flex items-center justify-between px-3 h-11 text-[14px] font-bold bg-amber-400/10 text-amber-300 border border-amber-400/30 rounded-xl hover:bg-amber-400/20 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <i class="ph ph-shield-check text-[18px]"></i>
+                                    <span>Admin Panel</span>
+                                </div>
+                                <span class="text-[10px] bg-amber-300 text-black px-1.5 py-0.5 rounded font-mono font-bold">DEV</span>
+                            </a>
+                        </div>
+                    @endif
                 </nav>
 
                 {{-- Bagian Bawah: Widget & Footer --}}
@@ -294,7 +304,7 @@
                     </a>
 
                     {{-- Logout Form & Button --}}
-                    <form method="POST" action="{{ route('logout') }}" data-turbo="false" class="w-full mt-1" onsubmit="return confirm('Udah selesai hari ini?\n\nSampai ketemu lagi 👋');">
+                    <form method="POST" action="{{ route('logout') }}" data-turbo="false" class="w-full mt-1">
                         @csrf
                         <button type="submit" class="w-full flex items-center gap-3 px-3 h-10 rounded-xl text-[13px] font-medium text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors">
                             <i class="ph ph-sign-out text-[18px]"></i>
@@ -430,17 +440,17 @@
                      {{-- Warning (Only show when maximized) --}}
                      <div x-show="$store.musicPlayer.isMaximized" class="bg-emerald-500/10 text-emerald-400 p-4 rounded-xl text-sm font-medium flex gap-3 items-start border border-emerald-500/20 shadow-inner">
                          <i class="ph-fill ph-info text-xl shrink-0 mt-0.5"></i>
-                         <p>Kalo lagunya kepotong cuma 30 detik, jangan nyalahin admin ya. Klik logo Spotify-nya buat dengerin full di HP lu, sekalian di-save biar ga ilang pas butuh.</p>
+                         <p>Spotify Web Player memutar pratinjau 30 detik. Klik logo Spotify untuk mendengarkan versi penuh di aplikasi kamu.</p>
                      </div>
 
                      {{-- Main Playlist --}}
-                     <div class="bg-black/40 backdrop-blur-xl rounded-[24px] border border-white/10 p-6 shadow-2xl relative group overflow-hidden transition-all duration-300 hover:shadow-[#1DB954]/20 hover:border-[#1DB954]/50"
+                     <div class="bg-black/40 backdrop-blur-xl rounded-[24px] border border-white/10 p-6 shadow-2xl relative group overflow-hidden transition-all duration-300 hover:border-[#1DB954]/40"
                           :class="!$store.musicPlayer.isMaximized ? 'p-0 border-0 shadow-none hover:shadow-none hover:border-0 rounded-xl bg-transparent' : ''">
-                         <div x-show="$store.musicPlayer.isMaximized" class="absolute top-0 right-0 w-64 h-64 bg-[#1DB954]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#1DB954]/20 transition-all duration-500"></div>
+                         <div x-show="$store.musicPlayer.isMaximized" class="absolute top-0 right-0 w-64 h-64 bg-[#1DB954]/5 rounded-full blur-3xl pointer-events-none group-hover:bg-[#1DB954]/10 transition-all duration-500"></div>
                          
                          <div x-show="$store.musicPlayer.isMaximized" class="flex items-center justify-between mb-5 relative z-10">
                              <h2 class="font-bold text-xl text-white flex items-center gap-2 font-display tracking-tight">
-                                 <i class="ph-fill ph-spotify-logo text-[#1DB954] text-3xl drop-shadow-[0_0_10px_rgba(29,185,84,0.5)]"></i>
+                                 <i class="ph-fill ph-spotify-logo text-[#1DB954] text-2xl"></i>
                                  Biar Keliatan Sibuk
                              </h2>
                              <span class="px-3 py-1 bg-white/5 text-slate-300 text-[10px] font-bold uppercase tracking-wider rounded-full border border-white/10">Curated</span>

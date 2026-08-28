@@ -23,7 +23,7 @@
             </div>
             <div class="col-span-2">
                 <span class="block text-slate-500 mb-1">Source Text to Summarize</span>
-                <div class="p-4 bg-white border border-slate-200 mt-2 max-h-60 overflow-y-auto whitespace-pre-wrap text-[13px] font-serif">
+                <div class="p-4 bg-white text-black border border-slate-200 mt-2 max-h-60 overflow-y-auto whitespace-pre-wrap text-[13px] font-serif">
 @if($summaryRequest->material)
 {{ $summaryRequest->material->content ?: '(File PDF/Doc, silakan cek manual materinya: ' . $summaryRequest->material->title . ')' }}
 @else
@@ -43,12 +43,12 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Judul Catatan</label>
-                    <input type="text" name="title" value="Rangkuman: {{ $summaryRequest->material ? $summaryRequest->material->title : 'Catatan AI' }}" required class="w-full border border-black p-2 text-sm focus:outline-none">
+                    <input type="text" name="title" value="Rangkuman: {{ $summaryRequest->material ? $summaryRequest->material->title : 'Catatan AI' }}" required class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:border-black placeholder:text-slate-400">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Isi Rangkuman</label>
-                    <textarea name="content" rows="12" required placeholder="Ketik hasil rangkuman di sini..." class="w-full border border-black p-4 text-sm focus:outline-none font-serif-editor leading-relaxed"></textarea>
+                    <textarea name="content" rows="12" required placeholder="Ketik hasil rangkuman di sini..." class="w-full border border-black p-4 text-sm text-black bg-white focus:outline-none focus:border-black font-serif-editor leading-relaxed placeholder:text-slate-400"></textarea>
                 </div>
             </div>
         </div>

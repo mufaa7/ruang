@@ -19,12 +19,12 @@
                 <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
                 <div class="text-center relative z-10">
                     <p class="text-2xl sm:text-3xl font-bold text-white font-geist leading-none">{{ $totalToday }}</p>
-                    <p class="text-[10px] sm:text-[11px] font-bold text-amber-500 uppercase tracking-widest mt-1.5 flex items-center gap-1"><i class="ph-fill ph-lightning"></i> Hari Ini</p>
+                    <p class="text-[10px] sm:text-[11px] font-bold text-amber-300 uppercase tracking-widest mt-1.5 flex items-center gap-1"><i class="ph-fill ph-lightning"></i> Hari Ini</p>
                 </div>
                 <div class="w-px h-10 bg-white/10 relative z-10"></div>
                 <div class="text-center relative z-10">
                     <p class="text-2xl sm:text-3xl font-bold text-white font-geist leading-none">{{ $totalAll }}</p>
-                    <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 flex items-center gap-1"><i class="ph-fill ph-clock-counter-clockwise"></i> Total</p>
+                    <p class="text-[10px] sm:text-[11px] font-bold text-slate-300 uppercase tracking-widest mt-1.5 flex items-center gap-1"><i class="ph-fill ph-clock-counter-clockwise"></i> Total</p>
                 </div>
             </div>
         </div>
@@ -33,13 +33,13 @@
         <div class="flex items-center gap-3 overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 hide-scrollbar">
             <a href="{{ route('jejak.index') }}" 
                class="shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 flex items-center gap-2 shadow-sm
-               {{ !request('type') ? 'bg-amber-500/10 border border-amber-500/20 text-amber-500' : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white hover:bg-white/10' }}">
+               {{ !request('type') ? 'bg-amber-400/15 border border-amber-400/30 text-amber-300' : 'bg-white/5 text-slate-300 border border-white/10 hover:text-white hover:bg-white/10' }}">
                 <i class="ph-bold ph-squares-four"></i> Semua
             </a>
             @foreach($activityTypes as $type => $label)
             <a href="{{ route('jejak.index', ['type' => $type]) }}" 
                class="shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 flex items-center gap-2 shadow-sm
-               {{ request('type') === $type ? 'bg-amber-500/10 border border-amber-500/20 text-amber-500' : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white hover:bg-white/10' }}">
+               {{ request('type') === $type ? 'bg-amber-400/15 border border-amber-400/30 text-amber-300' : 'bg-white/5 text-slate-300 border border-white/10 hover:text-white hover:bg-white/10' }}">
                 {!! $label['emoji'] !!} {{ $label['label'] }}
             </a>
             @endforeach

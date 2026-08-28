@@ -32,8 +32,8 @@
         {{-- Top Header & Search/Add Bar --}}
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
             <div>
-                <h1 class="text-3xl font-bold text-white tracking-tight">
-                    {{ explode(' ', auth()->user()->name)[0] }}, waktunya ngerjain tugas (atau setidaknya pura-pura) <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-coffee text-[1.1em] align-middle"></i></span>
+                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight font-geist">
+                    Mata Kuliah & Ruang Belajar <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"><i class="ph ph-books text-[1.1em] align-middle text-amber-300"></i></span>
                 </h1>
                 <p class="text-sm text-slate-300 mt-2">
                     Kelola catatan, materi bacaan, dan latihan kuis per mata kuliah di sini.
@@ -41,8 +41,8 @@
             </div>
 
             {{-- Tombol Buka Modal --}}
-            <button @click="showAddModal = true" class="px-5 py-2.5 min-h-11 bg-white text-black shadow-lg hover:bg-neutral-200 font-medium text-sm rounded-xl flex items-center justify-center gap-2 transition-colors active:scale-95 w-full sm:w-auto">
-                <i class="ph ph-plus text-lg"></i>
+            <button @click="showAddModal = true" class="ios-liquid-btn w-full sm:w-auto justify-center min-h-11 px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 cursor-pointer">
+                <i class="ph-bold ph-plus text-lg"></i>
                 Tambah Mata Kuliah
             </button>
         </div>
@@ -70,10 +70,10 @@
                                     <button @click.prevent.stop="editData = { id: '{{ $c->id }}', name: '{{ addslashes($c->title) }}', code: '{{ addslashes($c->code ?? '') }}', lecturer: '{{ addslashes($c->lecturer ?? '') }}', description: '{{ addslashes($c->description ?? '') }}' }; showEditModal = true" class="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Edit Mata Kuliah">
                                         <i class="ph ph-pencil-simple text-lg"></i>
                                     </button>
-                                    <form action="{{ route('subjects.destroy', $c->id) }}" method="POST" class="inline" @click.stop onsubmit="return confirm('Beneran mau dihapus? Nanti catatan lu hilang semua.')">
+                                    <form action="{{ route('subjects.destroy', $c->id) }}" method="POST" class="inline" @click.stop onsubmit="return confirm('Hapus mata kuliah ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-500/20 rounded-lg transition-colors" title="Hapus Mata Kuliah">
+                                        <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 rounded-lg transition-colors" title="Hapus Mata Kuliah">
                                             <i class="ph ph-trash text-lg"></i>
                                         </button>
                                     </form>

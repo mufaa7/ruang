@@ -61,7 +61,7 @@
                 <h2 class="text-[13px] font-bold text-black mb-4">Bash Notes</h2>
                 <form action="{{ route('admin.dashboard.notes') }}" method="POST">
                     @csrf
-                    <textarea name="admin_notes" rows="4" class="w-full text-[11px] font-mono border border-black p-2 bg-[#f8f9fa] focus:outline-none focus:ring-0 placeholder:text-slate-400" placeholder="Catat command bash penting di sini...">{{ $adminNotes ?? '' }}</textarea>
+                    <textarea name="admin_notes" rows="4" class="w-full text-[11px] font-mono text-black border border-black p-2 bg-[#f8f9fa] focus:outline-none focus:ring-0 placeholder:text-slate-400" placeholder="Catat command bash penting di sini...">{{ $adminNotes ?? '' }}</textarea>
                     <div class="mt-2 text-right">
                         <button type="submit" class="bg-black text-white px-3 py-1 text-[11px] font-bold uppercase hover:bg-slate-800 border border-black">Save Notes</button>
                     </div>
@@ -75,7 +75,7 @@
             <div class="dev-card p-5">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-[13px] font-bold text-black">AI Usage Monitor</h2>
-                    <span class="text-[10px] bg-white text-black px-1.5 py-0.5 border border-black font-bold uppercase dark:bg-slate-900">Gemini</span>
+                    <span class="text-[10px] bg-white text-black px-1.5 py-0.5 border border-black font-bold uppercase">Gemini</span>
                 </div>
                 
                 <div class="space-y-3 text-[12px]">
@@ -219,12 +219,12 @@
     </div>
 
     {{-- ROW 3: Terminal Console --}}
-    <div class="dev-card p-0 overflow-hidden bg-white text-black font-mono text-[12px] flex flex-col h-[200px] dark:bg-slate-900">
+    <div class="dev-card p-0 overflow-hidden bg-white text-black font-mono text-[12px] flex flex-col h-[200px]">
         <div class="flex items-center justify-between px-4 py-2 border-b border-black bg-[#f8f9fa]">
             <div class="flex gap-2">
-                <span class="w-3 h-3 border border-black bg-white dark:bg-slate-900"></span>
-                <span class="w-3 h-3 border border-black bg-white dark:bg-slate-900"></span>
-                <span class="w-3 h-3 border border-black bg-white dark:bg-slate-900"></span>
+                <span class="w-3 h-3 border border-black bg-white"></span>
+                <span class="w-3 h-3 border border-black bg-white"></span>
+                <span class="w-3 h-3 border border-black bg-white"></span>
             </div>
             <span class="text-black font-bold text-[11px] uppercase">
                 Terminal

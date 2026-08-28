@@ -132,7 +132,7 @@
                     <i class="ph-fill ph-sparkle"></i>
                     Buat Ringkasan AI
                 </button>
-                <button @click="showCreateNoteModal = true" class="w-full sm:w-auto justify-center min-h-11 px-4 py-2 bg-white border border-transparent text-black hover:bg-neutral-200 font-semibold text-xs rounded-xl shadow-sm transition-all active:scale-95 flex items-center gap-2">
+                <button @click="showCreateNoteModal = true" class="w-full sm:w-auto justify-center min-h-11 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/15 text-white font-semibold text-xs rounded-xl shadow-sm transition-all active:scale-95 flex items-center gap-2 backdrop-blur-md">
                     <i class="ph ph-plus"></i>
                     Tulis Catatan Kosong
                 </button>
@@ -159,7 +159,7 @@
                     @if(isset($note->keywords) && count($note->keywords) > 0)
                     <div class="mt-3 flex flex-wrap gap-1.5">
                         @foreach($note->keywords as $keyword)
-                            <span class="px-2 py-0.5 {{ $note->is_ai ? 'bg-amber-400/20 text-amber-300' : 'bg-white/5 text-slate-400' }} text-[10px] font-bold uppercase tracking-wider rounded-md border border-white/5">
+                            <span class="px-2 py-0.5 {{ $note->is_ai ? 'bg-amber-400/20 text-amber-300' : 'bg-white/10 text-slate-300' }} text-[10px] font-bold uppercase tracking-wider rounded-md border border-white/10">
                                 {{ $keyword }}
                             </span>
                         @endforeach
@@ -250,7 +250,7 @@
                     </div>
                     <div class="shrink-0 text-right">
                         @if($quiz->status === 'selesai')
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Nilai</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Nilai</span>
                             <p class="text-3xl font-black font-geist {{ $quiz->score >= 70 ? 'text-emerald-400' : 'text-rose-400' }} leading-none mt-1">{{ $quiz->score }}</p>
                             <span class="text-[10px] font-bold text-white group-hover:underline mt-1.5 block">Review Hasil &rarr;</span>
                         @else

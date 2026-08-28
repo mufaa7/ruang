@@ -18,7 +18,7 @@
         html,
         body {
             font-family: "Inter", sans-serif;
-            background: #020617;
+            background: #000000;
             color: #ffffff;
             overflow-x: hidden;
         }
@@ -33,17 +33,17 @@
     </style>
 </head>
 
-<body class="text-white">
+<body class="text-white bg-black">
 
 <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <!-- Background -->
-    <div class="absolute inset-0 bg-[#020617]"></div>
+    <!-- Background: Pure OLED Black -->
+    <div class="absolute inset-0 bg-black"></div>
     
-    <!-- Subtle Gradient blobs for dark mode -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(185,28,28,0.06),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(217,119,6,0.06),transparent_40%)]"></div>
+    <!-- Subtle Neutral Ambient Glow for Crystal Clear Glass Refraction -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03),transparent_70%)]"></div>
 
-    <!-- Film Grain Overlay (Replaced SVG with PNG to prevent Chromium GPU glitch) -->
-    <div class="absolute inset-0 opacity-[0.1]" style="background-image: url('{{ asset('images/background1.png') }}'); background-repeat: repeat;"></div>
+    <!-- Film Grain Overlay -->
+    <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('{{ asset('images/background1.png') }}'); background-repeat: repeat;"></div>
 
     <!-- Noel Gallagher's Guitar Background -->
     <div class="absolute -left-32 sm:-left-64 top-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] opacity-[0.15] pointer-events-none">
@@ -57,32 +57,29 @@
             
             <!-- LEFT -->
             <section class="hidden lg:flex flex-col justify-center">
-                <span class="text-xs uppercase tracking-[.35em] text-amber-300/80 font-semibold">
-                    Tempat Nongkrong Ide
-                </span>
-                <h1 class="mt-6 text-[90px] xl:text-[110px] font-cormorant font-bold tracking-[-2px] leading-none text-white">
+                <h1 class="text-[90px] xl:text-[110px] font-cormorant font-bold tracking-[-2px] leading-none text-white">
                     ruang.
                 </h1>
-                <p class="mt-10 max-w-xl text-[28px] xl:text-[32px] leading-tight font-light text-slate-300">
-                    Gak usah overthinking, tulis aja dulu. 
+                <p class="mt-8 max-w-xl text-[28px] xl:text-[32px] leading-tight font-light text-slate-300">
+                    Tulis aja dulu. 
                     <span class="font-medium text-white">Jelek urusan belakangan,</span> yang penting kelar.
                 </p>
-                <div class="mt-20 space-y-8">
+                <div class="mt-16 space-y-7">
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-white/20"></div>
-                        <span class="text-slate-400 tracking-wide font-medium">Ngetik Makalah (sks time)</span>
+                        <div class="w-10 h-px bg-white/20"></div>
+                        <span class="text-slate-400 text-sm tracking-wide font-medium">Ngetik Makalah</span>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-white/20"></div>
-                        <span class="text-slate-400 tracking-wide font-medium">Coret-coret Gaje</span>
+                        <div class="w-10 h-px bg-white/20"></div>
+                        <span class="text-slate-400 text-sm tracking-wide font-medium">Coret-coret Ide</span>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-white/20"></div>
-                        <span class="text-slate-400 tracking-wide font-medium">Nanya AI Pas Mentok</span>
+                        <div class="w-10 h-px bg-white/20"></div>
+                        <span class="text-slate-400 text-sm tracking-wide font-medium">Nanya AI Pas Mentok</span>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-px bg-white/20"></div>
-                        <span class="text-slate-400 tracking-wide font-medium">Muter Playlist Andalan</span>
+                        <div class="w-10 h-px bg-white/20"></div>
+                        <span class="text-slate-400 text-sm tracking-wide font-medium">Muter Playlist Andalan</span>
                     </div>
                 </div>
             </section>
@@ -90,14 +87,11 @@
             <!-- RIGHT -->
             <section class="relative w-full">
                 <!-- MOBILE HERO -->
-                <div class="mb-10 lg:hidden text-center sm:text-left">
-                    <span class="text-[10px] sm:text-xs uppercase tracking-[.35em] text-amber-300/80 font-semibold">
-                        Tempat Nongkrong Ide
-                    </span>
-                    <h1 class="mt-3 text-4xl sm:text-5xl font-cormorant font-bold tracking-[-1px] text-white">
+                <div class="mb-8 lg:hidden text-center sm:text-left">
+                    <h1 class="text-4xl sm:text-5xl font-cormorant font-bold tracking-[-1px] text-white">
                         ruang.
                     </h1>
-                    <p class="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-slate-300">
+                    <p class="mt-3 text-base sm:text-lg leading-relaxed text-slate-300">
                         Tulis aja dulu, jelek urusan belakangan.
                     </p>
                 </div>
@@ -108,15 +102,6 @@
         </div>
     </div>
 </main>
-
-<!-- Desktop Footer -->
-<div class="pointer-events-none fixed bottom-8 left-14 hidden items-center gap-3 lg:flex z-10">
-    <div class="h-2 w-2 rounded-full bg-red-600 shadow-[0_0_12px_rgba(220,38,38,.4)]"></div>
-    <span class="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium">Udah Siap Dipake</span>
-</div>
-<div class="pointer-events-none fixed bottom-8 right-14 hidden lg:block z-10">
-    <span class="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium">RUANG VER 1.0 (BETA)</span>
-</div>
 
 </body>
 </html>

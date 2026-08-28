@@ -29,12 +29,12 @@
                 
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Title</label>
-                    <input type="text" name="title" value="{{ old('title') }}" required class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black" placeholder="e.g. Midterm Physics">
+                    <input type="text" name="title" value="{{ old('title') }}" required class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black placeholder:text-slate-400" placeholder="e.g. Midterm Physics">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Subject</label>
-                    <select name="subject_id" x-model="selectedSubjectId" required class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black bg-white dark:bg-slate-900">
+                    <select name="subject_id" x-model="selectedSubjectId" required class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black">
                         <option value="">Select Subject...</option>
                         <template x-for="subject in subjectsData" :key="subject.id">
                             <option :value="subject.id" x-text="subject.name"></option>
@@ -46,7 +46,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" x-show="selectedSubjectId" x-transition>
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Source Material (Optional)</label>
-                    <select name="material_id" x-model="selectedMaterialId" class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black bg-white dark:bg-slate-900">
+                    <select name="material_id" x-model="selectedMaterialId" class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black">
                         <option value="">-- No specific material --</option>
                         <template x-for="mat in currentMaterials" :key="mat.id">
                             <option :value="mat.id" x-text="mat.title + ' (oleh ' + (mat.user ? mat.user.name : 'Unknown') + ')'"></option>
@@ -56,7 +56,7 @@
 
                 <div>
                     <label class="block text-xs font-bold text-black mb-1">Time Limit (Minutes)</label>
-                    <input type="number" name="time_limit_minutes" value="{{ old('time_limit_minutes', 30) }}" min="1" class="w-full border border-black p-2 text-sm focus:outline-none focus:ring-0 focus:border-black">
+                    <input type="number" name="time_limit_minutes" value="{{ old('time_limit_minutes', 30) }}" min="1" class="w-full border border-black p-2 text-sm text-black bg-white focus:outline-none focus:ring-0 focus:border-black">
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                         <div class="text-xs text-slate-500 italic col-span-full">No users enrolled in this subject.</div>
                     </template>
                     <template x-for="user in currentUsers" :key="user.id">
-                        <label class="flex items-center gap-2 cursor-pointer bg-white p-2 border border-slate-200 hover:border-black transition-colors dark:bg-slate-900">
+                        <label class="flex items-center gap-2 cursor-pointer bg-white p-2 border border-slate-200 hover:border-black transition-colors">
                             <input type="checkbox" name="target_users[]" :value="user.id" x-model="selectedUsers" class="text-black border-slate-300 focus:ring-black">
                             <span class="text-xs font-bold text-black" x-text="user.name"></span>
                         </label>
@@ -82,11 +82,11 @@
         <div class="dev-card p-0 overflow-hidden">
             <button type="button" @click="showBulk = !showBulk" class="w-full flex items-center justify-between p-4 bg-[#f8f9fa] border-b border-black hover:bg-slate-50">
                 <span class="text-sm font-bold text-black">⚡ Bulk Paste Magic</span>
-                <span x-text="showBulk ? '▲' : '▼'" class="text-xs"></span>
+                <span x-text="showBulk ? '▲' : '▼'" class="text-xs text-black"></span>
             </button>
-            <div x-show="showBulk" x-collapse class="p-4 bg-white border-b border-black dark:bg-slate-900">
+            <div x-show="showBulk" x-collapse class="p-4 bg-white border-b border-black">
                 <p class="text-xs text-slate-600 mb-2 font-medium">Paste text from Word/PDF. Format must include question numbers (1.), options (A., B., C., D.), and optional answer key (Kunci: A).</p>
-                <textarea x-model="bulkText" rows="6" class="w-full border border-black p-2 text-xs font-mono focus:outline-none focus:ring-0 focus:border-black mb-2" placeholder="1. Ibukota Indonesia adalah?&#10;A. Jakarta&#10;B. Bandung&#10;C. Surabaya&#10;D. Bali&#10;Kunci: A"></textarea>
+                <textarea x-model="bulkText" rows="6" class="w-full border border-black p-2 text-xs font-mono text-black bg-white focus:outline-none focus:ring-0 focus:border-black mb-2 placeholder:text-slate-400" placeholder="1. Ibukota Indonesia adalah?&#10;A. Jakarta&#10;B. Bandung&#10;C. Surabaya&#10;D. Bali&#10;Kunci: A"></textarea>
                 <button type="button" @click="parseBulk" class="bg-black text-white px-4 py-1.5 text-xs font-bold border border-black hover:bg-slate-800">
                     Parse Text
                 </button>
@@ -96,7 +96,7 @@
 
         {{-- Spreadsheet Layout --}}
         <div class="dev-card p-0 overflow-x-auto relative">
-            <div class="flex items-center justify-between p-4 bg-white border-b border-black min-w-[800px] dark:bg-slate-900">
+            <div class="flex items-center justify-between p-4 bg-white border-b border-black min-w-[800px]">
                 <h3 class="text-sm font-bold text-black flex items-center gap-2">Questions (Spreadsheet)</h3>
                 <button type="button" @click="addQuestion" class="bg-black text-white px-3 py-1 text-xs font-bold border border-black hover:bg-slate-800">
                     + Add Question
@@ -121,28 +121,28 @@
                     <template x-for="(q, index) in questions" :key="q.id">
                         <tr class="hover:bg-slate-50 group">
                             <td class="px-0 py-0 border-r border-black">
-                                <select :name="`questions[${index}][type]`" x-model="q.type" required class="w-full h-full border-none p-1 text-xs focus:outline-none focus:ring-0 bg-transparent text-center appearance-none font-bold cursor-pointer">
+                                <select :name="`questions[${index}][type]`" x-model="q.type" required class="w-full h-full border-none p-1 text-xs text-black focus:outline-none focus:ring-0 bg-transparent text-center appearance-none font-bold cursor-pointer">
                                     <option value="multiple_choice">Pilgan</option>
                                     <option value="essay">Essay</option>
                                 </select>
                             </td>
                             <td class="px-0 py-0 border-r border-black relative group-td">
-                                <textarea :name="`questions[${index}][question]`" x-model="q.question" required rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight" placeholder="Question"></textarea>
+                                <textarea :name="`questions[${index}][question]`" x-model="q.question" required rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" placeholder="Question"></textarea>
                             </td>
                             <td class="px-0 py-0 border-r border-black" :class="q.type === 'essay' ? 'bg-slate-200' : ''">
-                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][0]`" x-model="q.options[0]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50" placeholder="A"></textarea>
+                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][0]`" x-model="q.options[0]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50 placeholder:text-slate-400" placeholder="A"></textarea>
                             </td>
                             <td class="px-0 py-0 border-r border-black" :class="q.type === 'essay' ? 'bg-slate-200' : ''">
-                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][1]`" x-model="q.options[1]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50" placeholder="B"></textarea>
+                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][1]`" x-model="q.options[1]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50 placeholder:text-slate-400" placeholder="B"></textarea>
                             </td>
                             <td class="px-0 py-0 border-r border-black" :class="q.type === 'essay' ? 'bg-slate-200' : ''">
-                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][2]`" x-model="q.options[2]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50" placeholder="C"></textarea>
+                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][2]`" x-model="q.options[2]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50 placeholder:text-slate-400" placeholder="C"></textarea>
                             </td>
                             <td class="px-0 py-0 border-r border-black" :class="q.type === 'essay' ? 'bg-slate-200' : ''">
-                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][3]`" x-model="q.options[3]" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50" placeholder="D"></textarea>
+                                <textarea :disabled="q.type === 'essay'" :name="`questions[${index}][options][3]`" x-model="q.options[3]" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight disabled:opacity-50 placeholder:text-slate-400" placeholder="D"></textarea>
                             </td>
                             <td class="px-2 py-1 text-center border-r border-black" :class="q.type === 'essay' ? 'bg-slate-200' : ''">
-                                <select :disabled="q.type === 'essay'" :name="`questions[${index}][correct_answer]`" x-model="q.correct_answer" class="w-full border border-black p-1 text-xs focus:outline-none focus:ring-0 focus:border-black bg-white font-bold text-center appearance-none disabled:opacity-50 dark:bg-slate-900">
+                                <select :disabled="q.type === 'essay'" :name="`questions[${index}][correct_answer]`" x-model="q.correct_answer" class="w-full border border-black p-1 text-xs text-black focus:outline-none focus:ring-0 focus:border-black bg-white font-bold text-center appearance-none disabled:opacity-50">
                                     <option value="0">A</option>
                                     <option value="1">B</option>
                                     <option value="2">C</option>
@@ -150,7 +150,7 @@
                                 </select>
                             </td>
                             <td class="px-0 py-0 border-r border-black">
-                                <textarea :name="`questions[${index}][explanation]`" x-model="q.explanation" rows="1" class="w-full h-full p-2 text-xs border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight text-slate-500" :placeholder="q.type === 'essay' ? 'Kunci Jawaban/Rubrik' : 'Optional exp...'"></textarea>
+                                <textarea :name="`questions[${index}][explanation]`" x-model="q.explanation" rows="1" class="w-full h-full p-2 text-xs text-black border-none focus:ring-0 focus:outline-none resize-none bg-transparent m-0 overflow-hidden leading-tight placeholder:text-slate-400" :placeholder="q.type === 'essay' ? 'Kunci Jawaban/Rubrik' : 'Optional exp...'"></textarea>
                             </td>
                             <td class="px-1 py-1 text-center align-middle">
                                 <button type="button" @click="removeQuestion(index)" class="text-rose-600 hover:text-stone-600 font-bold text-xs px-2 py-1 hover:bg-rose-50 rounded" title="Hapus soal">
