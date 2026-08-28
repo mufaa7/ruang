@@ -211,29 +211,29 @@ a {
 }
 
 .dashboard-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5) !important;
-    border-radius: var(--ruang-radius-lg);
+    background: rgba(255, 255, 255, 0.045) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), 0 16px 36px -10px rgba(0, 0, 0, 0.6) !important;
+    border-radius: 24px;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark .dashboard-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    background: rgba(255, 255, 255, 0.045) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), 0 16px 36px -10px rgba(0, 0, 0, 0.6) !important;
 }
 
 .dashboard-card:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(255, 255, 255, 0.22) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.20) !important;
 }
 
 .dark .dashboard-card:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(255, 255, 255, 0.22) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.20) !important;
 }
 
 /* Custom scrollbar */
