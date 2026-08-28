@@ -80,16 +80,11 @@
         @endif
 
         <div class="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-black">
-            <!-- Subtle dual ambient lighting across left and right -->
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_35%,rgba(255,255,255,0.04),transparent_60%),radial-gradient(circle_at_80%_40%,rgba(255,255,255,0.03),transparent_70%)]"></div>
+            <!-- Subtle neutral ambient glow -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.03),transparent_70%)]"></div>
 
-            <!-- Left Background Artwork: Noel's Guitar (behind Wonderwall & Calendar cards) -->
-            <div class="absolute -left-32 sm:-left-52 top-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] opacity-[0.14] pointer-events-none">
-                <img src="{{ asset('images/guitar.png') }}" alt="Guitar Texture" class="w-full h-auto object-contain -rotate-[12deg]" />
-            </div>
-
-            <!-- Right Background Artwork: Cassette & Band (behind Target & Deadline cards) -->
-            <img src="{{ asset('images/background.png') }}" alt="Background Texture" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-28 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
+            <!-- Custom Background Image (faint texture, responsive) -->
+            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-25 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
         </div>
 
         {{-- Dummy Data Simulasi (Nanti diganti dengan variabel dari Controller/ViewComposer) --}}
