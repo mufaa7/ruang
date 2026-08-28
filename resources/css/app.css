@@ -211,29 +211,29 @@ a {
 }
 
 .dashboard-card {
-    background: rgba(255, 255, 255, 0.025);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.32);
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5) !important;
     border-radius: var(--ruang-radius-lg);
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark .dashboard-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5) !important;
 }
 
 .dashboard-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
 }
 
 .dark .dashboard-card:hover {
-    background: rgba(255, 255, 255, 0.035);
-    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
 }
 
 /* Custom scrollbar */
@@ -306,13 +306,13 @@ a {
 }
 
 .ios-liquid-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.3),
-        0 24px 60px -12px rgba(0, 0, 0, 0.85);
+        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+        0 24px 60px -12px rgba(0, 0, 0, 0.85) !important;
 }
 
 .ios-liquid-input {
