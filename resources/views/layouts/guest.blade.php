@@ -104,5 +104,13 @@
     </div>
 </main>
 
+<script>
+    try {
+        sessionStorage.removeItem('duck_chat_history');
+        sessionStorage.removeItem('duck_welcomed');
+        sessionStorage.removeItem('duck_session_id');
+    } catch(e) {}
+</script>
+
 </body>
 </html>

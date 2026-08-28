@@ -275,27 +275,27 @@
             clickResetTimer: null,
 
             init() {
-                const currentUserId = '{{ Auth::id() ?? "guest" }}';
-                const storedUserId = sessionStorage.getItem('duck_auth_user');
+                const currentSessionId = '{{ session()->getId() }}';
+                const storedSessionId = sessionStorage.getItem('duck_session_id');
 
-                // Jika user logout / berganti akun / sesi baru, reset riwayat chat duck
-                if (storedUserId && storedUserId !== currentUserId) {
+                // Jika sesi login baru (setelah logout / login ulang), reset riwayat chat duck
+                if (!storedSessionId || storedSessionId !== currentSessionId) {
                     sessionStorage.removeItem('duck_chat_history');
                     sessionStorage.removeItem('duck_welcomed');
+                    sessionStorage.setItem('duck_session_id', currentSessionId);
                     this.chatHistory = [];
-                }
-                sessionStorage.setItem('duck_auth_user', currentUserId);
-
-                // Restore chat history from sessionStorage
-                const saved = sessionStorage.getItem('duck_chat_history');
-                if (saved) {
-                    try {
-                        this.chatHistory = JSON.parse(saved);
-                    } catch (e) {
+                } else {
+                    // Restore chat history from sessionStorage jika masih dalam sesi login yang sama
+                    const saved = sessionStorage.getItem('duck_chat_history');
+                    if (saved) {
+                        try {
+                            this.chatHistory = JSON.parse(saved);
+                        } catch (e) {
+                            this.chatHistory = [];
+                        }
+                    } else {
                         this.chatHistory = [];
                     }
-                } else {
-                    this.chatHistory = [];
                 }
 
                 // Auto-save history when modified
