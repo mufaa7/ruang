@@ -275,12 +275,27 @@
             clickResetTimer: null,
 
             init() {
+                const currentUserId = '{{ Auth::id() ?? "guest" }}';
+                const storedUserId = sessionStorage.getItem('duck_auth_user');
+
+                // Jika user logout / berganti akun / sesi baru, reset riwayat chat duck
+                if (storedUserId && storedUserId !== currentUserId) {
+                    sessionStorage.removeItem('duck_chat_history');
+                    sessionStorage.removeItem('duck_welcomed');
+                    this.chatHistory = [];
+                }
+                sessionStorage.setItem('duck_auth_user', currentUserId);
+
                 // Restore chat history from sessionStorage
                 const saved = sessionStorage.getItem('duck_chat_history');
                 if (saved) {
                     try {
                         this.chatHistory = JSON.parse(saved);
-                    } catch (e) {}
+                    } catch (e) {
+                        this.chatHistory = [];
+                    }
+                } else {
+                    this.chatHistory = [];
                 }
 
                 // Auto-save history when modified

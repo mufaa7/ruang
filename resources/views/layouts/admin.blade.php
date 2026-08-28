@@ -107,7 +107,7 @@
                     <a href="{{ route('dashboard') }}" class="dev-btn block w-full px-3 py-1.5 text-[12px] text-center font-bold text-black">
                         ← Back to App
                     </a>
-                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    <form method="POST" action="{{ route('logout') }}" class="w-full" onsubmit="sessionStorage.removeItem('duck_chat_history'); sessionStorage.removeItem('duck_welcomed'); sessionStorage.removeItem('duck_auth_user');">
                         @csrf
                         <button type="submit" class="w-full bg-black text-white px-3 py-1.5 text-[12px] font-bold border border-black hover:bg-slate-800 transition-colors">
                             Logout

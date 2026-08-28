@@ -41,7 +41,7 @@
                         autofocus
                         autocomplete="username"
                         placeholder="champagne@supernova.com"
-                        class="ios-liquid-input w-full h-12 rounded-xl px-4 text-sm text-white placeholder:text-slate-500 outline-none"
+                        class="ios-liquid-input w-full h-12 rounded-xl px-4 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                     />
 
                     <x-input-error :messages="$errors->get('login')" class="mt-2 text-xs text-amber-400" />
@@ -69,7 +69,7 @@
                             required
                             autocomplete="current-password"
                             placeholder="Masukkan password"
-                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-sm text-white placeholder:text-slate-500 outline-none"
+                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                         />
 
                         <button

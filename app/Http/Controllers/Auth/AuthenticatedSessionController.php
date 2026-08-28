@@ -27,6 +27,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        $request->session()->forget(['duck_history', 'duck_ui_history']);
 
         if ($request->user()->role === 'admin') {
             return redirect()->route('admin.dashboard');
@@ -40,6 +41,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $request->session()->forget(['duck_history', 'duck_ui_history']);
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

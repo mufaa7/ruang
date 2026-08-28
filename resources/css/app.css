@@ -426,6 +426,7 @@ a {
 }
 
 .ios-liquid-input {
+    font-size: 16px; /* Prevents iOS Safari auto-zoom on input focus */
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -436,6 +437,12 @@ a {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
     caret-color: #fbbf24;
+}
+
+@media (min-width: 640px) {
+    .ios-liquid-input {
+        font-size: 0.875rem; /* 14px text-sm on desktop */
+    }
 }
 
 .ios-liquid-input::placeholder {

@@ -50,7 +50,7 @@
                         autofocus
                         autocomplete="name"
                         placeholder="Nama kamu"
-                        class="ios-liquid-input w-full h-12 rounded-xl px-4 text-sm text-white placeholder:text-slate-500 outline-none"
+                        class="ios-liquid-input w-full h-12 rounded-xl px-4 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                     />
                 </div>
 
@@ -67,7 +67,7 @@
                         required
                         autocomplete="username"
                         placeholder="nama@email.com"
-                        class="ios-liquid-input w-full h-12 rounded-xl px-4 text-sm text-white placeholder:text-slate-500 outline-none"
+                        class="ios-liquid-input w-full h-12 rounded-xl px-4 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                     />
                 </div>
 
@@ -84,7 +84,7 @@
                             required
                             autocomplete="new-password"
                             placeholder="Minimal 8 karakter"
-                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-sm text-white placeholder:text-slate-500 outline-none"
+                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                         />
                         <button
                             type="button"
@@ -111,7 +111,7 @@
                             required
                             autocomplete="new-password"
                             placeholder="Ketik ulang kata sandi"
-                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-sm text-white placeholder:text-slate-500 outline-none"
+                            class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                         />
                         <button
                             type="button"

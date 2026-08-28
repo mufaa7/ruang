@@ -26,7 +26,7 @@
                         Kata Sandi
                     </label>
                     <div class="relative flex items-center">
-                        <input id="password" class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-sm text-white placeholder:text-slate-500 outline-none"
+                        <input id="password" class="ios-liquid-input w-full h-12 rounded-xl px-4 pr-12 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                                :type="show ? 'text' : 'password'"
                                name="password"
                                placeholder="Masukkan kata sandi"
