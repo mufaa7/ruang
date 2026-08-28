@@ -79,12 +79,12 @@
         </div>
         @endif
 
-        <div class="fixed inset-0 overflow-hidden pointer-events-none -z-50 bg-black">
+        <div class="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-black">
             <!-- Subtle neutral ambient glow -->
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.03),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.04),transparent_70%)]"></div>
 
             <!-- Custom Background Image (single clean responsive texture) -->
-            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-25 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
+            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-35 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
         </div>
 
         {{-- Dummy Data Simulasi (Nanti diganti dengan variabel dari Controller/ViewComposer) --}}
@@ -156,7 +156,7 @@
                     }
                  }" 
                  @resize.window="updateScreen()"
-                 class="flex min-h-screen relative">
+                 class="flex min-h-screen relative z-10">
 
                 <!-- Backdrop Mobile -->
                 <div x-show="sidebarOpen && isMobile" 
