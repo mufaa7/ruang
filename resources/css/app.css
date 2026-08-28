@@ -316,22 +316,43 @@ a {
 }
 
 .ios-liquid-input {
-    background: rgba(255, 255, 255, 0.035);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.3);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    color: #ffffff;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #fbbf24;
+}
+
+.ios-liquid-input::placeholder {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
 }
 
 .ios-liquid-input:focus {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(251, 191, 36, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(251, 191, 36, 0.6);
     box-shadow: 
         inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.3),
         0 0 0 3px rgba(251, 191, 36, 0.15);
 }
+
+/* Chrome / Safari / Edge Autofill Fix for Dark Glassmorphism */
+input.ios-liquid-input:-webkit-autofill,
+input.ios-liquid-input:-webkit-autofill:hover, 
+input.ios-liquid-input:-webkit-autofill:focus, 
+input.ios-liquid-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #18181b inset !important;
+    box-shadow: 0 0 0 1000px #18181b inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 
 
 
