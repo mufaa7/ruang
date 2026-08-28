@@ -80,16 +80,11 @@
         @endif
 
         <div class="fixed inset-0 overflow-hidden pointer-events-none -z-50 bg-black">
-            <!-- Subtle neutral ambient glow for crystal clear glass refraction -->
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(255,255,255,0.06),transparent_70%)]"></div>
-            <div class="absolute top-[15%] right-[10%] w-[500px] h-[500px] rounded-full bg-white/[0.025] blur-[120px]"></div>
-            <div class="absolute bottom-[20%] left-[15%] w-[450px] h-[450px] rounded-full bg-amber-500/[0.02] blur-[140px]"></div>
+            <!-- Subtle neutral ambient glow -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.03),transparent_70%)]"></div>
 
-            <!-- Film Grain Overlay -->
-            <div class="absolute inset-0 opacity-[0.05]" style="background-image: url('{{ asset('images/background1.png') }}'); background-repeat: repeat;"></div>
-
-            <!-- Custom Background Image (faint texture, responsive) -->
-            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-30 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
+            <!-- Custom Background Image (single clean responsive texture) -->
+            <img src="{{ asset('images/background.png') }}" alt="Background" class="absolute top-1/2 -translate-y-1/2 object-contain opacity-25 mix-blend-screen pointer-events-none max-w-none w-[500px] h-[500px] left-1/2 -translate-x-1/2 md:w-[1060px] md:h-[1060px] md:left-auto md:translate-x-0 md:right-[-150px]" />
         </div>
 
         {{-- Dummy Data Simulasi (Nanti diganti dengan variabel dari Controller/ViewComposer) --}}

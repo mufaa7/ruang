@@ -39,14 +39,11 @@
     <!-- Background: Pure OLED Black -->
     <div class="absolute inset-0 bg-black"></div>
     
-    <!-- Subtle Neutral Ambient Glow for Crystal Clear Glass Refraction -->
+    <!-- Subtle Neutral Ambient Glow -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03),transparent_70%)]"></div>
 
-    <!-- Film Grain Overlay -->
-    <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('{{ asset('images/background1.png') }}'); background-repeat: repeat;"></div>
-
-    <!-- Noel Gallagher's Guitar Background -->
-    <div class="absolute -left-32 sm:-left-64 top-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] opacity-[0.15] pointer-events-none">
+    <!-- Noel Gallagher's Guitar Background (single clean artwork) -->
+    <div class="absolute -left-32 sm:-left-64 top-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] opacity-[0.14] pointer-events-none">
         <img src="{{ asset('images/guitar.png') }}" alt="Guitar Background" class="w-full h-auto object-contain -rotate-[10deg]">
     </div>
 </div>
